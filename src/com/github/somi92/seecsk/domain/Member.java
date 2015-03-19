@@ -15,8 +15,48 @@ import java.util.List;
 public class Member extends Person {
 
     private Date dateOfMembership;
-    private List<MembershipFee> feePayments;
+    private List<MembershipFee> membershipFees;
     private List<Attendance> attendanceRecords;
+
     
+    public Member() {
+        
+    }
+
+    public Member(long id, String firstName, String lastName, char gender, String email, String pnoneNum, Date dateOfBirth, Date dateOfMembership) {
+        super(id, firstName, lastName, gender, email, pnoneNum, dateOfBirth);
+        this.dateOfMembership = dateOfMembership;
+    }
+
+    public Date getDateOfMembership() {
+        return dateOfMembership;
+    }
+
+    public void setDateOfMembership(Date dateOfMembership) {
+        this.dateOfMembership = dateOfMembership;
+    }
     
+    public void addMembershipFee(MembershipFee membershipFee) {
+        membershipFees.add(membershipFee);
+    }
+    
+    public List<MembershipFee> getMembershipFees() {
+        return membershipFees;
+    }
+    
+    public void removeMembershipFee(MembershipFee membershipFee) {
+        membershipFees.remove(membershipFee);
+    }
+    
+    public void addAttendanceRecord(Attendance attendance) {
+        attendanceRecords.add(attendance);
+    }
+    
+    public List<Attendance> getAttendanceRecords() {
+        return attendanceRecords;
+    }
+    
+    public void removeAttendanceRecord(Attendance attendance) {
+        attendanceRecords.remove(attendance);
+    } 
 }

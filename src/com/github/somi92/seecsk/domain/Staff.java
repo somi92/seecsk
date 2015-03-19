@@ -5,11 +5,38 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import java.util.Date;
+
 /**
  *
  * @author milos
  */
 public class Staff extends Person {
     
+    private Role role;
+
+    public Staff() {
+        
+    }
+
+    public Staff(Role role, long id, String firstName, String lastName, char gender, String email, String pnoneNum, Date dateOfBirth) {
+        super(id, firstName, lastName, gender, email, pnoneNum, dateOfBirth);
+        this.role = role;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
     
+    public enum Role {
+        
+        COACH, ASSISTANT_COACH, ATHLETIC_TRAINER,
+        GYM_TRAINER, FITNESS_TRAINER, PERSONAL_TRAINER,
+        ASSISTANT_TRAINER, DOCTOR, PHYSIOTHERAPIST, 
+        ADMINISTRATIVE_STAFF, OTHER
+    }
 }

@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import java.time.DayOfWeek;
 import java.util.Date;
 
 /**
@@ -14,5 +15,6 @@ import java.util.Date;
 public class Schedule {
     
     private Place place;
-    private Date dateTime;
+    private DayOfWeek dayOfWeek;
+    
 }

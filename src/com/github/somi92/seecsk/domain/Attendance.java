@@ -15,4 +15,31 @@ public class Attendance {
     
     private Date date;
     private boolean isAttended;
+
+    public Attendance() {
+        
+    }
+
+    public Attendance(Date date, boolean isAttended) {
+        this.date = date;
+        this.isAttended = isAttended;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isIsAttended() {
+        return isAttended;
+    }
+
+    public void setIsAttended(boolean isAttended) {
+        this.isAttended = isAttended;
+    }
+    
+    
 }
