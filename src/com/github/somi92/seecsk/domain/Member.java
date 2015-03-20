@@ -23,8 +23,8 @@ public class Member extends Person {
         
     }
 
-    public Member(long id, String firstName, String lastName, char gender, String email, String pnoneNum, Date dateOfBirth, Date dateOfMembership) {
-        super(id, firstName, lastName, gender, email, pnoneNum, dateOfBirth);
+    public Member(long id, String firstLastName, char gender, String email, String pnoneNum, Date dateOfBirth, Date dateOfMembership) {
+        super(id, firstLastName, gender, email, pnoneNum, dateOfBirth);
         this.dateOfMembership = dateOfMembership;
     }
 

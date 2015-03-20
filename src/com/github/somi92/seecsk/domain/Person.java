@@ -14,23 +14,22 @@ import java.util.Date;
 public class Person {
     
     private long id;
-    private String firstName;
-    private String lastName;
+    private String firstLastName;
     private char gender;
     private String email;
-    private String pnoneNum;
+    private String phoneNum;
     private Date dateOfBirth;
+    private String remark;
 
     public Person() {
     }
 
-    public Person(long id, String firstName, String lastName, char gender, String email, String pnoneNum, Date dateOfBirth) {
+    public Person(long id, String firstLastName, char gender, String email, String pnoneNum, Date dateOfBirth) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstLastName = firstLastName;
         this.gender = gender;
         this.email = email;
-        this.pnoneNum = pnoneNum;
+        this.phoneNum = pnoneNum;
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -50,20 +49,12 @@ public class Person {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstLastName() {
+        return firstLastName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFirstLastName(String firstLastName) {
+        this.firstLastName = firstLastName;
     }
 
     public char getGender() {
@@ -82,12 +73,20 @@ public class Person {
         this.email = email;
     }
 
-    public String getPnoneNum() {
-        return pnoneNum;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setPnoneNum(String pnoneNum) {
-        this.pnoneNum = pnoneNum;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+    
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     @Override
@@ -110,6 +109,11 @@ public class Person {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return id + ", " + firstLastName;
     }
     
     

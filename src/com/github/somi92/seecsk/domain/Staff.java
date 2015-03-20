@@ -19,8 +19,8 @@ public class Staff extends Person {
         
     }
 
-    public Staff(Role role, long id, String firstName, String lastName, char gender, String email, String pnoneNum, Date dateOfBirth) {
-        super(id, firstName, lastName, gender, email, pnoneNum, dateOfBirth);
+    public Staff(Role role, long id, String firstLastName, char gender, String email, String pnoneNum, Date dateOfBirth) {
+        super(id, firstLastName, gender, email, pnoneNum, dateOfBirth);
         this.role = role;
     }
 
