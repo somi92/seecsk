@@ -5,6 +5,8 @@
  */
 package com.github.somi92.seecsk.main;
 
+import com.github.somi92.seecsk.gui.FMainForm;
+
 /**
  *
  * @author milos
@@ -12,6 +14,10 @@ package com.github.somi92.seecsk.main;
 public class Main {
     
     public static void main(String[] args) {
-        System.out.println("Hello!");
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FMainForm().setVisible(true);
+            }
+        });
     }
 }
