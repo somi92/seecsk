@@ -7,7 +7,7 @@ package com.github.somi92.seecsk.domain;
 
 import java.time.Month;
 import java.time.Year;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -16,7 +16,7 @@ import java.util.Date;
 public class MembershipFee {
     
     private long feeAmount;
-    private Date dateReceived;
+    private Calendar dateReceived;
     private Month month;
     private Year year;
 
@@ -24,7 +24,7 @@ public class MembershipFee {
         
     }
 
-    public MembershipFee(long feeAmount, Date dateReceived, Month month, Year year) {
+    public MembershipFee(long feeAmount, Calendar dateReceived, Month month, Year year) {
         this.feeAmount = feeAmount;
         this.dateReceived = dateReceived;
         this.month = month;
@@ -39,11 +39,11 @@ public class MembershipFee {
         this.feeAmount = feeAmount;
     }
 
-    public Date getDateReceived() {
+    public Calendar getDateReceived() {
         return dateReceived;
     }
 
-    public void setDateReceived(Date dateReceived) {
+    public void setDateReceived(Calendar dateReceived) {
         this.dateReceived = dateReceived;
     }
 

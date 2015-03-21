@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -18,26 +19,27 @@ public class Person {
     private char gender;
     private String email;
     private String phoneNum;
-    private Date dateOfBirth;
+    private Calendar dateOfBirth;
     private String remark;
 
     public Person() {
     }
 
-    public Person(long id, String firstLastName, char gender, String email, String pnoneNum, Date dateOfBirth) {
+    public Person(long id, String firstLastName, char gender, String email, String pnoneNum, Calendar dateOfBirth, String remark) {
         this.id = id;
         this.firstLastName = firstLastName;
         this.gender = gender;
         this.email = email;
         this.phoneNum = pnoneNum;
         this.dateOfBirth = dateOfBirth;
+        this.remark = remark;
     }
 
-    public Date getDateOfBirth() {
+    public Calendar getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(Calendar dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

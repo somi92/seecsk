@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,13 +20,13 @@ public class Category {
     private List<Group> groups;
 
     public Category() {
-        
+        groups = new ArrayList<>();
     }
 
-    public Category(long categoryId, String categoryName, List<Group> groups) {
+    public Category(long categoryId, String categoryName) {
+        this();
         this.categoryId = categoryId;
         this.categoryName = categoryName;
-        this.groups = groups;
     }
 
     public long getCategoryId() {

@@ -6,6 +6,7 @@
 package com.github.somi92.seecsk.util;
 
 import com.github.somi92.seecsk.domain.Member;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -37,6 +38,8 @@ public class MembersTableModel extends AbstractTableModel {
             case 5:
                 return "Datum učlanjenja";
             case 6:
+                return "Grupa";
+            case 7:
                 return "Napomena";
             default:
                 return "Greška";
@@ -50,7 +53,7 @@ public class MembersTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 8;
     }
 
     @Override
@@ -66,10 +69,12 @@ public class MembersTableModel extends AbstractTableModel {
             case 3:
                 return m.getPhoneNum();
             case 4:
-                return m.getDateOfBirth();
+                return new SimpleDateFormat("dd/MM/yyyy").format(m.getDateOfBirth().getTime());
             case 5:
-                return m.getDateOfMembership();
+                return new SimpleDateFormat("dd/MM/yyyy").format(m.getDateOfMembership().getTime());
             case 6:
+                return m.getGroup();
+            case 7:
                 return m.getRemark();
             default:
                 return "Greška";

@@ -29,6 +29,9 @@ public class FMainForm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jbtnMembers = new javax.swing.JButton();
+        jbtnGroupsCategories = new javax.swing.JButton();
+        jbtnAttendance = new javax.swing.JButton();
+        jbtnMembershipFee = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SEECSK - Sistem za elektronsku evidenciju članova sportskog kluba");
@@ -40,20 +43,53 @@ public class FMainForm extends javax.swing.JFrame {
             }
         });
 
+        jbtnGroupsCategories.setText("Grupe i kategorije");
+        jbtnGroupsCategories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnGroupsCategoriesActionPerformed(evt);
+            }
+        });
+
+        jbtnAttendance.setText("  Evidencija dolazaka");
+        jbtnAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAttendanceActionPerformed(evt);
+            }
+        });
+
+        jbtnMembershipFee.setText("Evidencija članarina");
+        jbtnMembershipFee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnMembershipFeeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbtnMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(444, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbtnMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jbtnGroupsCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnMembershipFee, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jbtnMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnGroupsCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnMembershipFee, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(162, Short.MAX_VALUE))
         );
 
@@ -71,7 +107,7 @@ public class FMainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,8 +119,23 @@ public class FMainForm extends javax.swing.JFrame {
         fMembers.setVisible(true);
     }//GEN-LAST:event_jbtnMembersActionPerformed
 
+    private void jbtnGroupsCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGroupsCategoriesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnGroupsCategoriesActionPerformed
+
+    private void jbtnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAttendanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnAttendanceActionPerformed
+
+    private void jbtnMembershipFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembershipFeeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnMembershipFeeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbtnAttendance;
+    private javax.swing.JButton jbtnGroupsCategories;
     private javax.swing.JButton jbtnMembers;
+    private javax.swing.JButton jbtnMembershipFee;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,7 +5,9 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -14,21 +16,22 @@ import java.util.List;
 public class Group {
     
     private long groupId;
-    private long groupName;
+    private String groupName;
     private List<Staff> associatedStaff;
     private List<Member> members;
     private List<Schedule> groupSchedules;
+    private Category category;
 
     public Group() {
-        
+        associatedStaff = new ArrayList<>();
+        members = new ArrayList<>();
+        groupSchedules = new ArrayList<>();
     }
 
-    public Group(long groupId, long groupName, List<Staff> associatedStaff, List<Member> members, List<Schedule> groupSchedules) {
+    public Group(long groupId, String groupName) {
+        this();
         this.groupId = groupId;
         this.groupName = groupName;
-        this.associatedStaff = associatedStaff;
-        this.members = members;
-        this.groupSchedules = groupSchedules;
     }
 
     public long getGroupId() {
@@ -39,12 +42,21 @@ public class Group {
         this.groupId = groupId;
     }
 
-    public long getGroupName() {
+    public String getGroupName() {
         return groupName;
     }
 
-    public void setGroupName(long groupName) {
+    public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+    
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+        category.addGroup(this);
     }
     
     public void addStaff(Staff staff) {
@@ -73,9 +85,9 @@ public class Group {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + (int) (this.groupId ^ (this.groupId >>> 32));
-        hash = 29 * hash + (int) (this.groupName ^ (this.groupName >>> 32));
+        int hash = 5;
+        hash = 97 * hash + (int) (this.groupId ^ (this.groupId >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.groupName);
         return hash;
     }
 
@@ -96,6 +108,9 @@ public class Group {
         }
         return true;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return groupName;
+    } 
 }

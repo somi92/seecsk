@@ -5,7 +5,7 @@
  */
 package com.github.somi92.seecsk.domain;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -19,8 +19,8 @@ public class Staff extends Person {
         
     }
 
-    public Staff(Role role, long id, String firstLastName, char gender, String email, String pnoneNum, Date dateOfBirth) {
-        super(id, firstLastName, gender, email, pnoneNum, dateOfBirth);
+    public Staff(Role role, long id, String firstLastName, char gender, String email, String pnoneNum,Calendar dateOfBirth, String remark) {
+        super(id, firstLastName, gender, email, pnoneNum, dateOfBirth, remark);
         this.role = role;
     }
 

@@ -5,7 +5,8 @@
  */
 package com.github.somi92.seecsk.domain;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -14,26 +15,39 @@ import java.util.List;
  */
 public class Member extends Person {
 
-    private Date dateOfMembership;
+    private Calendar dateOfMembership;
     private List<MembershipFee> membershipFees;
     private List<Attendance> attendanceRecords;
+    private Group group;
 
     
     public Member() {
-        
+        membershipFees = new ArrayList<>();
+        attendanceRecords = new ArrayList<>();
     }
 
-    public Member(long id, String firstLastName, char gender, String email, String pnoneNum, Date dateOfBirth, Date dateOfMembership) {
-        super(id, firstLastName, gender, email, pnoneNum, dateOfBirth);
+    public Member(long id, String firstLastName, char gender, String email, String pnoneNum, Calendar dateOfBirth, Calendar dateOfMembership, String remark) {
+        super(id, firstLastName, gender, email, pnoneNum, dateOfBirth, remark);
         this.dateOfMembership = dateOfMembership;
+        membershipFees = new ArrayList<>();
+        attendanceRecords = new ArrayList<>();
     }
 
-    public Date getDateOfMembership() {
+    public Calendar getDateOfMembership() {
         return dateOfMembership;
     }
 
-    public void setDateOfMembership(Date dateOfMembership) {
+    public void setDateOfMembership(Calendar dateOfMembership) {
         this.dateOfMembership = dateOfMembership;
+    }
+    
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+        group.addMember(this);
     }
     
     public void addMembershipFee(MembershipFee membershipFee) {
@@ -58,5 +72,5 @@ public class Member extends Person {
     
     public void removeAttendanceRecord(Attendance attendance) {
         attendanceRecords.remove(attendance);
-    } 
+    }
 }

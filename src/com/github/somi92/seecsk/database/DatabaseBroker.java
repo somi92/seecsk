@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.domain;
-
-import java.time.DayOfWeek;
+package com.github.somi92.seecsk.database;
 
 /**
  *
  * @author milos
  */
-public class Schedule {
-    
-    private Place place;
-    private DayOfWeek dayOfWeek;
+public class DatabaseBroker {
     
 }

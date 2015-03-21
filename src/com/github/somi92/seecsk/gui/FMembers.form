@@ -69,6 +69,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jbtnMembershipFee" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                       <Component id="jbtnAttendance" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="jbtnNew" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="jbtnUpdate" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="jbtnDelete" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -89,17 +92,23 @@
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                           <Component id="jbtnMembershipFee" min="-2" pref="43" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jbtnAttendance" min="-2" pref="43" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                          <Component id="jbtnNew" min="-2" pref="43" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jbtnUpdate" min="-2" pref="43" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jbtnDelete" min="-2" pref="43" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="488" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="77" max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -134,18 +143,18 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="jtblMembers">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="8" rowCount="1">
                     <Column editable="false" title="ID" type="java.lang.String"/>
-                    <Column editable="true" title="Ime i prezime" type="java.lang.String"/>
-                    <Column editable="true" title="E-mail" type="java.lang.String"/>
-                    <Column editable="true" title="Broj telefona" type="java.lang.String"/>
-                    <Column editable="true" title="Datum ro&#x111;enja" type="java.lang.Object"/>
-                    <Column editable="true" title="Datum u&#x10d;lanjenja" type="java.lang.Object"/>
-                    <Column editable="true" title="Grupa" type="java.lang.Object"/>
-                    <Column editable="true" title="Napomena" type="java.lang.String"/>
+                    <Column editable="false" title="Ime i prezime" type="java.lang.String"/>
+                    <Column editable="false" title="E-mail" type="java.lang.String"/>
+                    <Column editable="false" title="Broj telefona" type="java.lang.String"/>
+                    <Column editable="false" title="Datum ro&#x111;enja" type="java.lang.Object"/>
+                    <Column editable="false" title="Datum u&#x10d;lanjenja" type="java.lang.Object"/>
+                    <Column editable="false" title="Grupa" type="java.lang.Object"/>
+                    <Column editable="false" title="Napomena" type="java.lang.String"/>
                   </Table>
                 </Property>
               </Properties>
@@ -160,6 +169,21 @@
         <Component class="javax.swing.JButton" name="jbtnAttendance">
           <Properties>
             <Property name="text" type="java.lang.String" value="Dolasci ..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbtnNew">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=" Novi &#x10d;lan"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbtnUpdate">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Izmeni &#x10d;lana"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbtnDelete">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Obri&#x161;i &#x10d;lana"/>
           </Properties>
         </Component>
       </SubComponents>

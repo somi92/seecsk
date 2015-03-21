@@ -5,7 +5,7 @@
  */
 package com.github.somi92.seecsk.domain;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -13,23 +13,23 @@ import java.util.Date;
  */
 public class Attendance {
     
-    private Date date;
+    private Calendar date;
     private boolean isAttended;
 
     public Attendance() {
         
     }
 
-    public Attendance(Date date, boolean isAttended) {
+    public Attendance(Calendar date, boolean isAttended) {
         this.date = date;
         this.isAttended = isAttended;
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
