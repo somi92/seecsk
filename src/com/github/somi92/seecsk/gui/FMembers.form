@@ -117,7 +117,12 @@
         <Component class="javax.swing.JComboBox" name="jcmbCriteria">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="4">
+                <StringItem index="0" value="Broj LK"/>
+                <StringItem index="1" value="Ime i prezime"/>
+                <StringItem index="2" value="Broj telefona"/>
+                <StringItem index="3" value="Grupa"/>
+              </StringArray>
             </Property>
           </Properties>
         </Component>
@@ -130,6 +135,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtfFilterKeyPressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jlblFilter">
           <Properties>

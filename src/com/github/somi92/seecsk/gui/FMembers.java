@@ -11,8 +11,11 @@ import com.github.somi92.seecsk.model.operations.Operations;
 import com.github.somi92.seecsk.model.operations.SaveOperation;
 import com.github.somi92.seecsk.model.operations.UpdateOperation;
 import com.github.somi92.seecsk.model.tables.MembersTableModel;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 
 /**
@@ -26,6 +29,7 @@ public class FMembers extends javax.swing.JFrame {
      */
     public FMembers() {
         initComponents();
+        initSearch();
         updateTable();
     }
 
@@ -55,9 +59,16 @@ public class FMembers extends javax.swing.JFrame {
         setTitle("SEECSK - Evidencija članova");
         setResizable(false);
 
+        jcmbCriteria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Broj LK", "Ime i prezime", "Broj telefona", "Grupa" }));
+
         jlblCriteria.setText(" Kriterijum za filtriranje:");
 
         jtxtfFilter.setText(" ");
+        jtxtfFilter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtfFilterKeyPressed(evt);
+            }
+        });
 
         jlblFilter.setText(" Filter:");
 
@@ -220,6 +231,10 @@ public class FMembers extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
+    private void jtxtfFilterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtfFilterKeyPressed
+        
+    }//GEN-LAST:event_jtxtfFilterKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -236,8 +251,74 @@ public class FMembers extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void updateTable() {
-        List<Member> lm = MembersCollection.getInstance().getAllMembers();
-        TableModel tm = new MembersTableModel(lm);
+        List<Member> ml = MembersCollection.getInstance().getAllMembers();
+        updateTable(ml);
+    }
+    
+    public void updateTable(List<Member> ml) {
+        TableModel tm = new MembersTableModel(ml);
         jtblMembers.setModel(tm);
+    }
+
+    private void filterSearch(String criteria) {
+        System.out.println(criteria);
+        List<Member> sourceList = MembersCollection.getInstance().getAllMembers();
+        List<Member> resultList = new ArrayList<>();
+        
+        if(jcmbCriteria.getSelectedItem().toString().contains("Broj LK")) {
+            for(Member m : sourceList) {
+            if(m.getIdCard().contains(criteria)) {
+                resultList.add(m);
+            }
+        }
+        }
+        if(jcmbCriteria.getSelectedItem().toString().contains("Ime i prezime")) {
+            for(Member m : sourceList) {
+            if(m.getFirstLastName().contains(criteria)) {
+                resultList.add(m);
+            }
+        }
+        }
+        if(jcmbCriteria.getSelectedItem().toString().contains("Broj telefona")) {
+            for(Member m : sourceList) {
+            if(m.getPhoneNum().contains(criteria)) {
+                resultList.add(m);
+            }
+        }
+        }
+        if(jcmbCriteria.getSelectedItem().toString().contains("Grupa")) {
+            for(Member m : sourceList) {
+            if(m.getGroup().toString().contains(criteria)) {
+                resultList.add(m);
+            }
+        }
+        }
+        
+        updateTable(resultList);
+    }
+
+    private void initSearch() {
+        jtxtfFilter.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                update();
+            }
+            
+            public void update() {
+                filterSearch(jtxtfFilter.getText().trim());
+            }
+            
+        });
     }
 }
