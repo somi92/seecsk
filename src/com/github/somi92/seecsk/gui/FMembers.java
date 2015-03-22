@@ -7,8 +7,12 @@ package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.domain.Member;
 import com.github.somi92.seecsk.model.MembersCollection;
-import com.github.somi92.seecsk.util.MembersTableModel;
+import com.github.somi92.seecsk.model.operations.Operations;
+import com.github.somi92.seecsk.model.operations.SaveOperation;
+import com.github.somi92.seecsk.model.operations.UpdateOperation;
+import com.github.somi92.seecsk.model.tables.MembersTableModel;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
 /**
@@ -22,7 +26,7 @@ public class FMembers extends javax.swing.JFrame {
      */
     public FMembers() {
         initComponents();
-        initData();
+        updateTable();
     }
 
     /**
@@ -82,10 +86,13 @@ public class FMembers extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtblMembers);
 
+        jbtnMembershipFee.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         jbtnMembershipFee.setText("Članarine ...");
 
+        jbtnAttendance.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         jbtnAttendance.setText("Dolasci ...");
 
+        jbtnNew.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         jbtnNew.setText(" Novi član");
         jbtnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,9 +100,21 @@ public class FMembers extends javax.swing.JFrame {
             }
         });
 
-        jbtnUpdate.setText("Izmeni člana");
+        jbtnUpdate.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        jbtnUpdate.setText("Detalji i izmena");
+        jbtnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnUpdateActionPerformed(evt);
+            }
+        });
 
+        jbtnDelete.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         jbtnDelete.setText("Obriši člana");
+        jbtnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -173,9 +192,33 @@ public class FMembers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNewActionPerformed
-        FNewMember fNew = new FNewMember(this, true);
+        FNewMember fNew = new FNewMember(this, true, new SaveOperation(new Operations()), null);
         fNew.setVisible(true);
     }//GEN-LAST:event_jbtnNewActionPerformed
+
+    private void jbtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdateActionPerformed
+        int row = jtblMembers.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(this, "Niste selektovali člana.");
+        } else {
+            FNewMember fNew = new FNewMember(this, true, new UpdateOperation(new Operations()),
+                MembersCollection.getInstance().getAllMembers().get(row));
+            fNew.setVisible(true);
+        }
+    }//GEN-LAST:event_jbtnUpdateActionPerformed
+
+    private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
+        int row = jtblMembers.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(this, "Niste selektovali člana.");
+        } else {
+            int response = JOptionPane.showConfirmDialog(this, "Jeste li sigurni da želite izbrisati izabranog člana?", "Potvrdite izbor", JOptionPane.OK_CANCEL_OPTION);
+            if(response == JOptionPane.OK_OPTION) {
+                MembersCollection.getInstance().removeMember(row);
+                updateTable();
+            }
+        }
+    }//GEN-LAST:event_jbtnDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
@@ -192,7 +235,7 @@ public class FMembers extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtfFilter;
     // End of variables declaration//GEN-END:variables
 
-    private void initData() {
+    public void updateTable() {
         List<Member> lm = MembersCollection.getInstance().getAllMembers();
         TableModel tm = new MembersTableModel(lm);
         jtblMembers.setModel(tm);

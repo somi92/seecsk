@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.util;
+package com.github.somi92.seecsk.model.tables;
 
 import com.github.somi92.seecsk.domain.Member;
 import java.text.SimpleDateFormat;

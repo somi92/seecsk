@@ -6,8 +6,15 @@
 package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.domain.Group;
+import com.github.somi92.seecsk.domain.Member;
+import com.github.somi92.seecsk.model.GroupsCollection;
+import com.github.somi92.seecsk.model.MembersCollection;
+import com.github.somi92.seecsk.model.operations.SEECSKOperations;
 import java.awt.Color;
 import java.util.Calendar;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
 
@@ -17,13 +24,18 @@ import javax.swing.plaf.basic.BasicBorders;
  */
 public class FNewMember extends javax.swing.JDialog {
 
+    private FMembers parent;
+    private long memberId;
+    
     /**
      * Creates new form FNewMember
      */
-    public FNewMember(java.awt.Frame parent, boolean modal) {
+    public FNewMember(FMembers parent, boolean modal, SEECSKOperations operations, Member m) {
         super(parent, modal);
+        this.parent = parent;
+        this.operations = operations;
         initComponents();
-        initBorders();
+        initForm(m);
     }
 
     /**
@@ -117,6 +129,7 @@ public class FNewMember extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jtxtaRemark);
 
         jdccDateOfBirth.setCalendarPreferredSize(new java.awt.Dimension(340, 240));
+        jdccDateOfBirth.setFormat(2);
         jdccDateOfBirth.setLocale(new java.util.Locale("sr", "BA", ""));
 
         jdccMembershipDate.setCalendarPreferredSize(new java.awt.Dimension(340, 240));
@@ -312,7 +325,19 @@ public class FNewMember extends javax.swing.JDialog {
         
         boolean isValidated = validateInput(idCard, firstLastName, email, phoneNum);
         if(isValidated) {
-            
+            Member m = new Member(idCard, firstLastName, gender, email, phoneNum, dateOfBirth, dateOfMembership, remark);
+            m.setSysId(memberId);
+            m.setGroup(group);
+            boolean res = operations.executeOperation(m);
+            if(res) {
+                JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
+                parent.updateTable();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti člana.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Podaci nisu validni, pokušajte ponovo.");
         }
     }//GEN-LAST:event_jbtnSaveActionPerformed
 
@@ -322,7 +347,7 @@ public class FNewMember extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxtIdCardFocusGained
 
     private void jbtnEmptyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEmptyActionPerformed
-        // TODO add your handling code here:
+        resetFields();
     }//GEN-LAST:event_jbtnEmptyActionPerformed
 
 
@@ -357,6 +382,7 @@ public class FNewMember extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private Border errorBorder;
     private Border defaultBorder;
+    private SEECSKOperations operations;
     
     private void initBorders() {
         defaultBorder = jtxtFirstLastName.getBorder();
@@ -391,6 +417,48 @@ public class FNewMember extends javax.swing.JDialog {
         }
         
         return isValid;
+    }
+    
+    private void initGroupsCombo() {
+        List<Group> groups = GroupsCollection.getInstance().getAllGroups();
+        for(Group g : groups) {
+            jcmbGroup.addItem(g);
+        }
+    }
+    
+    private void resetFields() {
+        jtxtFirstLastName.setText("");
+        jtxtIdCard.setText("");
+        jtxtEmail.setText("");
+        jtxtPhoneNum.setText("");
+        jtxtaRemark.setText("");
+    }
+
+    private void initForm(Member m) {
+        initBorders();
+        initGroupsCombo();
+        if(m != null) {
+            
+            memberId = m.getSysId();
+            
+            jtxtIdCard.setText(m.getIdCard());
+            jtxtFirstLastName.setText(m.getFirstLastName());
+            jcmbGender.setSelectedItem(m.getGender());
+            jtxtEmail.setText(m.getEmail());
+            jtxtPhoneNum.setText(m.getPhoneNum());
+            jdccDateOfBirth.setSelectedDate(m.getDateOfBirth());
+            jdccMembershipDate.setSelectedDate(m.getDateOfMembership());
+            jcmbGroup.setSelectedItem(m.getGroup());
+            jtxtaRemark.setText(m.getRemark());
+        }
+        if(operations.getOperationName().contains("Izmeni")) {
+            setTitle("SEECSK - Detalji i izmena člana");
+            jbtnSave.setText("Izmeni");
+        } else {
+            memberId = MembersCollection.getInstance().useCounter();
+            setTitle("SEECSK - Unos novog člana");
+            jbtnSave.setText("Sačuvaj");
+        }
     }
 
 }

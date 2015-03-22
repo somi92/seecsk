@@ -7,6 +7,7 @@ package com.github.somi92.seecsk.domain;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -26,8 +27,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(long id, String idCard, String firstLastName, char gender, String email, String pnoneNum, Calendar dateOfBirth, String remark) {
-        this.sysId = id;
+    public Person(String idCard, String firstLastName, char gender, String email, String pnoneNum, Calendar dateOfBirth, String remark) {
         this.idCard = idCard;
         this.firstLastName = firstLastName;
         this.gender = gender;
@@ -103,8 +103,8 @@ public class Person {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + (int) (this.sysId ^ (this.sysId >>> 32));
+        int hash = 7;
+        hash = 17 * hash + (int) (this.sysId ^ (this.sysId >>> 32));
         return hash;
     }
 
