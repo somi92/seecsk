@@ -14,7 +14,8 @@ import java.util.Date;
  */
 public class Person {
     
-    private long id;
+    private long sysId;
+    private String idCard;
     private String firstLastName;
     private char gender;
     private String email;
@@ -25,8 +26,9 @@ public class Person {
     public Person() {
     }
 
-    public Person(long id, String firstLastName, char gender, String email, String pnoneNum, Calendar dateOfBirth, String remark) {
-        this.id = id;
+    public Person(long id, String idCard, String firstLastName, char gender, String email, String pnoneNum, Calendar dateOfBirth, String remark) {
+        this.sysId = id;
+        this.idCard = idCard;
         this.firstLastName = firstLastName;
         this.gender = gender;
         this.email = email;
@@ -43,12 +45,20 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public long getId() {
-        return id;
+    public long getSysId() {
+        return sysId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setSysId(long sysId) {
+        this.sysId = sysId;
+    }
+    
+    public String getIdCard() {
+        return idCard;
+    }
+    
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
     public String getFirstLastName() {
@@ -94,7 +104,7 @@ public class Person {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 73 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 73 * hash + (int) (this.sysId ^ (this.sysId >>> 32));
         return hash;
     }
 
@@ -107,7 +117,7 @@ public class Person {
             return false;
         }
         final Person other = (Person) obj;
-        if (this.id != other.id) {
+        if (this.sysId != other.sysId) {
             return false;
         }
         return true;
@@ -115,7 +125,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return id + ", " + firstLastName;
+        return sysId + ", " + firstLastName;
     }
     
     

@@ -28,19 +28,19 @@ public class MembersTableModel extends AbstractTableModel {
             case 0:
                 return "ID";
             case 1:
-                return "Ime i prezime";
+                return "Broj LK";
             case 2:
-                return "E-mail";
+                return "Ime i prezime";
             case 3:
-                return "Broj telefona";
+                return "E-mail";
             case 4:
-                return "Datum rođenja";
+                return "Broj telefona";
             case 5:
-                return "Datum učlanjenja";
+                return "Datum rođenja";
             case 6:
-                return "Grupa";
+                return "Datum učlanjenja";
             case 7:
-                return "Napomena";
+                return "Grupa";
             default:
                 return "Greška";
         }
@@ -61,21 +61,21 @@ public class MembersTableModel extends AbstractTableModel {
         Member m = members.get(rowIndex);
         switch(columnIndex) {
             case 0:
-                return m.getId();
+                return m.getSysId();
             case 1:
-                return m.getFirstLastName();
+                return m.getIdCard();
             case 2:
-                return m.getEmail();
+                return m.getFirstLastName();
             case 3:
-                return m.getPhoneNum();
+                return m.getEmail();
             case 4:
-                return new SimpleDateFormat("dd/MM/yyyy").format(m.getDateOfBirth().getTime());
+                return m.getPhoneNum();
             case 5:
-                return new SimpleDateFormat("dd/MM/yyyy").format(m.getDateOfMembership().getTime());
+                return new SimpleDateFormat("dd/MM/yyyy").format(m.getDateOfBirth().getTime());
             case 6:
-                return m.getGroup();
+                return new SimpleDateFormat("dd/MM/yyyy").format(m.getDateOfMembership().getTime());
             case 7:
-                return m.getRemark();
+                return m.getGroup();
             default:
                 return "Greška";
         }

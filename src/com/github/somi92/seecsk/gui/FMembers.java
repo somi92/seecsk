@@ -62,11 +62,11 @@ public class FMembers extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Ime i prezime", "E-mail", "Broj telefona", "Datum rođenja", "Datum učlanjenja", "Grupa", "Napomena"
+                "ID", "Broj LK", "Ime i prezime", "E-mail", "Broj telefona", "Datum rođenja", "Datum učlanjenja", "Grupa"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
@@ -87,6 +87,11 @@ public class FMembers extends javax.swing.JFrame {
         jbtnAttendance.setText("Dolasci ...");
 
         jbtnNew.setText(" Novi član");
+        jbtnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnNewActionPerformed(evt);
+            }
+        });
 
         jbtnUpdate.setText("Izmeni člana");
 
@@ -166,6 +171,11 @@ public class FMembers extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNewActionPerformed
+        FNewMember fNew = new FNewMember(this, true);
+        fNew.setVisible(true);
+    }//GEN-LAST:event_jbtnNewActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

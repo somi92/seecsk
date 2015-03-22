@@ -26,8 +26,8 @@ public class Member extends Person {
         attendanceRecords = new ArrayList<>();
     }
 
-    public Member(long id, String firstLastName, char gender, String email, String pnoneNum, Calendar dateOfBirth, Calendar dateOfMembership, String remark) {
-        super(id, firstLastName, gender, email, pnoneNum, dateOfBirth, remark);
+    public Member(long id, String idCard, String firstLastName, char gender, String email, String pnoneNum, Calendar dateOfBirth, Calendar dateOfMembership, String remark) {
+        super(id, idCard, firstLastName, gender, email, pnoneNum, dateOfBirth, remark);
         this.dateOfMembership = dateOfMembership;
         membershipFees = new ArrayList<>();
         attendanceRecords = new ArrayList<>();
