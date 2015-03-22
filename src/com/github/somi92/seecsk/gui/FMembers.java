@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.gui;
 
+import com.github.somi92.seecsk.data.Session;
 import com.github.somi92.seecsk.domain.Member;
 import com.github.somi92.seecsk.model.MembersCollection;
 import com.github.somi92.seecsk.model.operations.Operations;
@@ -203,8 +204,10 @@ public class FMembers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNewActionPerformed
-        FNewMember fNew = new FNewMember(this, true, new SaveOperation(new Operations()), null);
+        Session.getInstance().getSessionMap().put(Session.MEMBER_OPERATION, new SaveOperation(new Operations()));
+        FNewMember fNew = new FNewMember(this, true);
         fNew.setVisible(true);
+        System.out.println("RETURN");
     }//GEN-LAST:event_jbtnNewActionPerformed
 
     private void jbtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdateActionPerformed
@@ -212,8 +215,10 @@ public class FMembers extends javax.swing.JFrame {
         if(row == -1) {
             JOptionPane.showMessageDialog(this, "Niste selektovali člana.");
         } else {
-            FNewMember fNew = new FNewMember(this, true, new UpdateOperation(new Operations()),
-                MembersCollection.getInstance().getAllMembers().get(row));
+            Session.getInstance().getSessionMap().put(Session.MEMBER_OPERATION, new UpdateOperation(new Operations()));
+            Session.getInstance().getSessionMap().put(Session.MEMBER, 
+                    MembersCollection.getInstance().getAllMembers().get(row));
+            FNewMember fNew = new FNewMember(this, true);
             fNew.setVisible(true);
         }
     }//GEN-LAST:event_jbtnUpdateActionPerformed
@@ -261,34 +266,34 @@ public class FMembers extends javax.swing.JFrame {
     }
 
     private void filterSearch(String criteria) {
-        System.out.println(criteria);
+        String filter = criteria.toUpperCase();
         List<Member> sourceList = MembersCollection.getInstance().getAllMembers();
         List<Member> resultList = new ArrayList<>();
         
         if(jcmbCriteria.getSelectedItem().toString().contains("Broj LK")) {
             for(Member m : sourceList) {
-            if(m.getIdCard().contains(criteria)) {
+            if(m.getIdCard().toUpperCase().contains(filter)) {
                 resultList.add(m);
             }
         }
         }
         if(jcmbCriteria.getSelectedItem().toString().contains("Ime i prezime")) {
             for(Member m : sourceList) {
-            if(m.getFirstLastName().contains(criteria)) {
+            if(m.getFirstLastName().toUpperCase().contains(filter)) {
                 resultList.add(m);
             }
         }
         }
         if(jcmbCriteria.getSelectedItem().toString().contains("Broj telefona")) {
             for(Member m : sourceList) {
-            if(m.getPhoneNum().contains(criteria)) {
+            if(m.getPhoneNum().toUpperCase().contains(filter)) {
                 resultList.add(m);
             }
         }
         }
         if(jcmbCriteria.getSelectedItem().toString().contains("Grupa")) {
             for(Member m : sourceList) {
-            if(m.getGroup().toString().contains(criteria)) {
+            if(m.getGroup().toString().toUpperCase().contains(filter)) {
                 resultList.add(m);
             }
         }

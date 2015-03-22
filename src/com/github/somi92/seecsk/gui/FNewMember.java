@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.gui;
 
+import com.github.somi92.seecsk.data.Session;
 import com.github.somi92.seecsk.domain.Group;
 import com.github.somi92.seecsk.domain.Member;
 import com.github.somi92.seecsk.model.GroupsCollection;
@@ -13,7 +14,6 @@ import com.github.somi92.seecsk.model.operations.SEECSKOperations;
 import java.awt.Color;
 import java.util.Calendar;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
@@ -30,12 +30,14 @@ public class FNewMember extends javax.swing.JDialog {
     /**
      * Creates new form FNewMember
      */
-    public FNewMember(FMembers parent, boolean modal, SEECSKOperations operations, Member m) {
+    public FNewMember(FMembers parent, boolean modal) {
         super(parent, modal);
         this.parent = parent;
-        this.operations = operations;
+        this.operations = (SEECSKOperations) Session.getInstance().getSessionMap().get(Session.MEMBER_OPERATION);
         initComponents();
-        initForm(m);
+        initForm((Member) Session.getInstance().getSessionMap().get(Session.MEMBER));
+        Session.getInstance().getSessionMap().put(Session.MEMBER, null);
+        Session.getInstance().getSessionMap().put(Session.MEMBER_OPERATION, null);
     }
 
     /**
@@ -337,7 +339,7 @@ public class FNewMember extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti člana.");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Podaci nisu validni, pokušajte ponovo.");
+//            JOptionPane.showMessageDialog(this, "Podaci nisu validni, pokušajte ponovo.");
         }
     }//GEN-LAST:event_jbtnSaveActionPerformed
 
@@ -435,6 +437,7 @@ public class FNewMember extends javax.swing.JDialog {
     }
 
     private void initForm(Member m) {
+        resetFields();
         initBorders();
         initGroupsCombo();
         if(m != null) {
