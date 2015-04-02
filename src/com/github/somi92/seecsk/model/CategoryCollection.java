@@ -5,7 +5,7 @@
  */
 package com.github.somi92.seecsk.model;
 
-import com.github.somi92.seecsk.domain.Category;
+import com.github.somi92.seecsk.domain.Kategorija;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class CategoryCollection {
     
     private static CategoryCollection INSTANCE;
-    private List<Category> categories;
+    private List<Kategorija> categories;
     
     private CategoryCollection() {
         categories = new ArrayList<>();
@@ -30,7 +30,7 @@ public class CategoryCollection {
         return INSTANCE;
     }
     
-    public boolean addCategory(Category c) {
+    public boolean addCategory(Kategorija c) {
         if(!categories.contains(c)) {
             categories.add(c);
             return true;
@@ -38,13 +38,13 @@ public class CategoryCollection {
         return false;
     }
     
-    public List<Category> getAllCategories() {
+    public List<Kategorija> getAllCategories() {
         return categories;
     }
     
     private void initTestData() {
-        addCategory(new Category(11, "Kadeti"));
-        addCategory(new Category(12, "Juniori"));
-        addCategory(new Category(13, "Seniori"));
+        addCategory(new Kategorija(11, "Kadeti"));
+        addCategory(new Kategorija(12, "Juniori"));
+        addCategory(new Kategorija(13, "Seniori"));
     }
 }

@@ -4,14 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/gui/FMembers.java</file>
-            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/domain/Staff.java</file>
-            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/gui/FMainForm.java</file>
-            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/domain/Member.java</file>
-            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/main/Main.java</file>
-            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/model/DataCollection.java</file>
-            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/model/MembersCollection.java</file>
-            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/domain/Person.java</file>
-            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/util/MembersTableModel.java</file>
+            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/model/operations/Operations.java</file>
+            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/gui/FNewMember.java</file>
+            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/model/GroupsCollection.java</file>
+            <file>file:/home/milos/Development/NetBeansProjects/SEECSK/src/com/github/somi92/seecsk/model/operations/UpdateOperation.java</file>
         </group>
     </open-files>
 </project-private>

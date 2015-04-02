@@ -18,7 +18,7 @@ public class Member extends Person {
     private Calendar dateOfMembership;
     private List<MembershipFee> membershipFees;
     private List<Attendance> attendanceRecords;
-    private Group group;
+    private Grupa group;
 
     
     public Member() {
@@ -41,13 +41,13 @@ public class Member extends Person {
         this.dateOfMembership = dateOfMembership;
     }
     
-    public Group getGroup() {
+    public Grupa getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public void setGroup(Grupa group) {
         this.group = group;
-        group.addMember(this);
+        group.dodajClana(this);
     }
     
     public void addMembershipFee(MembershipFee membershipFee) {

@@ -6,7 +6,7 @@
 package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Session;
-import com.github.somi92.seecsk.domain.Group;
+import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.domain.Member;
 import com.github.somi92.seecsk.model.GroupsCollection;
 import com.github.somi92.seecsk.model.MembersCollection;
@@ -322,7 +322,7 @@ public class FNewMember extends javax.swing.JDialog {
         String phoneNum = jtxtPhoneNum.getText().trim();
         Calendar dateOfBirth = jdccDateOfBirth.getSelectedDate();
         Calendar dateOfMembership = jdccMembershipDate.getSelectedDate();
-        Group group = (Group) jcmbGroup.getSelectedItem();
+        Grupa group = (Grupa) jcmbGroup.getSelectedItem();
         String remark = jtxtaRemark.getText().trim();
         
         boolean isValidated = validateInput(idCard, firstLastName, email, phoneNum);
@@ -422,8 +422,8 @@ public class FNewMember extends javax.swing.JDialog {
     }
     
     private void initGroupsCombo() {
-        List<Group> groups = GroupsCollection.getInstance().getAllGroups();
-        for(Group g : groups) {
+        List<Grupa> groups = GroupsCollection.getInstance().getAllGroups();
+        for(Grupa g : groups) {
             jcmbGroup.addItem(g);
         }
     }

@@ -5,8 +5,8 @@
  */
 package com.github.somi92.seecsk.model;
 
-import com.github.somi92.seecsk.domain.Category;
-import com.github.somi92.seecsk.domain.Group;
+import com.github.somi92.seecsk.domain.Kategorija;
+import com.github.somi92.seecsk.domain.Grupa;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class GroupsCollection {
     
     private static GroupsCollection INSTANCE;
-    private List<Group> groups;
+    private List<Grupa> groups;
     
     private GroupsCollection() {
         groups = new ArrayList<>();
@@ -31,7 +31,7 @@ public class GroupsCollection {
         return INSTANCE;
     }
     
-    public boolean addGroup(Group g) {
+    public boolean addGroup(Grupa g) {
         if(!groups.contains(g)) {
             groups.add(g);
             return true;
@@ -39,22 +39,22 @@ public class GroupsCollection {
         return false;
     }
     
-    public List<Group> getAllGroups() {
+    public List<Grupa> getAllGroups() {
         return groups;
     }
 
     private void initTestData() {
         
-        List<Category> cl = CategoryCollection.getInstance().getAllCategories();
+        List<Kategorija> cl = CategoryCollection.getInstance().getAllCategories();
         
-        Group g1 = new Group(21, "Kadeti 1. grupa");
-        g1.setCategory(cl.get(0));
-        Group g2 = new Group(22, "Kadeti 2. grupa");
-        g2.setCategory(cl.get(0));
-        Group g3 = new Group(23, "Juniori 1. grupa");
-        g3.setCategory(cl.get(1));
-        Group g4 = new Group(24, "Seniori 1. grupa");
-        g4.setCategory(cl.get(2));
+        Grupa g1 = new Grupa(21, "Kadeti 1. grupa");
+        g1.setKategorija(cl.get(0));
+        Grupa g2 = new Grupa(22, "Kadeti 2. grupa");
+        g2.setKategorija(cl.get(0));
+        Grupa g3 = new Grupa(23, "Juniori 1. grupa");
+        g3.setKategorija(cl.get(1));
+        Grupa g4 = new Grupa(24, "Seniori 1. grupa");
+        g4.setKategorija(cl.get(2));
         
         addGroup(g1);
         addGroup(g2);
