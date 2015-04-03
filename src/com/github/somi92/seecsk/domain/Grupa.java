@@ -138,9 +138,6 @@ public class Grupa {
         if (this.idGrupa != other.idGrupa) {
             return false;
         }
-        if (this.naziv != other.naziv) {
-            return false;
-        }
         return true;
     }
 

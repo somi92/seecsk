@@ -450,6 +450,7 @@ public class FNewMember extends javax.swing.JDialog {
             jcmbGender.setSelectedItem(clan.getPol());
             jtxtEmail.setText(clan.getEmail());
             jtxtPhoneNum.setText(clan.getBrojTel());
+            jcmbGender.setSelectedItem(clan.getPol() == 'M' ? "Muški" : "Ženski");
             Calendar dob = Calendar.getInstance();
             dob.setTime(clan.getDatumRodjenja());
             jdccDateOfBirth.setSelectedDate(dob);

@@ -8,6 +8,7 @@ package com.github.somi92.seecsk.gui;
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.model.KolekcijaClanova;
+import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Operacije;
 import com.github.somi92.seecsk.model.operations.SacuvajOperacija;
 import com.github.somi92.seecsk.model.operations.AzurirajOperacija;
@@ -217,7 +218,7 @@ public class FMembers extends javax.swing.JFrame {
         } else {
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new AzurirajOperacija(new Operacije()));
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, 
-                    KolekcijaClanova.vratiInstancu().vratiSveClanove().get(row));
+                    KontrolerPL.vratiListuClanova().get(row));
             FNewMember fNew = new FNewMember(this, true);
             fNew.setVisible(true);
         }
@@ -256,7 +257,8 @@ public class FMembers extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void azurirajTabelu() {
-        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
+//        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
+        List<Clan> lc = KontrolerPL.vratiListuClanova();
         azurirajTabelu(lc);
     }
     
@@ -267,7 +269,8 @@ public class FMembers extends javax.swing.JFrame {
 
     private void filterSearch(String criteria) {
         String filter = criteria.toUpperCase();
-        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
+//        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
+         List<Clan> sourceList = KontrolerPL.vratiListuClanova();
         List<Clan> resultList = new ArrayList<>();
         
         if(jcmbCriteria.getSelectedItem().toString().contains("Broj LK")) {
