@@ -5,8 +5,6 @@
  */
 package com.github.somi92.seecsk.data;
 
-import com.github.somi92.seecsk.domain.Member;
-import com.github.somi92.seecsk.model.operations.SEECSKOperations;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -18,8 +18,8 @@ public class Grupa {
     private long idGrupa;
     private String naziv;
     private String napomena;
-    private List<Staff> zaposleni;
-    private List<Member> clanovi;
+    private List<Zaposleni> zaposleni;
+    private List<Clan> clanovi;
     private Kategorija kategorija;
 
     public Grupa() {
@@ -57,11 +57,11 @@ public class Grupa {
         this.napomena = napomena;
     }
     
-    public List<Staff> getZaposleni() {
+    public List<Zaposleni> getZaposleni() {
         return zaposleni;
     }
 
-    public void setZaposleni(List<Staff> zaposleni) {
+    public void setZaposleni(List<Zaposleni> zaposleni) {
         this.zaposleni = zaposleni;
     }
     
@@ -74,27 +74,27 @@ public class Grupa {
         kategorija.dodajGrupu(this);
     }
     
-    public void dodajZaposlenog(Staff zaposleni) {
+    public void dodajZaposlenog(Zaposleni zaposleni) {
         this.zaposleni.add(zaposleni);
     }
     
-    public List<Staff> vratiListuZaposlenih() {
+    public List<Zaposleni> vratiListuZaposlenih() {
         return zaposleni;
     }
     
-    public void obrisiZaposlenog(Staff zaposleni) {
+    public void obrisiZaposlenog(Zaposleni zaposleni) {
          this.zaposleni.remove(zaposleni);
     }
     
-    public void dodajClana(Member clan) {
+    public void dodajClana(Clan clan) {
         clanovi.add(clan);
     }
     
-    public List<Member> vratiListuClanova() {
+    public List<Clan> vratiListuClanova() {
         return clanovi;
     }
     
-    public void obrisiClana(Member clan) {
+    public void obrisiClana(Clan clan) {
         clanovi.remove(clan);
     }
 
