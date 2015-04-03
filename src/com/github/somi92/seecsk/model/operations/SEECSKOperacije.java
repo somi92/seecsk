@@ -9,8 +9,8 @@ package com.github.somi92.seecsk.model.operations;
  *
  * @author milos
  */
-public interface SEECSKOperations {
+public interface SEECSKOperacije {
     
-    public String getOperationName();
-    public boolean executeOperation(Object o);
+    public String vratiImeOperacije();
+    public boolean izvrsiOperaciju(Object o);
 }

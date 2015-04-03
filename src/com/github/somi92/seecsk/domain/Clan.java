@@ -30,8 +30,7 @@ public class Clan {
     public Clan() {
     }
 
-    public Clan(long idClan, String brojLK, String imePrezime, char pol, String email, String brojTel, Date datumRodjenja, Date datumUclanjenja, String napomena, Grupa grupa) {
-        this.idClan = idClan;
+    public Clan(String brojLK, String imePrezime, char pol, String email, String brojTel, Date datumRodjenja, Date datumUclanjenja, String napomena) {
         this.brojLK = brojLK;
         this.imePrezime = imePrezime;
         this.pol = pol;
@@ -40,8 +39,6 @@ public class Clan {
         this.datumRodjenja = datumRodjenja;
         this.datumUclanjenja = datumUclanjenja;
         this.napomena = napomena;
-        this.grupa = grupa;
-        this.grupa.dodajClana(this);
     }
 
     public long getIdClan() {

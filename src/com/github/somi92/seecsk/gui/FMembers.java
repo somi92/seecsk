@@ -5,13 +5,13 @@
  */
 package com.github.somi92.seecsk.gui;
 
-import com.github.somi92.seecsk.data.Session;
-import com.github.somi92.seecsk.domain.Member;
-import com.github.somi92.seecsk.model.MembersCollection;
-import com.github.somi92.seecsk.model.operations.Operations;
-import com.github.somi92.seecsk.model.operations.SaveOperation;
-import com.github.somi92.seecsk.model.operations.UpdateOperation;
-import com.github.somi92.seecsk.model.tables.MembersTableModel;
+import com.github.somi92.seecsk.data.Sesija;
+import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.model.KolekcijaClanova;
+import com.github.somi92.seecsk.model.operations.Operacije;
+import com.github.somi92.seecsk.model.operations.SacuvajOperacija;
+import com.github.somi92.seecsk.model.operations.AzurirajOperacija;
+import com.github.somi92.seecsk.model.tables.ClanoviTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -31,7 +31,7 @@ public class FMembers extends javax.swing.JFrame {
     public FMembers() {
         initComponents();
         initSearch();
-        updateTable();
+        FMembers.this.azurirajTabelu();
     }
 
     /**
@@ -204,7 +204,7 @@ public class FMembers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNewActionPerformed
-        Session.getInstance().getSessionMap().put(Session.MEMBER_OPERATION, new SaveOperation(new Operations()));
+        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new SacuvajOperacija(new Operacije()));
         FNewMember fNew = new FNewMember(this, true);
         fNew.setVisible(true);
         System.out.println("RETURN");
@@ -215,9 +215,9 @@ public class FMembers extends javax.swing.JFrame {
         if(row == -1) {
             JOptionPane.showMessageDialog(this, "Niste selektovali člana.");
         } else {
-            Session.getInstance().getSessionMap().put(Session.MEMBER_OPERATION, new UpdateOperation(new Operations()));
-            Session.getInstance().getSessionMap().put(Session.MEMBER, 
-                    MembersCollection.getInstance().getAllMembers().get(row));
+            Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new AzurirajOperacija(new Operacije()));
+            Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, 
+                    KolekcijaClanova.vratiInstancu().vratiSveClanove().get(row));
             FNewMember fNew = new FNewMember(this, true);
             fNew.setVisible(true);
         }
@@ -230,8 +230,8 @@ public class FMembers extends javax.swing.JFrame {
         } else {
             int response = JOptionPane.showConfirmDialog(this, "Jeste li sigurni da želite izbrisati izabranog člana?", "Potvrdite izbor", JOptionPane.OK_CANCEL_OPTION);
             if(response == JOptionPane.OK_OPTION) {
-                MembersCollection.getInstance().removeMember(row);
-                updateTable();
+                KolekcijaClanova.vratiInstancu().obrisiClana(row);
+                azurirajTabelu();
             }
         }
     }//GEN-LAST:event_jbtnDeleteActionPerformed
@@ -255,51 +255,51 @@ public class FMembers extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtfFilter;
     // End of variables declaration//GEN-END:variables
 
-    public void updateTable() {
-        List<Member> ml = MembersCollection.getInstance().getAllMembers();
-        updateTable(ml);
+    public void azurirajTabelu() {
+        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
+        azurirajTabelu(lc);
     }
     
-    public void updateTable(List<Member> ml) {
-        TableModel tm = new MembersTableModel(ml);
+    public void azurirajTabelu(List<Clan> lc) {
+        TableModel tm = new ClanoviTableModel(lc);
         jtblMembers.setModel(tm);
     }
 
     private void filterSearch(String criteria) {
         String filter = criteria.toUpperCase();
-        List<Member> sourceList = MembersCollection.getInstance().getAllMembers();
-        List<Member> resultList = new ArrayList<>();
+        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
+        List<Clan> resultList = new ArrayList<>();
         
         if(jcmbCriteria.getSelectedItem().toString().contains("Broj LK")) {
-            for(Member m : sourceList) {
-            if(m.getIdCard().toUpperCase().contains(filter)) {
-                resultList.add(m);
+            for(Clan clan : sourceList) {
+            if(clan.getBrojLK().toUpperCase().contains(filter)) {
+                resultList.add(clan);
             }
         }
         }
         if(jcmbCriteria.getSelectedItem().toString().contains("Ime i prezime")) {
-            for(Member m : sourceList) {
-            if(m.getFirstLastName().toUpperCase().contains(filter)) {
-                resultList.add(m);
+            for(Clan clan : sourceList) {
+            if(clan.getImePrezime().toUpperCase().contains(filter)) {
+                resultList.add(clan);
             }
         }
         }
         if(jcmbCriteria.getSelectedItem().toString().contains("Broj telefona")) {
-            for(Member m : sourceList) {
-            if(m.getPhoneNum().toUpperCase().contains(filter)) {
-                resultList.add(m);
+            for(Clan clan : sourceList) {
+            if(clan.getBrojTel().toUpperCase().contains(filter)) {
+                resultList.add(clan);
             }
         }
         }
         if(jcmbCriteria.getSelectedItem().toString().contains("Grupa")) {
-            for(Member m : sourceList) {
-            if(m.getGroup().toString().toUpperCase().contains(filter)) {
-                resultList.add(m);
+            for(Clan clan : sourceList) {
+            if(clan.getGrupa().toString().toUpperCase().contains(filter)) {
+                resultList.add(clan);
             }
         }
         }
         
-        updateTable(resultList);
+        azurirajTabelu(resultList);
     }
 
     private void initSearch() {

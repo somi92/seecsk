@@ -5,7 +5,8 @@
  */
 package com.github.somi92.seecsk.model.tables;
 
-import com.github.somi92.seecsk.domain.Member;
+import com.github.somi92.seecsk.domain.Clan;
+import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -14,12 +15,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author milos
  */
-public class MembersTableModel extends AbstractTableModel {
+public class ClanoviTableModel extends AbstractTableModel {
     
-    private List<Member> members;
+    private List<Clan> clanovi;
     
-    public MembersTableModel(List<Member> members) {
-        this.members = members;
+    public ClanoviTableModel(List<Clan> clanovi) {
+        this.clanovi = clanovi;
     }
 
     @Override
@@ -48,7 +49,7 @@ public class MembersTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return members.size();
+        return clanovi.size();
     }
 
     @Override
@@ -58,24 +59,24 @@ public class MembersTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Member m = members.get(rowIndex);
+        Clan c = clanovi.get(rowIndex);
         switch(columnIndex) {
             case 0:
-                return m.getSysId();
+                return c.getIdClan();
             case 1:
-                return m.getIdCard();
+                return c.getBrojLK();
             case 2:
-                return m.getFirstLastName();
+                return c.getImePrezime();
             case 3:
-                return m.getEmail();
+                return c.getEmail();
             case 4:
-                return m.getPhoneNum();
+                return c.getBrojTel();
             case 5:
-                return new SimpleDateFormat("dd/MM/yyyy").format(m.getDateOfBirth().getTime());
+                return new SimpleDateFormat("dd/MM/yyyy").format(c.getDatumRodjenja().getTime());
             case 6:
-                return new SimpleDateFormat("dd/MM/yyyy").format(m.getDateOfMembership().getTime());
+                return new SimpleDateFormat("dd/MM/yyyy").format(c.getDatumUclanjenja().getTime());
             case 7:
-                return m.getGroup();
+                return c.getGrupa();
             default:
                 return "Greška";
         }

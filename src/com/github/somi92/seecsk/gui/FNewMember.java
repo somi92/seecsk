@@ -5,12 +5,12 @@
  */
 package com.github.somi92.seecsk.gui;
 
-import com.github.somi92.seecsk.data.Session;
+import com.github.somi92.seecsk.data.Sesija;
+import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
-import com.github.somi92.seecsk.domain.Member;
-import com.github.somi92.seecsk.model.GroupsCollection;
-import com.github.somi92.seecsk.model.MembersCollection;
-import com.github.somi92.seecsk.model.operations.SEECSKOperations;
+import com.github.somi92.seecsk.model.KolekcijaGrupa;
+import com.github.somi92.seecsk.model.KolekcijaClanova;
+import com.github.somi92.seecsk.model.operations.SEECSKOperacije;
 import java.awt.Color;
 import java.util.Calendar;
 import java.util.List;
@@ -33,11 +33,11 @@ public class FNewMember extends javax.swing.JDialog {
     public FNewMember(FMembers parent, boolean modal) {
         super(parent, modal);
         this.parent = parent;
-        this.operations = (SEECSKOperations) Session.getInstance().getSessionMap().get(Session.MEMBER_OPERATION);
+        this.operacije = (SEECSKOperacije) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN_OPERACIJA);
         initComponents();
-        initForm((Member) Session.getInstance().getSessionMap().get(Session.MEMBER));
-        Session.getInstance().getSessionMap().put(Session.MEMBER, null);
-        Session.getInstance().getSessionMap().put(Session.MEMBER_OPERATION, null);
+        initForm((Clan) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN));
+        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, null);
+        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, null);
     }
 
     /**
@@ -285,10 +285,11 @@ public class FNewMember extends javax.swing.JDialog {
                 .addGap(39, 39, 39)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnEmpty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -315,25 +316,25 @@ public class FNewMember extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxtPhoneNumFocusGained
 
     private void jbtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSaveActionPerformed
-        String idCard = jtxtIdCard.getText().trim();
-        String firstLastName = jtxtFirstLastName.getText().trim();
-        char gender = (jcmbGender.getSelectedItem().toString().equals("Muški") ? 'M' : 'Ž');
+        String idClana = jtxtIdCard.getText().trim();
+        String imePrezime = jtxtFirstLastName.getText().trim();
+        char pol = (jcmbGender.getSelectedItem().toString().equals("Muški") ? 'M' : 'Ž');
         String email = jtxtEmail.getText().trim();
-        String phoneNum = jtxtPhoneNum.getText().trim();
-        Calendar dateOfBirth = jdccDateOfBirth.getSelectedDate();
-        Calendar dateOfMembership = jdccMembershipDate.getSelectedDate();
-        Grupa group = (Grupa) jcmbGroup.getSelectedItem();
-        String remark = jtxtaRemark.getText().trim();
+        String brojTel = jtxtPhoneNum.getText().trim();
+        Calendar datumRodjenja = jdccDateOfBirth.getSelectedDate();
+        Calendar datumUclanjenja = jdccMembershipDate.getSelectedDate();
+        Grupa grupa = (Grupa) jcmbGroup.getSelectedItem();
+        String napomena = jtxtaRemark.getText().trim();
         
-        boolean isValidated = validateInput(idCard, firstLastName, email, phoneNum);
+        boolean isValidated = validateInput(idClana, imePrezime, email, brojTel);
         if(isValidated) {
-            Member m = new Member(idCard, firstLastName, gender, email, phoneNum, dateOfBirth, dateOfMembership, remark);
-            m.setSysId(memberId);
-            m.setGroup(group);
-            boolean res = operations.executeOperation(m);
+            Clan clan = new Clan(idClana, imePrezime, pol, email, brojTel, datumRodjenja.getTime(), datumUclanjenja.getTime(), napomena);
+            clan.setIdClan(memberId);
+            clan.setGrupa(grupa);
+            boolean res = operacije.izvrsiOperaciju(clan);
             if(res) {
                 JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
-                parent.updateTable();
+                parent.azurirajTabelu();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti člana.");
@@ -384,7 +385,7 @@ public class FNewMember extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private Border errorBorder;
     private Border defaultBorder;
-    private SEECSKOperations operations;
+    private SEECSKOperacije operacije;
     
     private void initBorders() {
         defaultBorder = jtxtFirstLastName.getBorder();
@@ -422,7 +423,7 @@ public class FNewMember extends javax.swing.JDialog {
     }
     
     private void initGroupsCombo() {
-        List<Grupa> groups = GroupsCollection.getInstance().getAllGroups();
+        List<Grupa> groups = KolekcijaGrupa.vratiInstancu().vratiSveGrupe();
         for(Grupa g : groups) {
             jcmbGroup.addItem(g);
         }
@@ -436,29 +437,33 @@ public class FNewMember extends javax.swing.JDialog {
         jtxtaRemark.setText("");
     }
 
-    private void initForm(Member m) {
+    private void initForm(Clan clan) {
         resetFields();
         initBorders();
         initGroupsCombo();
-        if(m != null) {
+        if(clan != null) {
             
-            memberId = m.getSysId();
+            memberId = clan.getIdClan();
             
-            jtxtIdCard.setText(m.getIdCard());
-            jtxtFirstLastName.setText(m.getFirstLastName());
-            jcmbGender.setSelectedItem(m.getGender());
-            jtxtEmail.setText(m.getEmail());
-            jtxtPhoneNum.setText(m.getPhoneNum());
-            jdccDateOfBirth.setSelectedDate(m.getDateOfBirth());
-            jdccMembershipDate.setSelectedDate(m.getDateOfMembership());
-            jcmbGroup.setSelectedItem(m.getGroup());
-            jtxtaRemark.setText(m.getRemark());
+            jtxtIdCard.setText(clan.getBrojLK());
+            jtxtFirstLastName.setText(clan.getImePrezime());
+            jcmbGender.setSelectedItem(clan.getPol());
+            jtxtEmail.setText(clan.getEmail());
+            jtxtPhoneNum.setText(clan.getBrojTel());
+            Calendar dob = Calendar.getInstance();
+            dob.setTime(clan.getDatumRodjenja());
+            jdccDateOfBirth.setSelectedDate(dob);
+            Calendar dom = Calendar.getInstance();
+            dom.setTime(clan.getDatumUclanjenja());
+            jdccMembershipDate.setSelectedDate(dom);
+            jcmbGroup.setSelectedItem(clan.getGrupa());
+            jtxtaRemark.setText(clan.getNapomena());
         }
-        if(operations.getOperationName().contains("Izmeni")) {
+        if(operacije.vratiImeOperacije().contains("Izmeni")) {
             setTitle("SEECSK - Detalji i izmena člana");
             jbtnSave.setText("Izmeni");
         } else {
-            memberId = MembersCollection.getInstance().useCounter();
+            memberId = KolekcijaClanova.vratiInstancu().vratiBrojac();
             setTitle("SEECSK - Unos novog člana");
             jbtnSave.setText("Sačuvaj");
         }

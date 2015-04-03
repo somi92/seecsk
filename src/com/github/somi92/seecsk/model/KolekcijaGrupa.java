@@ -14,51 +14,51 @@ import java.util.List;
  *
  * @author milos
  */
-public class GroupsCollection {
+public class KolekcijaGrupa {
     
-    private static GroupsCollection INSTANCE;
-    private List<Grupa> groups;
+    private static KolekcijaGrupa INSTANCE;
+    private List<Grupa> grupa;
     
-    private GroupsCollection() {
-        groups = new ArrayList<>();
-        initTestData();
+    private KolekcijaGrupa() {
+        grupa = new ArrayList<>();
+        inicijalizujTestPodatke();
     }
     
-    public static GroupsCollection getInstance() {
+    public static KolekcijaGrupa vratiInstancu() {
         if(INSTANCE == null) {
-            INSTANCE = new GroupsCollection();
+            INSTANCE = new KolekcijaGrupa();
         }
         return INSTANCE;
     }
     
-    public boolean addGroup(Grupa g) {
-        if(!groups.contains(g)) {
-            groups.add(g);
+    public boolean dodajGrupu(Grupa g) {
+        if(!grupa.contains(g)) {
+            grupa.add(g);
             return true;
         }
         return false;
     }
     
-    public List<Grupa> getAllGroups() {
-        return groups;
+    public List<Grupa> vratiSveGrupe() {
+        return grupa;
     }
 
-    private void initTestData() {
+    private void inicijalizujTestPodatke() {
         
         List<Kategorija> cl = CategoryCollection.getInstance().getAllCategories();
         
-        Grupa g1 = new Grupa(21, "Kadeti 1. grupa");
+        Grupa g1 = new Grupa(21, "Kadeti 1. grupa", "");
         g1.setKategorija(cl.get(0));
-        Grupa g2 = new Grupa(22, "Kadeti 2. grupa");
+        Grupa g2 = new Grupa(22, "Kadeti 2. grupa", "");
         g2.setKategorija(cl.get(0));
-        Grupa g3 = new Grupa(23, "Juniori 1. grupa");
+        Grupa g3 = new Grupa(23, "Juniori 1. grupa", "");
         g3.setKategorija(cl.get(1));
-        Grupa g4 = new Grupa(24, "Seniori 1. grupa");
+        Grupa g4 = new Grupa(24, "Seniori 1. grupa", "");
         g4.setKategorija(cl.get(2));
         
-        addGroup(g1);
-        addGroup(g2);
-        addGroup(g3);
-        addGroup(g4);
+        dodajGrupu(g1);
+        dodajGrupu(g2);
+        dodajGrupu(g3);
+        dodajGrupu(g4);
     }
 }
