@@ -63,12 +63,16 @@ public class Clanarina {
         this.napomena = napomena;
     }
 
-    public List<Uplata> getUplate() {
+    public List<Uplata> vratiSveUplate() {
         return uplate;
     }
 
-    public void setUplate(List<Uplata> uplate) {
-        this.uplate = uplate;
+    public boolean dodajUplatu(Uplata uplata) {
+        return uplate.add(uplata);
+    }
+    
+    public boolean obrisiUplatu(Uplata uplata) {
+        return uplate.remove(uplata);
     }
 
     @Override

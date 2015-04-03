@@ -28,6 +28,8 @@ public class Prisustvo {
         this.kasnjenjeMin = kasnjenjeMin;
         this.trening = trening;
         this.clan = clan;
+        this.clan.dodajPrisustvo(this);
+        this.trening.dodajPrisustvo(this);
     }
 
     public int getRedniBroj() {
@@ -60,6 +62,7 @@ public class Prisustvo {
 
     public void setTrening(Trening trening) {
         this.trening = trening;
+        this.trening.dodajPrisustvo(this);
     }
 
     public Clan getClan() {
@@ -68,6 +71,7 @@ public class Prisustvo {
 
     public void setClan(Clan clan) {
         this.clan = clan;
+        this.clan.dodajPrisustvo(this);
     }
 
     @Override

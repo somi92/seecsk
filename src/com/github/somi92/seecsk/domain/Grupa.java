@@ -18,19 +18,22 @@ public class Grupa {
     private long idGrupa;
     private String naziv;
     private String napomena;
-    private List<Zaposleni> zaposleni;
+    private List<AngazmanZaposlenog> angazman;
     private List<Clan> clanovi;
+    private List<Trening> treninzi;
     private Kategorija kategorija;
 
     public Grupa() {
-        zaposleni = new ArrayList<>();
+        angazman = new ArrayList<>();
         clanovi = new ArrayList<>();
+        treninzi = new ArrayList<>();
     }
 
-    public Grupa(long idGrupa, String naziv) {
+    public Grupa(long idGrupa, String naziv, String napomena) {
         this();
         this.idGrupa = idGrupa;
         this.naziv = naziv;
+        this.napomena = napomena;
     }
 
     public long getIdGrupa() {
@@ -56,13 +59,53 @@ public class Grupa {
     public void setNapomena(String napomena) {
         this.napomena = napomena;
     }
+
+//    public void setAngazman(List<AngazmanZaposlenog> angazman) {
+//        this.angazman = angazman;
+//    }
     
-    public List<Zaposleni> getZaposleni() {
-        return zaposleni;
+    public boolean dodajAngazman(AngazmanZaposlenog angazman) {
+        return this.angazman.add(angazman);
+    }
+    
+    public List<AngazmanZaposlenog> vratiListuAngazmana() {
+        return angazman;
+    }
+    
+    public boolean obrisiAngazman(AngazmanZaposlenog angazman) {
+         return this.angazman.remove(angazman);
+    }
+    
+//    public void setClanovi(List<Clan> clanovi) {
+//        this.clanovi = clanovi;
+//    }
+    
+    public boolean dodajClana(Clan clan) {
+        return clanovi.add(clan);
+    }
+    
+    public List<Clan> vratiListuClanova() {
+        return clanovi;
+    }
+    
+    public boolean obrisiClana(Clan clan) {
+        return clanovi.remove(clan);
     }
 
-    public void setZaposleni(List<Zaposleni> zaposleni) {
-        this.zaposleni = zaposleni;
+//    public void setTreninzi(List<Trening> treninzi) {
+//        this.treninzi = treninzi;
+//    }
+    
+    public boolean dodajTrening(Trening trening) {
+        return treninzi.add(trening);
+    }
+    
+    public List<Trening> vratiListuTreninga() {
+        return treninzi;
+    }
+    
+    public boolean obrisiTrening(Trening trening) {
+        return treninzi.remove(trening);
     }
     
     public Kategorija getKategorija() {
@@ -71,32 +114,9 @@ public class Grupa {
 
     public void setKategorija(Kategorija kategorija) {
         this.kategorija = kategorija;
-        kategorija.dodajGrupu(this);
+        this.kategorija.dodajGrupu(this);
     }
     
-    public void dodajZaposlenog(Zaposleni zaposleni) {
-        this.zaposleni.add(zaposleni);
-    }
-    
-    public List<Zaposleni> vratiListuZaposlenih() {
-        return zaposleni;
-    }
-    
-    public void obrisiZaposlenog(Zaposleni zaposleni) {
-         this.zaposleni.remove(zaposleni);
-    }
-    
-    public void dodajClana(Clan clan) {
-        clanovi.add(clan);
-    }
-    
-    public List<Clan> vratiListuClanova() {
-        return clanovi;
-    }
-    
-    public void obrisiClana(Clan clan) {
-        clanovi.remove(clan);
-    }
 
     @Override
     public int hashCode() {
@@ -127,5 +147,6 @@ public class Grupa {
     @Override
     public String toString() {
         return naziv;
-    } 
+    }
+    
 }

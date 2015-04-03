@@ -41,6 +41,7 @@ public class Clan {
         this.datumUclanjenja = datumUclanjenja;
         this.napomena = napomena;
         this.grupa = grupa;
+        this.grupa.dodajClana(this);
     }
 
     public long getIdClan() {
@@ -121,22 +122,23 @@ public class Clan {
 
     public void setGrupa(Grupa grupa) {
         this.grupa = grupa;
+        this.grupa.dodajClana(this);
     }
 
-    public List<Uplata> getUplate() {
+    boolean dodajUplatu(Uplata uplata) {
+        return uplate.add(uplata);
+    }
+    
+    public List<Uplata> vratiListuUplata() {
         return uplate;
     }
-
-    public void setUplate(List<Uplata> uplate) {
-        this.uplate = uplate;
+    
+    boolean dodajPrisustvo(Prisustvo prisustvo) {
+        return prisustva.add(prisustvo);
     }
 
-    public List<Prisustvo> getPrisustva() {
+    public List<Prisustvo> vratiListuPrisustva() {
         return prisustva;
-    }
-
-    public void setPrisustva(List<Prisustvo> prisustva) {
-        this.prisustva = prisustva;
     }
 
     @Override

@@ -31,6 +31,7 @@ public class Trening {
         this.trajanjeMin = trajanjeMin;
         this.opisTreninga = opisTreninga;
         this.grupa = grupa;
+        this.grupa.dodajTrening(this);
     }
 
     public long getIdTrening() {
@@ -71,14 +72,19 @@ public class Trening {
 
     public void setGrupa(Grupa grupa) {
         this.grupa = grupa;
+        this.grupa.dodajTrening(this);
     }
 
-    public List<Prisustvo> getPrisustva() {
+    public List<Prisustvo> vratiSvaPrisustva() {
         return prisustva;
     }
 
-    public void setPrisustva(List<Prisustvo> prisustva) {
-        this.prisustva = prisustva;
+    public boolean dodajPrisustvo(Prisustvo prisustvo) {
+        return prisustva.add(prisustvo);
+    }
+    
+    public boolean obrisiPrisustvo(Prisustvo prisustvo) {
+        return prisustva.remove(prisustvo);
     }
 
     @Override

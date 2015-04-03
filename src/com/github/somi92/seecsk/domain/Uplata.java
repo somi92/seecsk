@@ -29,6 +29,8 @@ public class Uplata {
         this.iznos = iznos;
         this.datumUplate = datumUplate;
         this.clan = clan;
+        this.clanarina.dodajUplatu(this);
+        this.clan.dodajUplatu(this);
     }
 
     public Clanarina getClanarina() {
@@ -37,6 +39,7 @@ public class Uplata {
 
     public void setClanarina(Clanarina clanarina) {
         this.clanarina = clanarina;
+        this.clanarina.dodajUplatu(this);
     }
     
     public int getRedniBroj() {
@@ -69,6 +72,7 @@ public class Uplata {
 
     public void setClan(Clan clan) {
         this.clan = clan;
+        this.clan.dodajUplatu(this);
     }
 
     @Override

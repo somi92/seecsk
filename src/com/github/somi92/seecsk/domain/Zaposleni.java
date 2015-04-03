@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,12 +21,14 @@ public class Zaposleni {
     private String korisnickoIme;
     private String sifra;
     private String napomena;
-    private List<AngazmanZaposlenog> angazman;
+    private List<AngazmanZaposlenog> angazmani;
 
     public Zaposleni() {
+        angazmani = new ArrayList<>();
     }
 
-    public Zaposleni(long idZaposleni, String imePrezime, String email, String brojTel, String korisnickoIme, String sifra, String napomena, List<AngazmanZaposlenog> angazman) {
+    public Zaposleni(long idZaposleni, String imePrezime, String email, String brojTel, String korisnickoIme, String sifra, String napomena) {
+        this();
         this.idZaposleni = idZaposleni;
         this.imePrezime = imePrezime;
         this.email = email;
@@ -33,7 +36,6 @@ public class Zaposleni {
         this.korisnickoIme = korisnickoIme;
         this.sifra = sifra;
         this.napomena = napomena;
-        this.angazman = angazman;
     }
 
     public long getIdZaposleni() {
@@ -92,12 +94,12 @@ public class Zaposleni {
         this.napomena = napomena;
     }
 
-    public List<AngazmanZaposlenog> getAngazman() {
-        return angazman;
+    public List<AngazmanZaposlenog> vratiSveAngazmane() {
+        return angazmani;
     }
 
-    public void setAngazman(List<AngazmanZaposlenog> angazman) {
-        this.angazman = angazman;
+    public boolean dodajAngazman(AngazmanZaposlenog angazman) {
+        return angazmani.add(angazman);
     }
 
     @Override

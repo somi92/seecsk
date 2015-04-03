@@ -58,7 +58,7 @@ public class Kategorija {
         grupe.add(grupa);
     }
     
-    public List<Grupa> getGrupe() {
+    public List<Grupa> vratiListuGrupa() {
         return grupe;
     }
     
@@ -91,5 +91,11 @@ public class Kategorija {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Kategorija{" + "idKategorija=" + idKategorija + ", nazivKategorije=" + nazivKategorije + '}';
+    }
+    
     
 }

@@ -24,6 +24,8 @@ public class AngazmanZaposlenog {
         this.grupa = grupa;
         this.zaposleni = zaposleni;
         this.uloga = uloga;
+        this.grupa.dodajAngazman(this);
+        this.zaposleni.dodajAngazman(this);
     }
 
     public Grupa getGrupa() {
@@ -32,6 +34,7 @@ public class AngazmanZaposlenog {
 
     public void setGrupa(Grupa grupa) {
         this.grupa = grupa;
+        this.grupa.dodajAngazman(this);
     }
 
     public Zaposleni getZaposleni() {
@@ -40,6 +43,7 @@ public class AngazmanZaposlenog {
 
     public void setZaposleni(Zaposleni zaposleni) {
         this.zaposleni = zaposleni;
+        this.zaposleni.dodajAngazman(this);
     }
 
     public String getUloga() {
