@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,9 +29,12 @@ public class Clan {
     private List<Prisustvo> prisustva;
 
     public Clan() {
+        uplate = new ArrayList<>();
+        prisustva = new ArrayList<>();
     }
 
     public Clan(String brojLK, String imePrezime, char pol, String email, String brojTel, Date datumRodjenja, Date datumUclanjenja, String napomena) {
+        this();
         this.brojLK = brojLK;
         this.imePrezime = imePrezime;
         this.pol = pol;
@@ -119,7 +123,7 @@ public class Clan {
 
     public void setGrupa(Grupa grupa) {
         this.grupa = grupa;
-        this.grupa.dodajClana(this);
+//        this.grupa.dodajClana(this);
     }
 
     boolean dodajUplatu(Uplata uplata) {

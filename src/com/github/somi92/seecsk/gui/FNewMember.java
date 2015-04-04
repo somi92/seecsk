@@ -10,10 +10,12 @@ import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.model.KolekcijaGrupa;
 import com.github.somi92.seecsk.model.KolekcijaClanova;
+import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.SEECSKOperacije;
 import java.awt.Color;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
@@ -337,7 +339,7 @@ public class FNewMember extends javax.swing.JDialog {
                 parent.azurirajTabelu();
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti člana.");
+//                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti člana.");
             }
         } else {
 //            JOptionPane.showMessageDialog(this, "Podaci nisu validni, pokušajte ponovo.");
@@ -423,7 +425,7 @@ public class FNewMember extends javax.swing.JDialog {
     }
     
     private void initGroupsCombo() {
-        List<Grupa> groups = KolekcijaGrupa.vratiInstancu().vratiSveGrupe();
+        List<Grupa> groups = KontrolerPL.vratiListuGrupa();
         for(Grupa g : groups) {
             jcmbGroup.addItem(g);
         }
@@ -464,7 +466,7 @@ public class FNewMember extends javax.swing.JDialog {
             setTitle("SEECSK - Detalji i izmena člana");
             jbtnSave.setText("Izmeni");
         } else {
-            memberId = KolekcijaClanova.vratiInstancu().vratiBrojac();
+            memberId = KontrolerPL.vratiBrojacEntiteta(Clan.class)+1;
             setTitle("SEECSK - Unos novog člana");
             jbtnSave.setText("Sačuvaj");
         }

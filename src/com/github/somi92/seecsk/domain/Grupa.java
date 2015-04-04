@@ -114,7 +114,7 @@ public class Grupa {
 
     public void setKategorija(Kategorija kategorija) {
         this.kategorija = kategorija;
-        this.kategorija.dodajGrupu(this);
+//        this.kategorija.dodajGrupu(this);
     }
     
 

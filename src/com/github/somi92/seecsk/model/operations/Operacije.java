@@ -6,7 +6,7 @@
 package com.github.somi92.seecsk.model.operations;
 
 import com.github.somi92.seecsk.domain.Clan;
-import com.github.somi92.seecsk.model.KolekcijaClanova;
+import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 
 /**
  *
@@ -15,12 +15,12 @@ import com.github.somi92.seecsk.model.KolekcijaClanova;
 public class Operacije {
     
     public boolean sacuvajClana(Clan clan) {
-        KolekcijaClanova.vratiInstancu().dodajClana(clan);
-        return true;
+//        KolekcijaClanova.vratiInstancu().dodajClana(clan);
+        return KontrolerPL.sacuvajClana(clan);
     }
     
     public boolean azurirajClana(Clan clan) {
-        KolekcijaClanova.vratiInstancu().izmeniClana(clan);
-        return true;
+//        KolekcijaClanova.vratiInstancu().izmeniClana(clan);
+        return KontrolerPL.azurirajClana(clan);
     }
 }

@@ -7,16 +7,16 @@ package com.github.somi92.seecsk.data;
 
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
+import com.github.somi92.seecsk.domain.Kategorija;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -35,7 +35,7 @@ public class DBBroker {
     public void otvoriBazuPodataka() {
         try {
             ucitajDrajver();
-            konekcija = DriverManager.getConnection("jdbc:mysql://"+hostPort+"/"+bazaPodataka, user, password);
+            konekcija = DriverManager.getConnection("jdbc:mysql://"+hostPort+"/"+bazaPodataka+"?useUnicode=yes&characterEncoding=UTF-8", user, password);
             System.out.println("Uspostavljenja veza sa bazom podataka: " + hostPort + "/"+bazaPodataka);
             konekcija.setAutoCommit(false);
         } catch (ClassNotFoundException ex) {
@@ -73,6 +73,24 @@ public class DBBroker {
         Class.forName(drajverBaze);
     }
     
+    public long vratiBrojacEntiteta(Class c) {
+        long brojac = 0;
+        try {
+            String klasa = c.getSimpleName();
+            Statement stm = konekcija.createStatement();
+            String upit = "select count(id"+klasa+") as brojac from "+klasa+";";
+            ResultSet rs = stm.executeQuery(upit);
+            while(rs.next()) {
+                brojac = rs.getLong("brojac");
+            }
+            rs.close();
+            stm.close();
+        } catch (SQLException ex) {
+            System.out.println("Greska u radu sa bazom, ne moze se vratiti brojac: " + ex.getMessage());
+        }
+        return brojac;
+    }
+    
     public List<Clan> vratiListuClanova() {
         List<Clan> clanovi = new ArrayList<>();
         try {
@@ -98,9 +116,85 @@ public class DBBroker {
                 
                 clanovi.add(clan);
             }
+            rs.close();
+            stm.close();
         } catch (SQLException ex) {
             System.out.println("Greska u radu sa bazom, ne moze se vratiti lista clanova: " + ex.getMessage());
         }
         return clanovi;
+    }
+    
+    public List<Grupa> vratiListuGrupa() {
+        List<Grupa> grupe = new ArrayList<>();
+        try {
+            Statement stm = konekcija.createStatement();
+            String upit = "select idGrupa, Grupa.naziv as grupaNaziv, Grupa.napomena as grupaNapomena, "
+                    + "idKategorija, Kategorija.naziv as kategorijaNaziv, Kategorija.napomena as kategorijaNapomena "
+                    + "from Grupa join Kategorija using(idKategorija);";
+            ResultSet rs = stm.executeQuery(upit);
+            while(rs.next()) {
+                Kategorija k = new Kategorija();
+                k.setIdKategorija(rs.getLong("idKategorija"));
+                k.setNazivKategorije(rs.getString("kategorijaNaziv"));
+                k.setNapomena(rs.getString("kategorijaNapomena"));
+                Grupa g = new Grupa();
+                g.setIdGrupa(rs.getLong("idGrupa"));
+                g.setNaziv(rs.getString("grupaNaziv"));
+                g.setNapomena(rs.getString("grupaNapomena"));
+                g.setKategorija(k);
+                grupe.add(g);
+            }
+            rs.close();
+            stm.close();
+        } catch (SQLException ex) {
+            System.out.println("Greska u radu sa bazom, ne moze se vratiti lista grupa: " + ex.getMessage());
+        }
+        return grupe;
+    }
+    
+    public void sacuvajClana(Clan clan) throws SQLException {
+        String upit = "insert into Clan values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        PreparedStatement ps = konekcija.prepareStatement(upit);
+        ps.setLong(1, clan.getIdClan());
+        ps.setString(2, clan.getBrojLK());
+        ps.setString(3, clan.getImePrezime());
+        ps.setString(4, clan.getPol()+"");
+        ps.setString(5, clan.getEmail());
+        ps.setString(6, clan.getBrojTel());
+        ps.setDate(7, new java.sql.Date(clan.getDatumRodjenja().getTime()));
+        ps.setDate(8, new java.sql.Date(clan.getDatumUclanjenja().getTime()));
+        ps.setString(9, clan.getNapomena());
+        ps.setLong(10, clan.getGrupa().getIdGrupa());
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void azurirajClana(Clan clan) throws SQLException {
+        String upit = "update Clan set"
+                + " idClan=?, brojLK=?, imePrezime=?, pol=?, email=?,"
+                + " brojTel=?, datumRodjenja=?, datumUclanjenja=?, napomena=?, idGrupa=?"
+                + " where idClan=?;";
+        PreparedStatement ps = konekcija.prepareStatement(upit);
+        ps.setLong(1, clan.getIdClan());
+        ps.setString(2, clan.getBrojLK());
+        ps.setString(3, clan.getImePrezime());
+        ps.setString(4, clan.getPol()+"");
+        ps.setString(5, clan.getEmail());
+        ps.setString(6, clan.getBrojTel());
+        ps.setDate(7, new java.sql.Date(clan.getDatumRodjenja().getTime()));
+        ps.setDate(8, new java.sql.Date(clan.getDatumUclanjenja().getTime()));
+        ps.setString(9, clan.getNapomena());
+        ps.setLong(10, clan.getGrupa().getIdGrupa());
+        ps.setLong(11, clan.getIdClan());
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void obrisiClana(Clan clan) throws SQLException {
+        String upit = "delete from Clan where idClan=?;";
+        PreparedStatement ps = konekcija.prepareStatement(upit);
+        ps.setLong(1, clan.getIdClan());
+        ps.execute();
+        ps.close();
     }
 }

@@ -22,6 +22,10 @@ public class ClanoviTableModel extends AbstractTableModel {
     public ClanoviTableModel(List<Clan> clanovi) {
         this.clanovi = clanovi;
     }
+    
+    public List<Clan> vratiClanoveTabele() {
+        return clanovi;
+    }
 
     @Override
     public String getColumnName(int column) {

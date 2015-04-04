@@ -5,6 +5,9 @@
  */
 package com.github.somi92.seecsk.gui;
 
+import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.model.controllers.KontrolerPL;
+
 /**
  *
  * @author milos
@@ -128,7 +131,7 @@ public class FMainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnAttendanceActionPerformed
 
     private void jbtnMembershipFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembershipFeeActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jbtnMembershipFeeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

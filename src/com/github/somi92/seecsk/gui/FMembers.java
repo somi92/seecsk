@@ -231,8 +231,11 @@ public class FMembers extends javax.swing.JFrame {
         } else {
             int response = JOptionPane.showConfirmDialog(this, "Jeste li sigurni da želite izbrisati izabranog člana?", "Potvrdite izbor", JOptionPane.OK_CANCEL_OPTION);
             if(response == JOptionPane.OK_OPTION) {
-                KolekcijaClanova.vratiInstancu().obrisiClana(row);
-                azurirajTabelu();
+//                KolekcijaClanova.vratiInstancu().obrisiClana(row);
+                boolean res = KontrolerPL.obrisiClana(clanoviTableModel.vratiClanoveTabele().get(row));
+                if(res) {
+                    azurirajTabelu();
+                }
             }
         }
     }//GEN-LAST:event_jbtnDeleteActionPerformed
@@ -255,7 +258,9 @@ public class FMembers extends javax.swing.JFrame {
     private javax.swing.JTable jtblMembers;
     private javax.swing.JTextField jtxtfFilter;
     // End of variables declaration//GEN-END:variables
-
+    
+    private ClanoviTableModel clanoviTableModel;
+    
     public void azurirajTabelu() {
 //        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
         List<Clan> lc = KontrolerPL.vratiListuClanova();
@@ -263,14 +268,14 @@ public class FMembers extends javax.swing.JFrame {
     }
     
     public void azurirajTabelu(List<Clan> lc) {
-        TableModel tm = new ClanoviTableModel(lc);
-        jtblMembers.setModel(tm);
+        clanoviTableModel = new ClanoviTableModel(lc);
+        jtblMembers.setModel(clanoviTableModel);
     }
 
     private void filterSearch(String criteria) {
         String filter = criteria.toUpperCase();
 //        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
-         List<Clan> sourceList = KontrolerPL.vratiListuClanova();
+        List<Clan> sourceList = KontrolerPL.vratiListuClanova();
         List<Clan> resultList = new ArrayList<>();
         
         if(jcmbCriteria.getSelectedItem().toString().contains("Broj LK")) {
