@@ -19,7 +19,16 @@ public class ClanoviTableModel extends AbstractTableModel {
     
     private List<Clan> clanovi;
     
+    public ClanoviTableModel() {
+        
+    }
+    
     public ClanoviTableModel(List<Clan> clanovi) {
+        this();
+        this.clanovi = clanovi;
+    }
+    
+    public void postaviClanoveTabele(List<Clan> clanovi) {
         this.clanovi = clanovi;
     }
     

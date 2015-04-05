@@ -218,7 +218,7 @@ public class FMembers extends javax.swing.JFrame {
         } else {
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new AzurirajOperacija(new Operacije()));
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, 
-                    KontrolerPL.vratiListuClanova().get(row));
+                    clanoviTableModel.vratiClanoveTabele().get(row));
             FNewMember fNew = new FNewMember(this, true);
             fNew.setVisible(true);
         }
