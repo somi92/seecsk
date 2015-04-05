@@ -5,8 +5,6 @@
  */
 package com.github.somi92.seecsk.main;
 
-import com.github.somi92.seecsk.domain.Grupa;
-import com.github.somi92.seecsk.domain.Kategorija;
 import com.github.somi92.seecsk.gui.FMainForm;
 
 /**
