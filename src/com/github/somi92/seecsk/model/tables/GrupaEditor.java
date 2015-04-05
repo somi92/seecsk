@@ -6,16 +6,19 @@
 package com.github.somi92.seecsk.model.tables;
 
 import com.github.somi92.seecsk.domain.Grupa;
+import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableCellEditor;
 
 /**
@@ -47,16 +50,26 @@ public class GrupaEditor extends AbstractCellEditor implements TableCellEditor {
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 //        JTextField txtField1 = new JTextField();
 //        JTextField txtField2 = new JTextField();
-        JPanel panel = new JPanel();
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel textFieldPanel = new JPanel(new BorderLayout());
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
         JButton btn = new JButton("Dugme");
+        
         s1 = ((Grupa) value).getIdGrupa()+"";
         s2 = ((Grupa) value).getNaziv();
         txtField1.setText(s1);
         txtField2.setText(s2);
-        txtField1.setSize(50, 20);
-        panel.add(txtField1);
-        panel.add(txtField2);
-        panel.add(btn);
+        txtField1.setPreferredSize(new Dimension(30, 20));
+        txtField2.setPreferredSize(new Dimension(100, 20));
+        btn.setPreferredSize(new Dimension(120, 20));
+        
+        textFieldPanel.add(txtField1, BorderLayout.WEST);
+        textFieldPanel.add(txtField2, BorderLayout.EAST);
+        buttonPanel.add(btn);
+        
+        mainPanel.add(textFieldPanel, BorderLayout.NORTH);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5) );
         btn.addActionListener(null);
         btn.addActionListener(new ActionListener() {
 
@@ -67,7 +80,7 @@ public class GrupaEditor extends AbstractCellEditor implements TableCellEditor {
                 
             }
         });
-        return panel;
+        return mainPanel;
     }
     
 }
