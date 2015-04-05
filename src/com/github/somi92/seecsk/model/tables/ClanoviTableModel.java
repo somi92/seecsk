@@ -6,9 +6,14 @@
 package com.github.somi92.seecsk.model.tables;
 
 import com.github.somi92.seecsk.domain.Clan;
-import java.lang.reflect.Member;
+import com.github.somi92.seecsk.domain.Grupa;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -55,6 +60,8 @@ public class ClanoviTableModel extends AbstractTableModel {
                 return "Datum učlanjenja";
             case 7:
                 return "Grupa";
+            case 8:
+                return "Napomena";
             default:
                 return "Greška";
         }
@@ -67,7 +74,7 @@ public class ClanoviTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 8;
+        return 9;
     }
 
     @Override
@@ -90,9 +97,64 @@ public class ClanoviTableModel extends AbstractTableModel {
                 return new SimpleDateFormat("dd/MM/yyyy").format(c.getDatumUclanjenja().getTime());
             case 7:
                 return c.getGrupa();
+            case 8:
+                return c.getNapomena();
             default:
                 return "Greška";
         }
     }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        try {
+            Clan c = clanovi.get(rowIndex);
+            switch(columnIndex) {
+                case 0:
+                    c.setIdClan(Long.parseLong(aValue.toString()));
+                    break;
+                case 1:
+                    c.setBrojLK(aValue.toString());
+                    break;
+                case 2:
+                    c.setImePrezime(aValue.toString());
+                    break;
+                case 3:
+                    c.setEmail(aValue.toString());
+                    break;
+                case 4:
+                    c.setBrojTel(aValue.toString());
+                    break;
+                case 5:
+                    DateFormat df1 = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date1 = df1.parse(aValue.toString());
+                    c.setDatumRodjenja(date1);
+                    break;
+                case 6:
+                    DateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date2 = df2.parse(aValue.toString());
+                    c.setDatumUclanjenja(date2);
+                    break;
+                case 7:
+                    c.setGrupa((Grupa) aValue);
+                    break;
+                case 8:
+                    c.setNapomena(aValue.toString());
+                    break;
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(ClanoviTableModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if(columnIndex == 1 || columnIndex == 2 || columnIndex == 3 || columnIndex == 4 ||
+                columnIndex == 5 || columnIndex == 6 || columnIndex == 7 || columnIndex == 8) {
+            return true;
+        }
+        return false;
+    }
+    
+    
     
 }

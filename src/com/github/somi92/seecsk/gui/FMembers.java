@@ -7,18 +7,20 @@ package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
-import com.github.somi92.seecsk.model.KolekcijaClanova;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Operacije;
 import com.github.somi92.seecsk.model.operations.SacuvajOperacija;
 import com.github.somi92.seecsk.model.operations.AzurirajOperacija;
 import com.github.somi92.seecsk.model.tables.ClanoviTableModel;
+import com.github.somi92.seecsk.model.tables.GrupaEditor;
+import com.github.somi92.seecsk.model.tables.GrupaRenderer;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.TableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -265,6 +267,13 @@ public class FMembers extends javax.swing.JFrame {
 //        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
         List<Clan> lc = KontrolerPL.vratiListuClanova();
         azurirajTabelu(lc);
+        
+        jtblMembers.setRowHeight(60);
+        
+        TableColumnModel tcm = jtblMembers.getColumnModel();
+        TableColumn tc = tcm.getColumn(7);
+        tc.setCellRenderer(new GrupaRenderer());
+        tc.setCellEditor(new GrupaEditor());
     }
     
     public void azurirajTabelu(List<Clan> lc) {
