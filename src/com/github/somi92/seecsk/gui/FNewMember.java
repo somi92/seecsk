@@ -330,13 +330,13 @@ public class FNewMember extends javax.swing.JDialog {
             clan.setIdClan(memberId);
             clan.setGrupa(grupa);
 //            boolean res = operacije.izvrsiOperaciju(clan);
-            boolean res = KontrolerPL.sacuvajClana(clan);
+            boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan);
             if(res) {
                 JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
                 parent.azurirajTabelu();
                 dispose();
             } else {
-//                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti člana.");
+                JOptionPane.showMessageDialog(this, "Sistem ne može da sačuva člana.", "Greška", JOptionPane.ERROR_MESSAGE);
             }
         } else {
 //            JOptionPane.showMessageDialog(this, "Podaci nisu validni, pokušajte ponovo.");

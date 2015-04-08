@@ -10,9 +10,6 @@ import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -38,11 +35,7 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
 
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
-        try {
-            dbbroker.sacuvajClana(clan);
-        } catch (SQLException ex) {
-            throw new SOException();
-        }
+        dbbroker.sacuvajIliAzurirajEntitet(clan);
     }
 
     @Override

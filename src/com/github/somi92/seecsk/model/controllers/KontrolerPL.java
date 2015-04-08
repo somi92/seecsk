@@ -8,8 +8,12 @@ package com.github.somi92.seecsk.model.controllers;
 import com.github.somi92.seecsk.data.DBBroker;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
+import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
+import com.github.somi92.seecsk.model.operations.clan.SOZapamtiClana;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,7 +55,6 @@ public class KontrolerPL {
             return true;
         } catch (SQLException ex) {
             dbbroker.rollback();
-            JOptionPane.showMessageDialog(null, "Sistem ne može da sačuva člana.", "Greška", JOptionPane.ERROR_MESSAGE);
             System.out.println("Greska: " + ex.getMessage());
             return false;
         } finally {
@@ -90,6 +93,17 @@ public class KontrolerPL {
             return false;
         } finally {
             dbbroker.zatvoriBazuPodataka();
+        }
+    }
+    
+    public static boolean sacuvajIliAzurirajClana(Clan clan) {
+        try {
+            ApstraktnaSistemskaOperacija aso = new SOZapamtiClana(clan);
+            aso.izvrsiSistemskuOperaciju();
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
         }
     }
 }

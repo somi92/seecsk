@@ -5,6 +5,8 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import com.github.somi92.seecsk.data.IEntitetBazePodataka;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.List;
  *
  * @author milos
  */
-public class Clan {
+public class Clan implements IEntitetBazePodataka {
     
     private long idClan;
     private String brojLK;
@@ -168,6 +170,28 @@ public class Clan {
     public String toString() {
         return "Clan{" + "idClan=" + idClan + ", imePrezime=" + imePrezime + '}';
     }
+
+    @Override
+    public String vratiNazivTabele() {
+        return "Clan";
+    }
     
-    
+    @Override
+    public String[] vratiNaziveKolona() {
+        String [] naziviKolona = {"idClan","brojLK","imePrezime","pol","email","brojTel",
+                        "datumRodjenja","datumUclanjenja","napomena","idGrupa"};
+        return naziviKolona;
+    }
+
+    @Override
+    public Object[] vratiVrednostiKolona() {
+        String sDatumRodjenja = new SimpleDateFormat("yyyy-MM-dd").format(datumRodjenja);
+        String sDatumUclanjenja = new SimpleDateFormat("yyyy-MM-dd").format(datumUclanjenja);
+//        return idClan+", '"+brojLK +"', '"+imePrezime+"', '"+pol+"', '"+email+"', '"+brojTel+"', '"
+//                +sDatumRodjenja+"', '"+sDatumUclanjenja+"', '"+napomena+"', "+grupa.getIdGrupa()+";";
+        Object[] kolone = {idClan, brojLK, imePrezime, pol, email, brojTel, 
+            sDatumRodjenja, sDatumUclanjenja, napomena, grupa.getIdGrupa()};
+        
+        return kolone;
+    }  
 }

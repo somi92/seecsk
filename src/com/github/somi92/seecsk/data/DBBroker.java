@@ -17,6 +17,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -196,5 +198,62 @@ public class DBBroker {
         ps.setLong(1, clan.getIdClan());
         ps.execute();
         ps.close();
+    }
+    
+    public void sacuvajIliAzurirajEntitet(IEntitetBazePodataka ebp) throws SQLException {
+        PreparedStatement ps = pripremiPSUpit(ebp);
+        
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    private PreparedStatement pripremiPSUpit(IEntitetBazePodataka ebp) throws SQLException {
+        Object[] kolone = ebp.vratiVrednostiKolona();
+        String parametri = "";
+        for(int i=0; i<kolone.length; i++) {
+            if(i == kolone.length-1) {
+                parametri += "?";
+            } else {
+                parametri += "?,";
+            }
+        }
+        String upit = "insert into "+ebp.vratiNazivTabele()+" values ("+parametri+");";
+        PreparedStatement ps = konekcija.prepareStatement(upit);
+        
+        for(int i=0; i<kolone.length; i++) {
+                String klasa = kolone[i].getClass().getName();
+                
+                switch(klasa) {
+                    case "Integer":
+                        ps.setInt(i+1, (int) kolone[i]);
+                        break;
+                    case "String":
+                        ps.setString(i+1, (String) kolone[i]);
+                        break;
+                    case "Long":
+                        ps.setLong(i+1, (long) kolone[i]);
+                        break;
+                    case "Float":
+                        ps.setFloat(i+1, (float) kolone[i]);
+                        break;
+                    case "Double":
+                        ps.setDouble(i+1, (double) kolone[i]);
+                        break;
+                    case "Boolean":
+                        ps.setBoolean(i+1, (boolean) kolone[i]);
+                        break;
+                    case "Date":
+                        ps.setDate(i+1, (java.sql.Date) kolone[i]);
+                        break;
+                    default:
+                        ps.setString(i+1, kolone[i].toString());
+                }
+        }
+        return ps;
+    }
+    
+    private IEntitetBazePodataka ucitajEntitet(IEntitetBazePodataka ebp) {
+//        String upit = "select "
+        return null;
     }
 }
