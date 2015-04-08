@@ -8,14 +8,10 @@ package com.github.somi92.seecsk.gui;
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
-import com.github.somi92.seecsk.model.KolekcijaGrupa;
-import com.github.somi92.seecsk.model.KolekcijaClanova;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
-import com.github.somi92.seecsk.model.operations.SEECSKOperacije;
 import java.awt.Color;
 import java.util.Calendar;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
@@ -35,7 +31,7 @@ public class FNewMember extends javax.swing.JDialog {
     public FNewMember(FMembers parent, boolean modal) {
         super(parent, modal);
         this.parent = parent;
-        this.operacije = (SEECSKOperacije) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN_OPERACIJA);
+//        this.operacije = (ApstraktnaSistemskaOperacija) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN_OPERACIJA);
         initComponents();
         initForm((Clan) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN));
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, null);
@@ -333,7 +329,8 @@ public class FNewMember extends javax.swing.JDialog {
             Clan clan = new Clan(idClana, imePrezime, pol, email, brojTel, datumRodjenja.getTime(), datumUclanjenja.getTime(), napomena);
             clan.setIdClan(memberId);
             clan.setGrupa(grupa);
-            boolean res = operacije.izvrsiOperaciju(clan);
+//            boolean res = operacije.izvrsiOperaciju(clan);
+            boolean res = KontrolerPL.sacuvajClana(clan);
             if(res) {
                 JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
                 parent.azurirajTabelu();
@@ -387,7 +384,7 @@ public class FNewMember extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private Border errorBorder;
     private Border defaultBorder;
-    private SEECSKOperacije operacije;
+//    private ApstraktnaSistemskaOperacija operacije;
     
     private void initBorders() {
         defaultBorder = jtxtFirstLastName.getBorder();
@@ -461,11 +458,12 @@ public class FNewMember extends javax.swing.JDialog {
             jdccMembershipDate.setSelectedDate(dom);
             jcmbGroup.setSelectedItem(clan.getGrupa());
             jtxtaRemark.setText(clan.getNapomena());
-        }
-        if(operacije.vratiImeOperacije().contains("Izmeni")) {
+            
             setTitle("SEECSK - Detalji i izmena člana");
             jbtnSave.setText("Izmeni");
+            
         } else {
+            
             memberId = KontrolerPL.vratiBrojacEntiteta(Clan.class)+1;
             setTitle("SEECSK - Unos novog člana");
             jbtnSave.setText("Sačuvaj");

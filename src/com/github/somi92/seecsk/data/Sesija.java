@@ -14,8 +14,8 @@ import java.util.Map;
  */
 public class Sesija {
     
-    public static final String CLAN_OPERACIJA = "member_operation";
-    public static final String CLAN = "member";
+    public static final String CLAN_OPERACIJA = "clan_operacija";
+    public static final String CLAN = "clan";
     
     private static Sesija INSTANCE;
     private Map<String, Object> mapaSesije;

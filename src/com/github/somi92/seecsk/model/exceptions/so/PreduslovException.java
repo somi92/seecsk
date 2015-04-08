@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.model.operations;
+package com.github.somi92.seecsk.model.exceptions.so;
 
 /**
  *
  * @author milos
  */
-public interface SEECSKOperacije {
+public class PreduslovException extends Exception {
     
-    public String vratiImeOperacije();
-    public boolean izvrsiOperaciju(Object o);
 }

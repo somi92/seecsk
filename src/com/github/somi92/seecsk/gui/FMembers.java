@@ -7,18 +7,13 @@ package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
-import com.github.somi92.seecsk.model.KolekcijaClanova;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
-import com.github.somi92.seecsk.model.operations.Operacije;
-import com.github.somi92.seecsk.model.operations.SacuvajOperacija;
-import com.github.somi92.seecsk.model.operations.AzurirajOperacija;
 import com.github.somi92.seecsk.model.tables.ClanoviTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -205,7 +200,7 @@ public class FMembers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNewActionPerformed
-        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new SacuvajOperacija(new Operacije()));
+//        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new SacuvajOperacija(new Operacije()));
         FNewMember fNew = new FNewMember(this, true);
         fNew.setVisible(true);
         System.out.println("RETURN");
@@ -216,7 +211,7 @@ public class FMembers extends javax.swing.JFrame {
         if(row == -1) {
             JOptionPane.showMessageDialog(this, "Niste selektovali člana.");
         } else {
-            Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new AzurirajOperacija(new Operacije()));
+//            Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new AzurirajOperacija(new Operacije()));
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, 
                     clanoviTableModel.vratiClanoveTabele().get(row));
             FNewMember fNew = new FNewMember(this, true);
