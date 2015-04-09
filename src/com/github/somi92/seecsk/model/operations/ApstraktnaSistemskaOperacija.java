@@ -5,7 +5,7 @@
  */
 package com.github.somi92.seecsk.model.operations;
 
-import com.github.somi92.seecsk.data.DBBroker;
+import com.github.somi92.seecsk.data.dbbroker.DBBroker;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;

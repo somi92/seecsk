@@ -5,7 +5,7 @@
  */
 package com.github.somi92.seecsk.model.controllers;
 
-import com.github.somi92.seecsk.data.DBBroker;
+import com.github.somi92.seecsk.data.dbbroker.DBBroker;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;

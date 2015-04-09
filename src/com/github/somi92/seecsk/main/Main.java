@@ -5,9 +5,13 @@
  */
 package com.github.somi92.seecsk.main;
 
+import com.github.somi92.seecsk.data.IEntitetBazePodataka;
+import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.gui.FMainForm;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,15 +26,5 @@ public class Main {
                 new FMainForm().setVisible(true);
             }
         });
-        
-        String a = "STRING";
-//        boolean a = true;
-//        float a = 25;
-        Date ud = new Date();
-        java.sql.Date sd = new java.sql.Date(new GregorianCalendar().getTimeInMillis());
-        Object o = sd;
-        
-        System.out.println(o.getClass().getSimpleName());
-        System.out.println((Date) o);
     }
 }

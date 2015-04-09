@@ -6,10 +6,14 @@
 package com.github.somi92.seecsk.domain;
 
 import com.github.somi92.seecsk.data.IEntitetBazePodataka;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -187,11 +191,36 @@ public class Clan implements IEntitetBazePodataka {
     public Object[] vratiVrednostiKolona() {
         String sDatumRodjenja = new SimpleDateFormat("yyyy-MM-dd").format(datumRodjenja);
         String sDatumUclanjenja = new SimpleDateFormat("yyyy-MM-dd").format(datumUclanjenja);
-//        return idClan+", '"+brojLK +"', '"+imePrezime+"', '"+pol+"', '"+email+"', '"+brojTel+"', '"
-//                +sDatumRodjenja+"', '"+sDatumUclanjenja+"', '"+napomena+"', "+grupa.getIdGrupa()+";";
         Object[] kolone = {idClan, brojLK, imePrezime, pol, email, brojTel, 
             sDatumRodjenja, sDatumUclanjenja, napomena, grupa.getIdGrupa()};
         
         return kolone;
     }  
+
+    @Override
+    public String vratiIdKolonu() {
+        return "idClan";
+    }
+
+    @Override
+    public IEntitetBazePodataka vratiEntitet(Object[] vrednostiKolona) {
+        try {
+            Clan c = new Clan();
+            c.setIdClan((long)vrednostiKolona[0]);
+            c.setBrojLK((String)vrednostiKolona[1]);
+            c.setImePrezime((String)vrednostiKolona[2]);
+            c.setPol(((String)vrednostiKolona[3]).toCharArray()[0]);
+            c.setEmail((String)vrednostiKolona[4]);
+            c.setBrojTel((String)vrednostiKolona[5]);
+            c.setDatumRodjenja(new SimpleDateFormat("yyyy-MM-dd").parse((String)vrednostiKolona[6]));
+            c.setDatumRodjenja(new SimpleDateFormat("yyyy-MM-dd").parse((String)vrednostiKolona[7]));
+            c.setNapomena((String)vrednostiKolona[8]);
+            return c;
+        } catch (ParseException ex) {
+            
+        }
+        return null;
+    }
+
+    
 }

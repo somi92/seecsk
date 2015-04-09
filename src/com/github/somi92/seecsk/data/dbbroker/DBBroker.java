@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.data;
+package com.github.somi92.seecsk.data.dbbroker;
 
+import com.github.somi92.seecsk.data.IEntitetBazePodataka;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.domain.Kategorija;
@@ -17,8 +18,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -201,25 +200,25 @@ public class DBBroker {
     }
     
     public void sacuvajIliAzurirajEntitet(IEntitetBazePodataka ebp) throws SQLException {
-        PreparedStatement ps = pripremiPSUpit(ebp);
-        
+        IEntitetBazePodataka entitet = ucitajEntitet(ebp);
+        String upit = "";
+        IUpitBazePodataka upitGenerator = null;
+        if(entitet != null) {
+            // azuriraj
+            upitGenerator = UpitFactory.vratiUpit(UpitFactory.TIP_UPDATE_UPIT);
+        } else {
+            // ubaci
+            upitGenerator = UpitFactory.vratiUpit(UpitFactory.TIP_INSERT_UPIT);
+        }
+        upit = upitGenerator.generisiUpit(ebp);
+        PreparedStatement ps = pripremiPSUpit(ebp, upit);
         ps.executeUpdate();
         ps.close();
     }
     
-    private PreparedStatement pripremiPSUpit(IEntitetBazePodataka ebp) throws SQLException {
+    private PreparedStatement pripremiPSUpit(IEntitetBazePodataka ebp, String upit) throws SQLException {
         Object[] kolone = ebp.vratiVrednostiKolona();
-        String parametri = "";
-        for(int i=0; i<kolone.length; i++) {
-            if(i == kolone.length-1) {
-                parametri += "?";
-            } else {
-                parametri += "?,";
-            }
-        }
-        String upit = "insert into "+ebp.vratiNazivTabele()+" values ("+parametri+");";
         PreparedStatement ps = konekcija.prepareStatement(upit);
-        
         for(int i=0; i<kolone.length; i++) {
                 String klasa = kolone[i].getClass().getName();
                 
@@ -252,8 +251,61 @@ public class DBBroker {
         return ps;
     }
     
-    private IEntitetBazePodataka ucitajEntitet(IEntitetBazePodataka ebp) {
-//        String upit = "select "
-        return null;
+    private IEntitetBazePodataka ucitajEntitet(IEntitetBazePodataka ebp) throws SQLException {
+        
+        String[] naziviKolona = ebp.vratiNaziveKolona();
+        String kolone = "";
+        for(int i=0; i<naziviKolona.length; i++) {
+            if(i == naziviKolona.length-1) {
+                kolone += naziviKolona[i];
+            } else {
+                kolone += naziviKolona[i]+",";
+            }
+        }
+        String upit = "select "+kolone+" from "+ebp.vratiNazivTabele()+
+                " where "+ebp.vratiIdKolonu()+"=? ;";
+        PreparedStatement ps = konekcija.prepareStatement(upit);
+        ps.setLong(1, (long) ebp.vratiVrednostiKolona()[0]);
+        
+        ResultSet rs = ps.executeQuery();
+        Object[] k = ebp.vratiVrednostiKolona();
+        IEntitetBazePodataka noviEbp = null;
+        while(rs.next()) {
+            Object[] vrednostiKolona = new Object[k.length];
+            for(int i=0; i<k.length; i++) {
+                String klasa = k[i].getClass().getSimpleName();
+                
+                switch(klasa) {
+                    case "Integer":
+                        vrednostiKolona[i] = rs.getInt(naziviKolona[i]);
+                        break;
+                    case "String":
+                        vrednostiKolona[i] = rs.getString(naziviKolona[i]);
+                        break;
+                    case "Long":
+                        vrednostiKolona[i] = rs.getLong(naziviKolona[i]);
+                        break;
+                    case "Float":
+                        vrednostiKolona[i] = rs.getFloat(naziviKolona[i]);
+                        break;
+                    case "Double":
+                        vrednostiKolona[i] = rs.getDouble(naziviKolona[i]);
+                        break;
+                    case "Boolean":
+                        vrednostiKolona[i] = rs.getBoolean(naziviKolona[i]);
+                        break;
+                    case "Date":
+                        vrednostiKolona[i] = rs.getDate(naziviKolona[i]).getTime();
+                        break;
+                    default:
+                        vrednostiKolona[i] = rs.getString(naziviKolona[i]);
+                }
+            }
+            noviEbp = ebp.vratiEntitet(vrednostiKolona);
+        }
+        ps.close();
+        rs.close();
+        
+        return noviEbp;
     }
 }

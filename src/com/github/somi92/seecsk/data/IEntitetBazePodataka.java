@@ -5,6 +5,8 @@
  */
 package com.github.somi92.seecsk.data;
 
+import java.util.HashMap;
+
 /**
  *
  * @author milos
@@ -14,5 +16,6 @@ public interface IEntitetBazePodataka {
     public String vratiNazivTabele();
     public String[] vratiNaziveKolona();
     public Object[] vratiVrednostiKolona();
-    
+    public String vratiIdKolonu();
+    public IEntitetBazePodataka vratiEntitet(Object[] vrednostiKolona);
 }
