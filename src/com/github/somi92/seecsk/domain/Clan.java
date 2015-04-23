@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -181,21 +179,22 @@ public class Clan implements IEntitetBazePodataka {
     }
     
     @Override
-    public String[] vratiNaziveKolona() {
-        String [] naziviKolona = {"idClan","brojLK","imePrezime","pol","email","brojTel",
-                        "datumRodjenja","datumUclanjenja","napomena","idGrupa"};
-        return naziviKolona;
-    }
-
-    @Override
-    public Object[] vratiVrednostiKolona() {
+    public HashMap<String, Object> vratiKolone() {
+        HashMap<String, Object> kolone = new HashMap<>();
+        kolone.put("idClan", idClan);
+        kolone.put("brojLK", brojLK);
+        kolone.put("imePrezime", imePrezime);
+        kolone.put("pol", pol);
+        kolone.put("email", email);
+        kolone.put("brojTel", brojTel);
         String sDatumRodjenja = new SimpleDateFormat("yyyy-MM-dd").format(datumRodjenja);
+        kolone.put("datumRodjenja", sDatumRodjenja);
         String sDatumUclanjenja = new SimpleDateFormat("yyyy-MM-dd").format(datumUclanjenja);
-        Object[] kolone = {idClan, brojLK, imePrezime, pol, email, brojTel, 
-            sDatumRodjenja, sDatumUclanjenja, napomena, grupa.getIdGrupa()};
-        
+        kolone.put("datumUclanjenja", sDatumUclanjenja);
+        kolone.put("napomena", napomena);
+        kolone.put("idGrupa", grupa.getIdGrupa());
         return kolone;
-    }  
+    } 
 
     @Override
     public String vratiIdKolonu() {
@@ -221,6 +220,5 @@ public class Clan implements IEntitetBazePodataka {
         }
         return null;
     }
-
     
 }

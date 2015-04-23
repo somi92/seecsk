@@ -6,6 +6,7 @@
 package com.github.somi92.seecsk.data.dbbroker;
 
 import com.github.somi92.seecsk.data.IEntitetBazePodataka;
+import java.util.HashMap;
 
 /**
  *
@@ -14,9 +15,10 @@ import com.github.somi92.seecsk.data.IEntitetBazePodataka;
 public class DeleteUpit implements IUpitBazePodataka {
 
     @Override
-    public String generisiUpit(IEntitetBazePodataka ebp) {
-        
-        return "";
+    public String generisiUpit(IEntitetBazePodataka ebp, HashMap<String, Object> parametri) {
+        String upit = "delete from "+ebp.vratiNazivTabele()+" where "+
+                ebp.vratiIdKolonu()+"="+ebp.vratiKolone().get(ebp.vratiIdKolonu())+";";
+        return upit;
     }
     
 }

@@ -14,8 +14,7 @@ import java.util.HashMap;
 public interface IEntitetBazePodataka {
     
     public String vratiNazivTabele();
-    public String[] vratiNaziveKolona();
-    public Object[] vratiVrednostiKolona();
+    public HashMap<String, Object> vratiKolone();
     public String vratiIdKolonu();
     public IEntitetBazePodataka vratiEntitet(Object[] vrednostiKolona);
 }

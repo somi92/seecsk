@@ -6,6 +6,7 @@
 package com.github.somi92.seecsk.data.dbbroker;
 
 import com.github.somi92.seecsk.data.IEntitetBazePodataka;
+import java.util.HashMap;
 
 /**
  *
@@ -13,5 +14,5 @@ import com.github.somi92.seecsk.data.IEntitetBazePodataka;
  */
 public interface IUpitBazePodataka {
     
-    public String generisiUpit(IEntitetBazePodataka ebp);
+    public String generisiUpit(IEntitetBazePodataka ebp, HashMap<String, Object> parametri);
 }

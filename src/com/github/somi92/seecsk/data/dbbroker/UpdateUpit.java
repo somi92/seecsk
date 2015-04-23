@@ -6,6 +6,7 @@
 package com.github.somi92.seecsk.data.dbbroker;
 
 import com.github.somi92.seecsk.data.IEntitetBazePodataka;
+import java.util.HashMap;
 
 /**
  *
@@ -14,18 +15,18 @@ import com.github.somi92.seecsk.data.IEntitetBazePodataka;
 public class UpdateUpit implements IUpitBazePodataka {
 
     @Override
-    public String generisiUpit(IEntitetBazePodataka ebp) {
-        String[] naziviKolona = ebp.vratiNaziveKolona();
-        String parametri = "";
+    public String generisiUpit(IEntitetBazePodataka ebp, HashMap<String, Object> parametri) {
+        String[] naziviKolona = (String[]) ebp.vratiKolone().keySet().toArray();
+        String kolone = "";
         for(int i=0; i<naziviKolona.length; i++) {
             if(i == naziviKolona.length-1) {
-                parametri += naziviKolona[i]+"=?";
+                kolone += naziviKolona[i]+"=?";
             } else {
-                parametri += naziviKolona[i]+"=?, ";
+                kolone += naziviKolona[i]+"=?, ";
             }
         }
-        String upit = "update "+ebp.vratiNazivTabele()+" set "+parametri+
-                " where "+ebp.vratiIdKolonu()+"="+ebp.vratiVrednostiKolona()[0]+";";
+        String upit = "update "+ebp.vratiNazivTabele()+" set "+kolone+
+                " where "+ebp.vratiIdKolonu()+"="+ebp.vratiKolone().get(ebp.vratiIdKolonu())+";";
         return upit;
     }
     

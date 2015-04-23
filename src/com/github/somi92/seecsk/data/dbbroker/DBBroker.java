@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -199,6 +200,8 @@ public class DBBroker {
         ps.close();
     }
     
+    /******************************************************************/
+    
     public void sacuvajIliAzurirajEntitet(IEntitetBazePodataka ebp) throws SQLException {
         IEntitetBazePodataka entitet = ucitajEntitet(ebp);
         String upit = "";
@@ -210,14 +213,14 @@ public class DBBroker {
             // ubaci
             upitGenerator = UpitFactory.vratiUpit(UpitFactory.TIP_INSERT_UPIT);
         }
-        upit = upitGenerator.generisiUpit(ebp);
+        upit = upitGenerator.generisiUpit(ebp, null);
         PreparedStatement ps = pripremiPSUpit(ebp, upit);
         ps.executeUpdate();
         ps.close();
     }
     
     private PreparedStatement pripremiPSUpit(IEntitetBazePodataka ebp, String upit) throws SQLException {
-        Object[] kolone = ebp.vratiVrednostiKolona();
+        Object[] kolone = ebp.vratiKolone().values().toArray();
         PreparedStatement ps = konekcija.prepareStatement(upit);
         for(int i=0; i<kolone.length; i++) {
                 String klasa = kolone[i].getClass().getName();
@@ -253,22 +256,16 @@ public class DBBroker {
     
     private IEntitetBazePodataka ucitajEntitet(IEntitetBazePodataka ebp) throws SQLException {
         
-        String[] naziviKolona = ebp.vratiNaziveKolona();
-        String kolone = "";
-        for(int i=0; i<naziviKolona.length; i++) {
-            if(i == naziviKolona.length-1) {
-                kolone += naziviKolona[i];
-            } else {
-                kolone += naziviKolona[i]+",";
-            }
-        }
-        String upit = "select "+kolone+" from "+ebp.vratiNazivTabele()+
-                " where "+ebp.vratiIdKolonu()+"=? ;";
+        IUpitBazePodataka upitGenerator = UpitFactory.vratiUpit(UpitFactory.TIP_INSERT_UPIT);
+        HashMap<String, Object> kriterijum = new HashMap<>();
+        kriterijum.put(ebp.vratiIdKolonu(), ebp.vratiKolone().get(ebp.vratiIdKolonu()));
+        String upit = upitGenerator.generisiUpit(ebp, null);
+        //**PREPARE STATEMENT
         PreparedStatement ps = konekcija.prepareStatement(upit);
-        ps.setLong(1, (long) ebp.vratiVrednostiKolona()[0]);
+        ps.setLong(1, (long) ebp.vratiKolone().get(ebp.vratiIdKolonu()));
         
         ResultSet rs = ps.executeQuery();
-        Object[] k = ebp.vratiVrednostiKolona();
+        Object[] k = ebp.vratiKolone().values().toArray();
         IEntitetBazePodataka noviEbp = null;
         while(rs.next()) {
             Object[] vrednostiKolona = new Object[k.length];
