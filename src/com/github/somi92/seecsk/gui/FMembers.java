@@ -14,11 +14,15 @@ import com.github.somi92.seecsk.model.operations.AzurirajOperacija;
 import com.github.somi92.seecsk.model.tables.ClanoviTableModel;
 import com.github.somi92.seecsk.model.tables.GrupaEditor;
 import com.github.somi92.seecsk.model.tables.GrupaRenderer;
+import com.github.somi92.seecsk.model.tables.TestEditor;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -269,11 +273,17 @@ public class FMembers extends javax.swing.JFrame {
         azurirajTabelu(lc);
         
         jtblMembers.setRowHeight(60);
+        jtblMembers.setAutoCreateRowSorter(true);
         
         TableColumnModel tcm = jtblMembers.getColumnModel();
         TableColumn tc = tcm.getColumn(7);
         tc.setCellRenderer(new GrupaRenderer());
         tc.setCellEditor(new GrupaEditor());
+        
+        JComboBox jcmbPol = new JComboBox(new Object[] {'Z','M'});
+        
+        TableColumn tc1 = tcm.getColumn(9);
+        tc1.setCellEditor(new TestEditor());
     }
     
     public void azurirajTabelu(List<Clan> lc) {

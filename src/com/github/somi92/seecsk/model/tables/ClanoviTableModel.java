@@ -62,11 +62,21 @@ public class ClanoviTableModel extends AbstractTableModel {
                 return "Grupa";
             case 8:
                 return "Napomena";
+            case 9:
+                return "Test";
             default:
                 return "Greška";
         }
     }
 
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        if(clanovi.isEmpty()) {
+            return Object.class;
+        }
+        return getValueAt(0, columnIndex).getClass();
+    }
+    
     @Override
     public int getRowCount() {
         return clanovi.size();
@@ -74,7 +84,7 @@ public class ClanoviTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -99,6 +109,8 @@ public class ClanoviTableModel extends AbstractTableModel {
                 return c.getGrupa();
             case 8:
                 return c.getNapomena();
+            case 9:
+                return c.getPol();
             default:
                 return "Greška";
         }
@@ -140,6 +152,9 @@ public class ClanoviTableModel extends AbstractTableModel {
                 case 8:
                     c.setNapomena(aValue.toString());
                     break;
+                case 9:
+                    c.setPol(aValue.toString().charAt(0));
+                    break;
             }
         } catch (ParseException ex) {
             Logger.getLogger(ClanoviTableModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,7 +164,8 @@ public class ClanoviTableModel extends AbstractTableModel {
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         if(columnIndex == 1 || columnIndex == 2 || columnIndex == 3 || columnIndex == 4 ||
-                columnIndex == 5 || columnIndex == 6 || columnIndex == 7 || columnIndex == 8) {
+                columnIndex == 5 || columnIndex == 6 || columnIndex == 7 || columnIndex == 8 ||
+                columnIndex == 9) {
             return true;
         }
         return false;
