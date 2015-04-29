@@ -66,6 +66,7 @@ public class DBBroker {
     public void zatvoriBazuPodataka() {
         try {
             konekcija.close();
+            System.out.println("Prekinuta je veza sa bazom podataka: " + hostPort + "/"+bazaPodataka);
         } catch (SQLException ex) {
             System.out.println("Greska u radu sa bazom, ne moze se zatvoriti konekcija: " + ex.getMessage());
         }
@@ -223,7 +224,7 @@ public class DBBroker {
         Object[] kolone = ebp.vratiKolone().values().toArray();
         PreparedStatement ps = konekcija.prepareStatement(upit);
         for(int i=0; i<kolone.length; i++) {
-                String klasa = kolone[i].getClass().getName();
+                String klasa = kolone[i].getClass().getSimpleName();
                 
                 switch(klasa) {
                     case "Integer":
@@ -256,53 +257,57 @@ public class DBBroker {
     
     private IEntitetBazePodataka ucitajEntitet(IEntitetBazePodataka ebp) throws SQLException {
         
-        IUpitBazePodataka upitGenerator = UpitFactory.vratiUpit(UpitFactory.TIP_INSERT_UPIT);
+//        IUpitBazePodataka upitGenerator = UpitFactory.vratiUpit(UpitFactory.TIP_INSERT_UPIT);
+        IUpitBazePodataka upitGenerator = UpitFactory.vratiUpit(UpitFactory.TIP_SELECT_UPIT);
         HashMap<String, Object> kriterijum = new HashMap<>();
         kriterijum.put(ebp.vratiIdKolonu(), ebp.vratiKolone().get(ebp.vratiIdKolonu()));
-        String upit = upitGenerator.generisiUpit(ebp, null);
-        //**PREPARE STATEMENT
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        ps.setLong(1, (long) ebp.vratiKolone().get(ebp.vratiIdKolonu()));
+        String upit = upitGenerator.generisiUpit(ebp, kriterijum);
         
-        ResultSet rs = ps.executeQuery();
+        Statement stm = konekcija.createStatement();
+        
+        ResultSet rs = stm.executeQuery(upit);
         Object[] k = ebp.vratiKolone().values().toArray();
         IEntitetBazePodataka noviEbp = null;
+        
         while(rs.next()) {
-            Object[] vrednostiKolona = new Object[k.length];
-            for(int i=0; i<k.length; i++) {
+//            Object[] vrednostiKolona = new Object[k.length];
+            HashMap<String,Object> vrednostiKolona = new HashMap<>();
+            String[] kljucevi = ebp.vratiKolone().keySet().toArray(new String[ebp.vratiKolone().keySet().size()]);
+            for(int i=0; i<kljucevi.length; i++) {
                 String klasa = k[i].getClass().getSimpleName();
                 
                 switch(klasa) {
                     case "Integer":
-                        vrednostiKolona[i] = rs.getInt(naziviKolona[i]);
+                        vrednostiKolona.put(kljucevi[i], rs.getInt(kljucevi[i]));
                         break;
                     case "String":
-                        vrednostiKolona[i] = rs.getString(naziviKolona[i]);
+                        vrednostiKolona.put(kljucevi[i], rs.getString(kljucevi[i]));
                         break;
                     case "Long":
-                        vrednostiKolona[i] = rs.getLong(naziviKolona[i]);
+                        vrednostiKolona.put(kljucevi[i], rs.getLong(kljucevi[i]));
                         break;
                     case "Float":
-                        vrednostiKolona[i] = rs.getFloat(naziviKolona[i]);
+                        vrednostiKolona.put(kljucevi[i], rs.getFloat(kljucevi[i]));
                         break;
                     case "Double":
-                        vrednostiKolona[i] = rs.getDouble(naziviKolona[i]);
+                        vrednostiKolona.put(kljucevi[i], rs.getDouble(kljucevi[i]));
                         break;
                     case "Boolean":
-                        vrednostiKolona[i] = rs.getBoolean(naziviKolona[i]);
+                        vrednostiKolona.put(kljucevi[i], rs.getBoolean(kljucevi[i]));
                         break;
                     case "Date":
-                        vrednostiKolona[i] = rs.getDate(naziviKolona[i]).getTime();
+                        vrednostiKolona.put(kljucevi[i], rs.getDate(kljucevi[i]));
                         break;
                     default:
-                        vrednostiKolona[i] = rs.getString(naziviKolona[i]);
+                        vrednostiKolona.put(kljucevi[i], rs.getString(kljucevi[i]));
                 }
             }
             noviEbp = ebp.vratiEntitet(vrednostiKolona);
         }
-        ps.close();
+        stm.close();
         rs.close();
         
         return noviEbp;
     }
+        
 }

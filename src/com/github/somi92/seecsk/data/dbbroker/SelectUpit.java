@@ -16,7 +16,7 @@ public class SelectUpit implements IUpitBazePodataka {
 
     @Override
     public String generisiUpit(IEntitetBazePodataka ebp, HashMap<String, Object> parametri) {
-        String[] naziviKolona = (String[]) ebp.vratiKolone().keySet().toArray();
+        String[] naziviKolona = ebp.vratiKolone().keySet().toArray(new String[ebp.vratiKolone().keySet().size()]);
         String kolone = "";
         for(int i=0; i<naziviKolona.length; i++) {
             if(i == naziviKolona.length-1) {
@@ -27,8 +27,8 @@ public class SelectUpit implements IUpitBazePodataka {
         }
         String kriterijum = "";
         if(parametri != null) {
-            kriterijum = "where ";
-            String[] kljucevi = (String[]) parametri.keySet().toArray();
+            kriterijum = " where ";
+            String[] kljucevi = parametri.keySet().toArray(new String[parametri.keySet().size()]);
             for(int i=0; i<kljucevi.length; i++) {
                 kriterijum += kljucevi[i]+"="+parametri.get(kljucevi[i]);
             }

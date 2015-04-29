@@ -16,16 +16,20 @@ public class InsertUpit implements IUpitBazePodataka {
 
     @Override
     public String generisiUpit(IEntitetBazePodataka ebp, HashMap<String, Object> parametri) {
-        int duzina = ebp.vratiKolone().values().toArray().length;
+        String[] naziviKolona = ebp.vratiKolone().keySet().toArray(new String[ebp.vratiKolone().keySet().size()]);
+        int duzina = naziviKolona.length;
         String kolone = "";
+        String vrednosti = "";
         for(int i=0; i<duzina; i++) {
             if(i == duzina-1) {
-                kolone += "?";
+                vrednosti += "?";
+                kolone += naziviKolona[i];
             } else {
-                kolone += "?,";
+                vrednosti += "?,";
+                kolone += naziviKolona[i] + ",";
             }
         }
-        String upit = "insert into "+ebp.vratiNazivTabele()+" values ("+kolone+");";
+        String upit = "insert into "+ebp.vratiNazivTabele()+" ("+kolone+") values ("+vrednosti+");";
         return upit;
     }
     

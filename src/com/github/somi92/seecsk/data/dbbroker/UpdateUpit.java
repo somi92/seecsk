@@ -16,7 +16,7 @@ public class UpdateUpit implements IUpitBazePodataka {
 
     @Override
     public String generisiUpit(IEntitetBazePodataka ebp, HashMap<String, Object> parametri) {
-        String[] naziviKolona = (String[]) ebp.vratiKolone().keySet().toArray();
+        String[] naziviKolona = ebp.vratiKolone().keySet().toArray(new String[ebp.vratiKolone().keySet().size()]);
         String kolone = "";
         for(int i=0; i<naziviKolona.length; i++) {
             if(i == naziviKolona.length-1) {

@@ -202,18 +202,18 @@ public class Clan implements IEntitetBazePodataka {
     }
 
     @Override
-    public IEntitetBazePodataka vratiEntitet(Object[] vrednostiKolona) {
+    public IEntitetBazePodataka vratiEntitet(HashMap<String,Object> kolone) {
         try {
             Clan c = new Clan();
-            c.setIdClan((long)vrednostiKolona[0]);
-            c.setBrojLK((String)vrednostiKolona[1]);
-            c.setImePrezime((String)vrednostiKolona[2]);
-            c.setPol(((String)vrednostiKolona[3]).toCharArray()[0]);
-            c.setEmail((String)vrednostiKolona[4]);
-            c.setBrojTel((String)vrednostiKolona[5]);
-            c.setDatumRodjenja(new SimpleDateFormat("yyyy-MM-dd").parse((String)vrednostiKolona[6]));
-            c.setDatumRodjenja(new SimpleDateFormat("yyyy-MM-dd").parse((String)vrednostiKolona[7]));
-            c.setNapomena((String)vrednostiKolona[8]);
+            c.setIdClan((long) kolone.get("idClan"));
+            c.setBrojLK((String) kolone.get("brojLK"));
+            c.setImePrezime((String) kolone.get("imePrezime"));
+            c.setPol(((String) kolone.get("pol")).toCharArray()[0]);
+            c.setEmail((String) kolone.get("email"));
+            c.setBrojTel((String) kolone.get("brojTel"));
+            c.setDatumRodjenja(new SimpleDateFormat("yyyy-MM-dd").parse((String) kolone.get("datumRodjenja")));
+            c.setDatumRodjenja(new SimpleDateFormat("yyyy-MM-dd").parse((String) kolone.get("datumUclanjenja")));
+            c.setNapomena((String) kolone.get("napomena"));
             return c;
         } catch (ParseException ex) {
             

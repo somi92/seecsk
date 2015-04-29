@@ -16,5 +16,5 @@ public interface IEntitetBazePodataka {
     public String vratiNazivTabele();
     public HashMap<String, Object> vratiKolone();
     public String vratiIdKolonu();
-    public IEntitetBazePodataka vratiEntitet(Object[] vrednostiKolona);
+    public IEntitetBazePodataka vratiEntitet(HashMap<String,Object> kolone);
 }
