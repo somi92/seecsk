@@ -203,7 +203,7 @@ public class FMembers extends javax.swing.JFrame {
 //        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new SacuvajOperacija(new Operacije()));
         FNewMember fNew = new FNewMember(this, true);
         fNew.setVisible(true);
-        System.out.println("RETURN");
+//        System.out.println("RETURN");
     }//GEN-LAST:event_jbtnNewActionPerformed
 
     private void jbtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdateActionPerformed
@@ -258,7 +258,8 @@ public class FMembers extends javax.swing.JFrame {
     
     public void azurirajTabelu() {
 //        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
-        List<Clan> lc = KontrolerPL.vratiListuClanova();
+        List<Clan> lc = new ArrayList<>();
+        KontrolerPL.vratiListuClanova(lc);
         azurirajTabelu(lc);
     }
     
@@ -270,7 +271,8 @@ public class FMembers extends javax.swing.JFrame {
     private void filterSearch(String criteria) {
         String filter = criteria.toUpperCase();
 //        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
-        List<Clan> sourceList = KontrolerPL.vratiListuClanova();
+        List<Clan> sourceList = new ArrayList<>();
+        KontrolerPL.vratiListuClanova(sourceList);
         List<Clan> resultList = new ArrayList<>();
         
         if(jcmbCriteria.getSelectedItem().toString().contains("Broj LK")) {

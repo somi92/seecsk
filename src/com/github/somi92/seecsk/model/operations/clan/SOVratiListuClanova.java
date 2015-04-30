@@ -5,12 +5,16 @@
  */
 package com.github.somi92.seecsk.model.operations.clan;
 
+import com.github.somi92.seecsk.data.IEntitetBazePodataka;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,7 +40,14 @@ public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
 
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
-        listaClanova = dbbroker.vratiListuClanova();
+        try {
+            List<IEntitetBazePodataka> entiteti = dbbroker.vratiListuEntiteta(new Clan(), null);
+            for(IEntitetBazePodataka ebp : entiteti) {
+                listaClanova.add((Clan) ebp);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override

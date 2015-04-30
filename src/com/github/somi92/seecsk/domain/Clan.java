@@ -35,6 +35,13 @@ public class Clan implements IEntitetBazePodataka {
     public Clan() {
         uplate = new ArrayList<>();
         prisustva = new ArrayList<>();
+        brojLK = "";
+        imePrezime = "";
+        email = "";
+        brojTel = "";
+        datumRodjenja = new Date();
+        datumUclanjenja = new Date();
+        napomena = "";
     }
 
     public Clan(String brojLK, String imePrezime, char pol, String email, String brojTel, Date datumRodjenja, Date datumUclanjenja, String napomena) {
@@ -192,7 +199,9 @@ public class Clan implements IEntitetBazePodataka {
         String sDatumUclanjenja = new SimpleDateFormat("yyyy-MM-dd").format(datumUclanjenja);
         kolone.put("datumUclanjenja", sDatumUclanjenja);
         kolone.put("napomena", napomena);
-        kolone.put("idGrupa", grupa.getIdGrupa());
+        if(grupa != null) {
+            kolone.put("idGrupa", grupa.getIdGrupa());
+        }
         return kolone;
     } 
 

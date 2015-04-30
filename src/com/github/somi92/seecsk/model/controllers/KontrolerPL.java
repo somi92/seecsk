@@ -5,11 +5,14 @@
  */
 package com.github.somi92.seecsk.model.controllers;
 
+import com.github.somi92.seecsk.data.IEntitetBazePodataka;
 import com.github.somi92.seecsk.data.dbbroker.DBBroker;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
+import com.github.somi92.seecsk.model.operations.clan.SOVratiListuClanova;
 import com.github.somi92.seecsk.model.operations.clan.SOZapamtiClana;
+import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,21 +33,21 @@ public class KontrolerPL {
         return brojac;
     }
     
-    public static List<Clan> vratiListuClanova() {
-        DBBroker dbbroker = new DBBroker();
-        dbbroker.otvoriBazuPodataka();
-        List<Clan> clanovi = dbbroker.vratiListuClanova();
-        dbbroker.zatvoriBazuPodataka();
-        return clanovi;
-    }
+//    public static List<Clan> vratiListuClanova() {
+//        DBBroker dbbroker = new DBBroker();
+//        dbbroker.otvoriBazuPodataka();
+//        List<Clan> clanovi = dbbroker.vratiListuClanova();
+//        dbbroker.zatvoriBazuPodataka();
+//        return clanovi;
+//    }
     
-    public static List<Grupa> vratiListuGrupa() {
-        DBBroker dbbroker = new DBBroker();
-        dbbroker.otvoriBazuPodataka();
-        List<Grupa> grupe = dbbroker.vratiListuGrupa();
-        dbbroker.zatvoriBazuPodataka();
-        return grupe;
-    }
+//    public static List<Grupa> vratiListuGrupa() {
+//        DBBroker dbbroker = new DBBroker();
+//        dbbroker.otvoriBazuPodataka();
+//        List<Grupa> grupe = dbbroker.vratiListuGrupa();
+//        dbbroker.zatvoriBazuPodataka();
+//        return grupe;
+//    }
     
     public static boolean sacuvajClana(Clan clan) {
         DBBroker dbbroker = new DBBroker();
@@ -104,6 +107,24 @@ public class KontrolerPL {
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
+        }
+    }
+    
+    public static void vratiListuClanova(List<Clan> clanovi) {
+        try {
+            ApstraktnaSistemskaOperacija aso = new SOVratiListuClanova(clanovi);
+            aso.izvrsiSistemskuOperaciju();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void vratiListuGrupa(List<Grupa> grupe) {
+        try {
+            ApstraktnaSistemskaOperacija aso = new SOVratiListuGrupa(grupe);
+            aso.izvrsiSistemskuOperaciju();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }

@@ -10,6 +10,7 @@ import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -422,7 +423,9 @@ public class FNewMember extends javax.swing.JDialog {
     }
     
     private void initGroupsCombo() {
-        List<Grupa> groups = KontrolerPL.vratiListuGrupa();
+//        List<Grupa> groups = KontrolerPL.vratiListuGrupa();
+        List<Grupa> groups = new ArrayList<>();
+        KontrolerPL.vratiListuGrupa(groups);
         for(Grupa g : groups) {
             jcmbGroup.addItem(g);
         }

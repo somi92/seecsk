@@ -5,12 +5,17 @@
  */
 package com.github.somi92.seecsk.model.operations.grupa;
 
+import com.github.somi92.seecsk.data.IEntitetBazePodataka;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,7 +41,14 @@ public class SOVratiListuGrupa extends ApstraktnaSistemskaOperacija {
 
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
-        listaGrupa = dbbroker.vratiListuGrupa();
+        try {
+            List<IEntitetBazePodataka> entiteti = dbbroker.vratiListuEntiteta(new Grupa(), null);
+            for(IEntitetBazePodataka ebp : entiteti) {
+                listaGrupa.add((Grupa) ebp);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override

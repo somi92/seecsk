@@ -220,6 +220,54 @@ public class DBBroker {
         ps.close();
     }
     
+    public List<IEntitetBazePodataka> vratiListuEntiteta(IEntitetBazePodataka ebp, HashMap<String,Object> kriterijum) throws SQLException {
+        IUpitBazePodataka upitGenerator = UpitFactory.vratiUpit(UpitFactory.TIP_SELECT_UPIT);
+        String upit = upitGenerator.generisiUpit(ebp, kriterijum);
+        List<IEntitetBazePodataka> lista = new ArrayList<>();
+        
+        Statement stm = konekcija.createStatement();
+        
+        ResultSet rs = stm.executeQuery(upit);
+        String[] kljucevi = ebp.vratiKolone().keySet().toArray(new String[ebp.vratiKolone().keySet().size()]);
+        Object[] k = ebp.vratiKolone().values().toArray();
+        while(rs.next()) {
+            HashMap<String,Object> vrednostiKolona = new HashMap<>();
+            for(int i=0; i<kljucevi.length; i++) {
+                String klasa = k[i].getClass().getSimpleName();
+                
+                switch(klasa) {
+                    case "Integer":
+                        vrednostiKolona.put(kljucevi[i], rs.getInt(kljucevi[i]));
+                        break;
+                    case "String":
+                        vrednostiKolona.put(kljucevi[i], rs.getString(kljucevi[i]));
+                        break;
+                    case "Long":
+                        vrednostiKolona.put(kljucevi[i], rs.getLong(kljucevi[i]));
+                        break;
+                    case "Float":
+                        vrednostiKolona.put(kljucevi[i], rs.getFloat(kljucevi[i]));
+                        break;
+                    case "Double":
+                        vrednostiKolona.put(kljucevi[i], rs.getDouble(kljucevi[i]));
+                        break;
+                    case "Boolean":
+                        vrednostiKolona.put(kljucevi[i], rs.getBoolean(kljucevi[i]));
+                        break;
+                    case "Date":
+                        vrednostiKolona.put(kljucevi[i], rs.getDate(kljucevi[i]));
+                        break;
+                    default:
+                        vrednostiKolona.put(kljucevi[i], rs.getString(kljucevi[i]));
+                }
+            }
+            lista.add(ebp.vratiEntitet(vrednostiKolona));
+        }
+        stm.close();
+        rs.close();
+        return lista;
+    }
+    
     private PreparedStatement pripremiPSUpit(IEntitetBazePodataka ebp, String upit) throws SQLException {
         Object[] kolone = ebp.vratiKolone().values().toArray();
         PreparedStatement ps = konekcija.prepareStatement(upit);
@@ -267,12 +315,12 @@ public class DBBroker {
         
         ResultSet rs = stm.executeQuery(upit);
         Object[] k = ebp.vratiKolone().values().toArray();
+        String[] kljucevi = ebp.vratiKolone().keySet().toArray(new String[ebp.vratiKolone().keySet().size()]);
         IEntitetBazePodataka noviEbp = null;
         
         while(rs.next()) {
 //            Object[] vrednostiKolona = new Object[k.length];
             HashMap<String,Object> vrednostiKolona = new HashMap<>();
-            String[] kljucevi = ebp.vratiKolone().keySet().toArray(new String[ebp.vratiKolone().keySet().size()]);
             for(int i=0; i<kljucevi.length; i++) {
                 String klasa = k[i].getClass().getSimpleName();
                 
