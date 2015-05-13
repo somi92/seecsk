@@ -5,7 +5,6 @@
  */
 package com.github.somi92.seecsk.model.operations.clan;
 
-import com.github.somi92.seecsk.data.IEntitetBazePodataka;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
@@ -40,14 +39,14 @@ public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
 
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
-        try {
-            List<IEntitetBazePodataka> entiteti = dbbroker.vratiListuEntiteta(new Clan(), null);
-            for(IEntitetBazePodataka ebp : entiteti) {
-                listaClanova.add((Clan) ebp);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            List<IEntitetBazePodataka> entiteti = dbbroker.vratiListuEntiteta(new Clan(), null);
+//            for(IEntitetBazePodataka ebp : entiteti) {
+//                listaClanova.add((Clan) ebp);
+//            }
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
     }
 
     @Override

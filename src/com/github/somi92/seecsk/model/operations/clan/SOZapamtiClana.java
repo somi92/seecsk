@@ -38,11 +38,11 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
 
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
-        try {
-            dbbroker.sacuvajIliAzurirajEntitet(clan);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            dbbroker.sacuvajIliAzurirajEntitet(clan);
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
     }
 
     @Override

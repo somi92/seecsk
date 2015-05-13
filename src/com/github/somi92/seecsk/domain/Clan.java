@@ -5,7 +5,6 @@
  */
 package com.github.somi92.seecsk.domain;
 
-import com.github.somi92.seecsk.data.IEntitetBazePodataka;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.List;
  *
  * @author milos
  */
-public class Clan implements IEntitetBazePodataka {
+public class Clan {
     
     private long idClan;
     private String brojLK;
@@ -178,56 +177,5 @@ public class Clan implements IEntitetBazePodataka {
     @Override
     public String toString() {
         return "Clan{" + "idClan=" + idClan + ", imePrezime=" + imePrezime + '}';
-    }
-
-    @Override
-    public String vratiNazivTabele() {
-        return "Clan";
-    }
-    
-    @Override
-    public HashMap<String, Object> vratiKolone() {
-        HashMap<String, Object> kolone = new HashMap<>();
-        kolone.put("idClan", idClan);
-        kolone.put("brojLK", brojLK);
-        kolone.put("imePrezime", imePrezime);
-        kolone.put("pol", pol);
-        kolone.put("email", email);
-        kolone.put("brojTel", brojTel);
-        String sDatumRodjenja = new SimpleDateFormat("yyyy-MM-dd").format(datumRodjenja);
-        kolone.put("datumRodjenja", sDatumRodjenja);
-        String sDatumUclanjenja = new SimpleDateFormat("yyyy-MM-dd").format(datumUclanjenja);
-        kolone.put("datumUclanjenja", sDatumUclanjenja);
-        kolone.put("napomena", napomena);
-        if(grupa != null) {
-            kolone.put("idGrupa", grupa.getIdGrupa());
-        }
-        return kolone;
     } 
-
-    @Override
-    public String vratiIdKolonu() {
-        return "idClan";
-    }
-
-    @Override
-    public IEntitetBazePodataka vratiEntitet(HashMap<String,Object> kolone) {
-        try {
-            Clan c = new Clan();
-            c.setIdClan((long) kolone.get("idClan"));
-            c.setBrojLK((String) kolone.get("brojLK"));
-            c.setImePrezime((String) kolone.get("imePrezime"));
-            c.setPol(((String) kolone.get("pol")).toCharArray()[0]);
-            c.setEmail((String) kolone.get("email"));
-            c.setBrojTel((String) kolone.get("brojTel"));
-            c.setDatumRodjenja(new SimpleDateFormat("yyyy-MM-dd").parse((String) kolone.get("datumRodjenja")));
-            c.setDatumRodjenja(new SimpleDateFormat("yyyy-MM-dd").parse((String) kolone.get("datumUclanjenja")));
-            c.setNapomena((String) kolone.get("napomena"));
-            return c;
-        } catch (ParseException ex) {
-            
-        }
-        return null;
-    }
-    
 }

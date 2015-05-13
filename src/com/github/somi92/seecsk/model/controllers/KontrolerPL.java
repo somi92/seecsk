@@ -5,8 +5,6 @@
  */
 package com.github.somi92.seecsk.model.controllers;
 
-import com.github.somi92.seecsk.data.IEntitetBazePodataka;
-import com.github.somi92.seecsk.data.dbbroker.DBBroker;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
@@ -15,8 +13,6 @@ import com.github.somi92.seecsk.model.operations.clan.SOZapamtiClana;
 import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,11 +22,12 @@ import javax.swing.JOptionPane;
 public class KontrolerPL {
     
     public static long vratiBrojacEntiteta(Class c) {
-        DBBroker dbbroker = new DBBroker();
-        dbbroker.otvoriBazuPodataka();
-        long brojac = dbbroker.vratiBrojacEntiteta(c);
-        dbbroker.zatvoriBazuPodataka();
-        return brojac;
+//        DBBroker dbbroker = new DBBroker();
+//        dbbroker.otvoriBazuPodataka();
+//        long brojac = dbbroker.vratiBrojacEntiteta(c);
+//        dbbroker.zatvoriBazuPodataka();
+//        return brojac;
+        return 0;
     }
     
 //    public static List<Clan> vratiListuClanova() {
@@ -50,53 +47,56 @@ public class KontrolerPL {
 //    }
     
     public static boolean sacuvajClana(Clan clan) {
-        DBBroker dbbroker = new DBBroker();
-        dbbroker.otvoriBazuPodataka();
-        try {
-            dbbroker.sacuvajClana(clan);
-            dbbroker.commit();
-            return true;
-        } catch (SQLException ex) {
-            dbbroker.rollback();
-            System.out.println("Greska: " + ex.getMessage());
-            return false;
-        } finally {
-            dbbroker.zatvoriBazuPodataka();
-        }
+//        DBBroker dbbroker = new DBBroker();
+//        dbbroker.otvoriBazuPodataka();
+//        try {
+//            dbbroker.sacuvajClana(clan);
+//            dbbroker.commit();
+//            return true;
+//        } catch (SQLException ex) {
+//            dbbroker.rollback();
+//            System.out.println("Greska: " + ex.getMessage());
+//            return false;
+//        } finally {
+//            dbbroker.zatvoriBazuPodataka();
+//        }
+        return false;
     }
     
     public static boolean azurirajClana(Clan clan) {
-        DBBroker dbbroker = new DBBroker();
-        dbbroker.otvoriBazuPodataka();
-        try {
-            dbbroker.azurirajClana(clan);
-            dbbroker.commit();
-            return true;
-        } catch (SQLException ex) {
-            dbbroker.rollback();
-            JOptionPane.showMessageDialog(null, "Sistem ne može da ažurira člana.", "Greška", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Greska: " + ex.getMessage());
-            return false;
-        } finally {
-            dbbroker.zatvoriBazuPodataka();
-        }
+//        DBBroker dbbroker = new DBBroker();
+//        dbbroker.otvoriBazuPodataka();
+//        try {
+//            dbbroker.azurirajClana(clan);
+//            dbbroker.commit();
+//            return true;
+//        } catch (SQLException ex) {
+//            dbbroker.rollback();
+//            JOptionPane.showMessageDialog(null, "Sistem ne može da ažurira člana.", "Greška", JOptionPane.ERROR_MESSAGE);
+//            System.out.println("Greska: " + ex.getMessage());
+//            return false;
+//        } finally {
+//            dbbroker.zatvoriBazuPodataka();
+//        }
+        return false;
     }
     
     public static boolean obrisiClana(Clan clan) {
-        DBBroker dbbroker = new DBBroker();
-        dbbroker.otvoriBazuPodataka();
-        try {
-            dbbroker.obrisiClana(clan);
-            dbbroker.commit();
-            return true;
-        } catch (SQLException ex) {
-            dbbroker.rollback();
-            JOptionPane.showMessageDialog(null, "Sistem ne može da obriše člana.", "Greška", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Greska: " + ex.getMessage());
-            return false;
-        } finally {
-            dbbroker.zatvoriBazuPodataka();
-        }
+//        DBBroker dbbroker = new DBBroker();
+//        dbbroker.otvoriBazuPodataka();
+//        try {
+//            dbbroker.obrisiClana(clan);
+//            dbbroker.commit();
+//            return true;
+//        } catch (SQLException ex) {
+//            dbbroker.rollback();
+//            JOptionPane.showMessageDialog(null, "Sistem ne može da obriše člana.", "Greška", JOptionPane.ERROR_MESSAGE);
+//            System.out.println("Greska: " + ex.getMessage());
+//            return false;
+//        } finally {
+//            dbbroker.zatvoriBazuPodataka();
+//        }
+        return false;
     }
     
     public static boolean sacuvajIliAzurirajClana(Clan clan) {

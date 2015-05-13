@@ -5,13 +5,7 @@
  */
 package com.github.somi92.seecsk.main;
 
-import com.github.somi92.seecsk.data.IEntitetBazePodataka;
-import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.gui.FMainForm;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

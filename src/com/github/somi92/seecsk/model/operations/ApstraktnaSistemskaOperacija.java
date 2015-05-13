@@ -5,10 +5,10 @@
  */
 package com.github.somi92.seecsk.model.operations;
 
-import com.github.somi92.seecsk.data.dbbroker.DBBroker;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
+import com.github.somi92.sqldbb.broker.DBBroker;
 
 /**
  *
@@ -46,19 +46,19 @@ public abstract class ApstraktnaSistemskaOperacija {
     }
     
     private void otvoriBazuPodataka() {
-        dbbroker.otvoriBazuPodataka();
+        dbbroker.openDatabaseConnection();
     }
     
     private void zatvoriBazuPodataka() {
-        dbbroker.zatvoriBazuPodataka();
+        dbbroker.closeDatabaseConnection();
     }
     
     private void potvrdiDBTransakciju() {
-        dbbroker.commit();
+        dbbroker.commitTransaction();
     }
     
     private void ponistiDBTransakciju() {
-        dbbroker.rollback();
+        dbbroker.rollbackTransaction();
     }
     
     protected abstract void izvrsiValidaciju() throws ValidacijaException;

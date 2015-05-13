@@ -5,7 +5,6 @@
  */
 package com.github.somi92.seecsk.domain;
 
-import com.github.somi92.seecsk.data.IEntitetBazePodataka;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Objects;
  *
  * @author milos
  */
-public class Grupa implements IEntitetBazePodataka {
+public class Grupa {
     
     private long idGrupa;
     private String naziv;
@@ -149,36 +148,4 @@ public class Grupa implements IEntitetBazePodataka {
     public String toString() {
         return naziv;
     }
-
-    @Override
-    public String vratiNazivTabele() {
-        return "Grupa";
-    }
-
-    @Override
-    public HashMap<String, Object> vratiKolone() {
-        HashMap<String,Object> kolone = new HashMap<>();
-        kolone.put("idGrupa", idGrupa);
-        kolone.put("naziv", naziv);
-        kolone.put("napomena", napomena);
-        if(kategorija != null) {
-            kolone.put("idKategorija", kategorija.getIdKategorija());
-        }
-        return kolone;
-    }
-
-    @Override
-    public String vratiIdKolonu() {
-        return "idGrupa";
-    }
-
-    @Override
-    public IEntitetBazePodataka vratiEntitet(HashMap<String, Object> kolone) {
-        Grupa g = new Grupa();
-        g.setIdGrupa((long) kolone.get("idGrupa"));
-        g.setNaziv((String) kolone.get("naziv"));
-        g.setNapomena((String) kolone.get("napomena"));
-        return g;
-    }
-    
 }
