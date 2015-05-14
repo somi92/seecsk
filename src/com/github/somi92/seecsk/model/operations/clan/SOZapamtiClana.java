@@ -21,10 +21,11 @@ import java.util.logging.Logger;
 public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
 
     private Clan clan;
+    private int rowsAffected;
     
     public SOZapamtiClana(Clan clan) {
         this.clan = clan;
-    } 
+    }
     
     @Override
     protected void izvrsiValidaciju() throws ValidacijaException {
@@ -38,11 +39,12 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
 
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
-//        try {
-//            dbbroker.sacuvajIliAzurirajEntitet(clan);
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
+        try {
+            rowsAffected = dbbroker.saveOrUpdateEntity(clan);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
+        }
     }
 
     @Override

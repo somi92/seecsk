@@ -8,6 +8,7 @@ package com.github.somi92.seecsk.gui;
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
+import com.github.somi92.seecsk.model.operations.Ref;
 import com.github.somi92.seecsk.model.tables.ClanoviTableModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -258,9 +259,10 @@ public class FMembers extends javax.swing.JFrame {
     
     public void azurirajTabelu() {
 //        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
-        List<Clan> lc = new ArrayList<>();
-        KontrolerPL.vratiListuClanova(lc);
-        azurirajTabelu(lc);
+//        List<Clan> lc = new ArrayList<>();
+        Ref<List<Clan>> ref = new Ref(new ArrayList<>());
+        KontrolerPL.vratiListuClanova(ref);
+        azurirajTabelu(ref.get());
     }
     
     public void azurirajTabelu(List<Clan> lc) {
@@ -271,8 +273,9 @@ public class FMembers extends javax.swing.JFrame {
     private void filterSearch(String criteria) {
         String filter = criteria.toUpperCase();
 //        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
-        List<Clan> sourceList = new ArrayList<>();
-        KontrolerPL.vratiListuClanova(sourceList);
+        Ref<List<Clan>> ref = new Ref<>(new ArrayList<Clan>());
+        KontrolerPL.vratiListuClanova(ref);
+        List<Clan> sourceList = ref.get();
         List<Clan> resultList = new ArrayList<>();
         
         if(jcmbCriteria.getSelectedItem().toString().contains("Broj LK")) {

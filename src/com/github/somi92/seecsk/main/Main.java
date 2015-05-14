@@ -6,6 +6,7 @@
 package com.github.somi92.seecsk.main;
 
 import com.github.somi92.seecsk.gui.FMainForm;
+import com.github.somi92.sqldbb.broker.DBBroker;
 
 /**
  *
@@ -14,6 +15,9 @@ import com.github.somi92.seecsk.gui.FMainForm;
 public class Main {
     
     public static void main(String[] args) {
+        
+        DBBroker broker = new DBBroker();
+        broker.setDatabase("seecsk");
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

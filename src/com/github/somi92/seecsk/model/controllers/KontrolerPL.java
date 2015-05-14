@@ -8,12 +8,11 @@ package com.github.somi92.seecsk.model.controllers;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
+import com.github.somi92.seecsk.model.operations.Ref;
 import com.github.somi92.seecsk.model.operations.clan.SOVratiListuClanova;
 import com.github.somi92.seecsk.model.operations.clan.SOZapamtiClana;
 import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
-import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,14 +20,14 @@ import javax.swing.JOptionPane;
  */
 public class KontrolerPL {
     
-    public static long vratiBrojacEntiteta(Class c) {
+//    public static long vratiBrojacEntiteta(Class c) {
 //        DBBroker dbbroker = new DBBroker();
 //        dbbroker.otvoriBazuPodataka();
 //        long brojac = dbbroker.vratiBrojacEntiteta(c);
 //        dbbroker.zatvoriBazuPodataka();
 //        return brojac;
-        return 0;
-    }
+//        return 0;
+//    }
     
 //    public static List<Clan> vratiListuClanova() {
 //        DBBroker dbbroker = new DBBroker();
@@ -110,7 +109,7 @@ public class KontrolerPL {
         }
     }
     
-    public static void vratiListuClanova(List<Clan> clanovi) {
+    public static void vratiListuClanova(Ref<List<Clan>> clanovi) {
         try {
             ApstraktnaSistemskaOperacija aso = new SOVratiListuClanova(clanovi);
             aso.izvrsiSistemskuOperaciju();
@@ -119,7 +118,7 @@ public class KontrolerPL {
         }
     }
     
-    public static void vratiListuGrupa(List<Grupa> grupe) {
+    public static void vratiListuGrupa(Ref<List<Grupa>> grupe) {
         try {
             ApstraktnaSistemskaOperacija aso = new SOVratiListuGrupa(grupe);
             aso.izvrsiSistemskuOperaciju();

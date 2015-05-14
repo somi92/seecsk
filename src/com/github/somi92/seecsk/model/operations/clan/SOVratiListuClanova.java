@@ -10,10 +10,10 @@ import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
+import com.github.somi92.seecsk.model.operations.Ref;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,9 +21,9 @@ import java.util.logging.Logger;
  */
 public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
 
-    private List<Clan> listaClanova;
+    private Ref<List<Clan>> listaClanova;
     
-    public SOVratiListuClanova(List<Clan> listaClanova) {
+    public SOVratiListuClanova(Ref<List<Clan>> listaClanova) {
         this.listaClanova = listaClanova;
     }
     
@@ -39,14 +39,12 @@ public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
 
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
-//        try {
-//            List<IEntitetBazePodataka> entiteti = dbbroker.vratiListuEntiteta(new Clan(), null);
-//            for(IEntitetBazePodataka ebp : entiteti) {
-//                listaClanova.add((Clan) ebp);
-//            }
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
+        try {
+            listaClanova.set(dbbroker.loadEntities(new Clan(), null, false));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
+        }
     }
 
     @Override
@@ -54,7 +52,7 @@ public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
         return this.getClass().getSimpleName();
     }
     
-    public List<Clan> vratiListuClanova() {
-        return listaClanova;
-    }
+//    public List<Clan> vratiListuClanova() {
+//        return listaClanova.get();
+//    }
 }

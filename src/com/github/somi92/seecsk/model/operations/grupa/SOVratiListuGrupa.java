@@ -10,11 +10,9 @@ import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
+import com.github.somi92.seecsk.model.operations.Ref;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,9 +20,9 @@ import java.util.logging.Logger;
  */
 public class SOVratiListuGrupa extends ApstraktnaSistemskaOperacija {
     
-    private List<Grupa> listaGrupa;
+    private Ref<List<Grupa>> listaGrupa;
     
-    public SOVratiListuGrupa(List<Grupa> listaGrupa) {
+    public SOVratiListuGrupa(Ref<List<Grupa>> listaGrupa) {
         this.listaGrupa = listaGrupa;
     }
 
@@ -40,14 +38,12 @@ public class SOVratiListuGrupa extends ApstraktnaSistemskaOperacija {
 
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
-//        try {
-//            List<IEntitetBazePodataka> entiteti = dbbroker.vratiListuEntiteta(new Grupa(), null);
-//            for(IEntitetBazePodataka ebp : entiteti) {
-//                listaGrupa.add((Grupa) ebp);
-//            }
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
+        try {
+            listaGrupa.set(dbbroker.loadEntities(new Grupa(), null, false));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
+        }
     }
 
     @Override
@@ -55,7 +51,7 @@ public class SOVratiListuGrupa extends ApstraktnaSistemskaOperacija {
         return this.getClass().getSimpleName();
     }
     
-    public List<Grupa> vratiListuGrupa() {
-        return listaGrupa;
-    }
+//    public List<Grupa> vratiListuGrupa() {
+//        return listaGrupa;
+//    }
 }

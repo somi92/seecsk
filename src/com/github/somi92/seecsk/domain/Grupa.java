@@ -5,8 +5,11 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import com.github.somi92.sqldbb.annotations.Collection;
+import com.github.somi92.sqldbb.annotations.Column;
+import com.github.somi92.sqldbb.annotations.PrimaryKey;
+import com.github.somi92.sqldbb.annotations.Table;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,12 +17,18 @@ import java.util.Objects;
  *
  * @author milos
  */
+
+@Table("Grupa")
 public class Grupa {
     
+    @PrimaryKey("idGrupa")
     private long idGrupa;
+    @Column("naziv")
     private String naziv;
+    @Column("napomena")
     private String napomena;
     private List<AngazmanZaposlenog> angazman;
+    @Collection(childEntityClass = Clan.class, referencingField = "grupa")
     private List<Clan> clanovi;
     private List<Trening> treninzi;
     private Kategorija kategorija;
@@ -79,9 +88,9 @@ public class Grupa {
          return this.angazman.remove(angazman);
     }
     
-//    public void setClanovi(List<Clan> clanovi) {
-//        this.clanovi = clanovi;
-//    }
+    public void setClanovi(List<Clan> clanovi) {
+        this.clanovi = clanovi;
+    }
     
     public boolean dodajClana(Clan clan) {
         return clanovi.add(clan);

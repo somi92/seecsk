@@ -5,28 +5,41 @@
  */
 package com.github.somi92.seecsk.domain;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.github.somi92.sqldbb.annotations.Column;
+import com.github.somi92.sqldbb.annotations.ForeignKey;
+import com.github.somi92.sqldbb.annotations.PrimaryKey;
+import com.github.somi92.sqldbb.annotations.Table;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  *
  * @author milos
  */
+
+@Table("Clan")
 public class Clan {
     
+    @PrimaryKey("idClan")
     private long idClan;
+    @Column("brojLK")
     private String brojLK;
+    @Column("imePrezime")
     private String imePrezime;
+    @Column("pol")
     private char pol;
+    @Column("email")
     private String email;
+    @Column("brojTel")
     private String brojTel;
+    @Column("datumRodjenja")
     private Date datumRodjenja;
+    @Column("datumUclanjenja")
     private Date datumUclanjenja;
+    @Column("napomena")
     private String napomena;
+    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = true)
     private Grupa grupa;
     private List<Uplata> uplate;
     private List<Prisustvo> prisustva;
