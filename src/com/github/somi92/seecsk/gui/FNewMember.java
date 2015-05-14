@@ -25,7 +25,7 @@ import javax.swing.plaf.basic.BasicBorders;
 public class FNewMember extends javax.swing.JDialog {
 
     private FMembers parent;
-    private long memberId;
+    private Clan clan;
     
     /**
      * Creates new form FNewMember
@@ -35,7 +35,8 @@ public class FNewMember extends javax.swing.JDialog {
         this.parent = parent;
 //        this.operacije = (ApstraktnaSistemskaOperacija) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN_OPERACIJA);
         initComponents();
-        initForm((Clan) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN));
+        clan = (Clan) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN);
+        initForm(clan);
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, null);
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, null);
     }
@@ -327,11 +328,22 @@ public class FNewMember extends javax.swing.JDialog {
         String napomena = jtxtaRemark.getText().trim();
         
         boolean isValidated = validateInput(idClana, imePrezime, email, brojTel);
-        if(isValidated) {
-            Clan clan = new Clan(idClana, imePrezime, pol, email, brojTel, datumRodjenja.getTime(), datumUclanjenja.getTime(), napomena);
-            clan.setIdClan(memberId);
+        if(isValidated) { 
+            if(clan == null ) {
+                Ref<Clan> c = new Ref(new Clan());
+                KontrolerPL.kreirajClana(c);
+                clan = c.get();
+            }
+//            Clan clan = new Clan(idClana, imePrezime, pol, email, brojTel, datumRodjenja.getTime(), datumUclanjenja.getTime(), napomena);
+            clan.setBrojLK(idClana);
+            clan.setImePrezime(imePrezime);
+            clan.setPol(pol);
+            clan.setEmail(email);
+            clan.setBrojTel(brojTel);
+            clan.setDatumRodjenja(datumRodjenja.getTime());
+            clan.setDatumUclanjenja(datumUclanjenja.getTime());
+            clan.setNapomena(napomena);
             clan.setGrupa(grupa);
-//            boolean res = operacije.izvrsiOperaciju(clan);
             boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan);
             if(res) {
                 JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
@@ -446,7 +458,7 @@ public class FNewMember extends javax.swing.JDialog {
         initGroupsCombo();
         if(clan != null) {
             
-            memberId = clan.getIdClan();
+//            memberId = clan.getIdClan();
             
             jtxtIdCard.setText(clan.getBrojLK());
             jtxtFirstLastName.setText(clan.getImePrezime());
@@ -468,7 +480,7 @@ public class FNewMember extends javax.swing.JDialog {
             
         } else {
             
-            memberId = KontrolerPL.vratiBrojacEntiteta(Clan.class)+1;
+//            memberId = KontrolerPL.vratiBrojacEntiteta(Clan.class)+1;
             setTitle("SEECSK - Unos novog člana");
             jbtnSave.setText("Sačuvaj");
         }

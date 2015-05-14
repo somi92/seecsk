@@ -9,10 +9,14 @@ import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
 import com.github.somi92.seecsk.model.operations.Ref;
+import com.github.somi92.seecsk.model.operations.clan.SOKreirajClana;
+import com.github.somi92.seecsk.model.operations.clan.SOObrisiClana;
 import com.github.somi92.seecsk.model.operations.clan.SOVratiListuClanova;
 import com.github.somi92.seecsk.model.operations.clan.SOZapamtiClana;
 import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -80,27 +84,29 @@ public class KontrolerPL {
         return false;
     }
     
-    public static boolean obrisiClana(Clan clan) {
-//        DBBroker dbbroker = new DBBroker();
-//        dbbroker.otvoriBazuPodataka();
-//        try {
-//            dbbroker.obrisiClana(clan);
-//            dbbroker.commit();
-//            return true;
-//        } catch (SQLException ex) {
-//            dbbroker.rollback();
-//            JOptionPane.showMessageDialog(null, "Sistem ne može da obriše člana.", "Greška", JOptionPane.ERROR_MESSAGE);
-//            System.out.println("Greska: " + ex.getMessage());
-//            return false;
-//        } finally {
-//            dbbroker.zatvoriBazuPodataka();
-//        }
-        return false;
+    public static void kreirajClana(Ref<Clan> clan) {
+        try {
+            ApstraktnaSistemskaOperacija aso = new SOKreirajClana(clan);
+            aso.izvrsiSistemskuOperaciju();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
     public static boolean sacuvajIliAzurirajClana(Clan clan) {
         try {
             ApstraktnaSistemskaOperacija aso = new SOZapamtiClana(clan);
+            aso.izvrsiSistemskuOperaciju();
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static boolean obrisiClana(Clan clan) {
+        try {
+            ApstraktnaSistemskaOperacija aso = new SOObrisiClana(clan);
             aso.izvrsiSistemskuOperaciju();
             return true;
         } catch (Exception ex) {

@@ -11,19 +11,16 @@ import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author milos
  */
-public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
+public class SOObrisiClana extends ApstraktnaSistemskaOperacija {
 
     private Clan clan;
-    private int rowsAffected;
     
-    public SOZapamtiClana(Clan clan) {
+    public SOObrisiClana(Clan clan) {
         this.clan = clan;
     }
     
@@ -40,10 +37,11 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            rowsAffected = dbbroker.saveOrUpdateEntity(clan);
+            dbbroker.deleteEntity(clan);
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
+            throw new SOException();
         }
     }
 
@@ -51,4 +49,5 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
     public String vratiImeOperacije() {
         return this.getClass().getSimpleName();
     }
+    
 }
