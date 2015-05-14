@@ -6,7 +6,11 @@
 package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.gui.panels.CategoriesGroupsPanel;
+import com.github.somi92.seecsk.gui.panels.MembersPanel;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -19,6 +23,7 @@ public class FMainForm extends javax.swing.JFrame {
      */
     public FMainForm() {
         initComponents();
+        initPanels();
     }
 
     /**
@@ -30,71 +35,51 @@ public class FMainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jbtnMembers = new javax.swing.JButton();
-        jbtnGroupsCategories = new javax.swing.JButton();
-        jbtnAttendance = new javax.swing.JButton();
-        jbtnMembershipFee = new javax.swing.JButton();
+        jpnlMainPanel = new javax.swing.JPanel();
+        jmnuMenuBar = new javax.swing.JMenuBar();
+        jmnuMain = new javax.swing.JMenu();
+        jmnuiMembers = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jmnuApp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SEECSK - Sistem za elektronsku evidenciju članova sportskog kluba");
 
-        jbtnMembers.setText("Evidencija članova");
-        jbtnMembers.addActionListener(new java.awt.event.ActionListener() {
+        jpnlMainPanel.setLayout(new java.awt.CardLayout());
+
+        jmnuMain.setText("Glavni meni");
+
+        jmnuiMembers.setText("Članovi kluba");
+        jmnuiMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnMembersActionPerformed(evt);
+                jmnuiMembersActionPerformed(evt);
             }
         });
+        jmnuMain.add(jmnuiMembers);
 
-        jbtnGroupsCategories.setText("Grupe i kategorije");
-        jbtnGroupsCategories.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Panel1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnGroupsCategoriesActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
+        jmnuMain.add(jMenuItem1);
 
-        jbtnAttendance.setText("  Evidencija dolazaka");
-        jbtnAttendance.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setText("Panel2");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnAttendanceActionPerformed(evt);
+                jMenuItem2ActionPerformed(evt);
             }
         });
+        jmnuMain.add(jMenuItem2);
 
-        jbtnMembershipFee.setText("Evidencija članarina");
-        jbtnMembershipFee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnMembershipFeeActionPerformed(evt);
-            }
-        });
+        jmnuMenuBar.add(jmnuMain);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jbtnMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(jbtnGroupsCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jbtnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnMembershipFee, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(213, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtnMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnGroupsCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtnMembershipFee, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(162, Short.MAX_VALUE))
-        );
+        jmnuApp.setText("Aplikacija");
+        jmnuMenuBar.add(jmnuApp);
+
+        setJMenuBar(jmnuMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,43 +87,49 @@ public class FMainForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1192, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jpnlMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembersActionPerformed
-        
+    private void jmnuiMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuiMembersActionPerformed
         FMembers fMembers = new FMembers();
         fMembers.setVisible(true);
-    }//GEN-LAST:event_jbtnMembersActionPerformed
+    }//GEN-LAST:event_jmnuiMembersActionPerformed
 
-    private void jbtnGroupsCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGroupsCategoriesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnGroupsCategoriesActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
+        cl.show(jpnlMainPanel, "panel1");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jbtnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAttendanceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnAttendanceActionPerformed
-
-    private void jbtnMembershipFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembershipFeeActionPerformed
-        
-    }//GEN-LAST:event_jbtnMembershipFeeActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
+        cl.show(jpnlMainPanel, "panel2");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton jbtnAttendance;
-    private javax.swing.JButton jbtnGroupsCategories;
-    private javax.swing.JButton jbtnMembers;
-    private javax.swing.JButton jbtnMembershipFee;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu jmnuApp;
+    private javax.swing.JMenu jmnuMain;
+    private javax.swing.JMenuBar jmnuMenuBar;
+    private javax.swing.JMenuItem jmnuiMembers;
+    private javax.swing.JPanel jpnlMainPanel;
     // End of variables declaration//GEN-END:variables
+
+    private void initPanels() {
+        MembersPanel panel1 = new MembersPanel();
+        CategoriesGroupsPanel panel2 = new CategoriesGroupsPanel();
+        jpnlMainPanel.add("panel1", panel1);
+        jpnlMainPanel.add("panel2", panel2);
+    }
 }
