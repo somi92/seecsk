@@ -8,6 +8,7 @@ package com.github.somi92.seecsk.gui;
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
+import com.github.somi92.seecsk.gui.panels.MembersPanel;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
 import java.awt.Color;
@@ -24,15 +25,16 @@ import javax.swing.plaf.basic.BasicBorders;
  */
 public class FNewMember extends javax.swing.JDialog {
 
-    private FMembers parent;
+//    private FMembers parent;
+    private MembersPanel caller;
     private Clan clan;
     
     /**
      * Creates new form FNewMember
      */
-    public FNewMember(FMembers parent, boolean modal) {
+    public FNewMember(FMembers parent, MembersPanel caller, boolean modal) {
         super(parent, modal);
-        this.parent = parent;
+        this.caller = caller;
 //        this.operacije = (ApstraktnaSistemskaOperacija) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN_OPERACIJA);
         initComponents();
         clan = (Clan) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN);
@@ -262,6 +264,11 @@ public class FNewMember extends javax.swing.JDialog {
         });
 
         jbtnExit.setText("Izađi");
+        jbtnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -347,7 +354,7 @@ public class FNewMember extends javax.swing.JDialog {
             boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan);
             if(res) {
                 JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
-                parent.azurirajTabelu();
+                caller.azurirajTabelu();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne može da sačuva člana.", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -365,6 +372,10 @@ public class FNewMember extends javax.swing.JDialog {
     private void jbtnEmptyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEmptyActionPerformed
         resetFields();
     }//GEN-LAST:event_jbtnEmptyActionPerformed
+
+    private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbtnExitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

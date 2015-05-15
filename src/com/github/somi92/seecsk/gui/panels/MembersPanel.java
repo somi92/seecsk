@@ -5,6 +5,19 @@
  */
 package com.github.somi92.seecsk.gui.panels;
 
+import com.github.somi92.seecsk.data.Sesija;
+import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.gui.FMembers;
+import com.github.somi92.seecsk.gui.FNewMember;
+import com.github.somi92.seecsk.model.controllers.KontrolerPL;
+import com.github.somi92.seecsk.model.operations.Ref;
+import com.github.somi92.seecsk.model.tables.ClanoviTableModel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author milos
@@ -16,6 +29,8 @@ public class MembersPanel extends javax.swing.JPanel {
      */
     public MembersPanel() {
         initComponents();
+        initSearch();
+        azurirajTabelu();
     }
 
     /**
@@ -27,10 +42,145 @@ public class MembersPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        PanelMembers = new javax.swing.JPanel();
+        jcmbCriteria = new javax.swing.JComboBox();
+        jlblCriteria = new javax.swing.JLabel();
+        jtxtfFilter = new javax.swing.JTextField();
+        jlblFilter = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtblMembers = new javax.swing.JTable();
+        jbtnMembershipFee = new javax.swing.JButton();
+        jbtnAttendance = new javax.swing.JButton();
+        jbtnNew = new javax.swing.JButton();
+        jbtnUpdate = new javax.swing.JButton();
+        jbtnDelete = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 24)); // NOI18N
-        jLabel1.setText("MembersPanel");
+        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        PanelMembers.setBorder(null);
+
+        jcmbCriteria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Broj LK", "Ime i prezime", "Broj telefona", "Grupa" }));
+
+        jlblCriteria.setText(" Kriterijum za filtriranje:");
+
+        jtxtfFilter.setText(" ");
+        jtxtfFilter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtfFilterKeyPressed(evt);
+            }
+        });
+
+        jlblFilter.setText(" Filter:");
+
+        jtblMembers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Broj LK", "Ime i prezime", "E-mail", "Broj telefona", "Datum rođenja", "Datum učlanjenja", "Grupa"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtblMembers);
+
+        jbtnMembershipFee.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        jbtnMembershipFee.setText("Članarine ...");
+
+        jbtnAttendance.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        jbtnAttendance.setText("Dolasci ...");
+
+        jbtnNew.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        jbtnNew.setText(" Novi član");
+        jbtnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnNewActionPerformed(evt);
+            }
+        });
+
+        jbtnUpdate.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        jbtnUpdate.setText("Detalji i izmena");
+        jbtnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnUpdateActionPerformed(evt);
+            }
+        });
+
+        jbtnDelete.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        jbtnDelete.setText("Obriši člana");
+        jbtnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnDeleteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelMembersLayout = new javax.swing.GroupLayout(PanelMembers);
+        PanelMembers.setLayout(PanelMembersLayout);
+        PanelMembersLayout.setHorizontalGroup(
+            PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMembersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelMembersLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlblFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxtfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlblCriteria)
+                            .addComponent(jcmbCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1422, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnMembershipFee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnAttendance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnNew, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        PanelMembersLayout.setVerticalGroup(
+            PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMembersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlblFilter)
+                    .addComponent(jlblCriteria))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtxtfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcmbCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelMembersLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jbtnMembershipFee, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(jbtnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelMembersLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -38,20 +188,152 @@ public class MembersPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(668, Short.MAX_VALUE))
+                .addComponent(PanelMembers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addComponent(PanelMembers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(137, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jtxtfFilterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtfFilterKeyPressed
+
+    }//GEN-LAST:event_jtxtfFilterKeyPressed
+
+    private void jbtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNewActionPerformed
+        //        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new SacuvajOperacija(new Operacije()));
+        FNewMember fNew = new FNewMember(null, this, true);
+        fNew.setVisible(true);
+//        System.out.println("RETURN");
+    }//GEN-LAST:event_jbtnNewActionPerformed
+
+    private void jbtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdateActionPerformed
+        int row = jtblMembers.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(this, "Niste selektovali člana.");
+        } else {
+            //            Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, new AzurirajOperacija(new Operacije()));
+            Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN,
+                clanoviTableModel.vratiClanoveTabele().get(row));
+            FNewMember fNew = new FNewMember(null, this, true);
+            fNew.setVisible(true);
+        }
+    }//GEN-LAST:event_jbtnUpdateActionPerformed
+
+    private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
+        int row = jtblMembers.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(this, "Niste selektovali člana.");
+        } else {
+            int response = JOptionPane.showConfirmDialog(this, "Jeste li sigurni da želite izbrisati izabranog člana?", "Potvrdite izbor", JOptionPane.OK_CANCEL_OPTION);
+            if(response == JOptionPane.OK_OPTION) {
+                //                KolekcijaClanova.vratiInstancu().obrisiClana(row);
+                boolean res = KontrolerPL.obrisiClana(clanoviTableModel.vratiClanoveTabele().get(row));
+                if(res) {
+                    azurirajTabelu();
+                }
+            }
+        }
+    }//GEN-LAST:event_jbtnDeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel PanelMembers;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtnAttendance;
+    private javax.swing.JButton jbtnDelete;
+    private javax.swing.JButton jbtnMembershipFee;
+    private javax.swing.JButton jbtnNew;
+    private javax.swing.JButton jbtnUpdate;
+    private javax.swing.JComboBox jcmbCriteria;
+    private javax.swing.JLabel jlblCriteria;
+    private javax.swing.JLabel jlblFilter;
+    private javax.swing.JTable jtblMembers;
+    private javax.swing.JTextField jtxtfFilter;
     // End of variables declaration//GEN-END:variables
+    
+    private ClanoviTableModel clanoviTableModel;
+    
+    public void azurirajTabelu() {
+//        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
+//        List<Clan> lc = new ArrayList<>();
+        Ref<List<Clan>> ref = new Ref(new ArrayList<>());
+        KontrolerPL.vratiListuClanova(ref);
+        azurirajTabelu(ref.get());
+    }
+    
+    public void azurirajTabelu(List<Clan> lc) {
+        clanoviTableModel = new ClanoviTableModel(lc);
+        jtblMembers.setModel(clanoviTableModel);
+    }
+    
+    private void filterSearch(String criteria) {
+        String filter = criteria.toUpperCase();
+//        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
+        Ref<List<Clan>> ref = new Ref<>(new ArrayList<Clan>());
+        KontrolerPL.vratiListuClanova(ref);
+        List<Clan> sourceList = ref.get();
+        List<Clan> resultList = new ArrayList<>();
+        
+        if(jcmbCriteria.getSelectedItem().toString().contains("Broj LK")) {
+            for(Clan clan : sourceList) {
+                if(clan.getBrojLK().toUpperCase().contains(filter)) {
+                    resultList.add(clan);
+                }
+            }
+        }
+        if(jcmbCriteria.getSelectedItem().toString().contains("Ime i prezime")) {
+            for(Clan clan : sourceList) {
+                if(clan.getImePrezime().toUpperCase().contains(filter)) {
+                    resultList.add(clan);
+                }
+            }
+        }
+        if(jcmbCriteria.getSelectedItem().toString().contains("Broj telefona")) {
+            for(Clan clan : sourceList) {
+                if(clan.getBrojTel().toUpperCase().contains(filter)) {
+                    resultList.add(clan);
+                }
+            }
+        }
+        if(jcmbCriteria.getSelectedItem().toString().contains("Grupa")) {
+            for(Clan clan : sourceList) {
+                if(clan.getGrupa().toString().toUpperCase().contains(filter)) {
+                    resultList.add(clan);
+                }
+            }
+        }
+        
+        azurirajTabelu(resultList);
+    }
+    
+    private void initSearch() {
+        jtxtfFilter.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                update();
+            }
+            
+            public void update() {
+                filterSearch(jtxtfFilter.getText().trim());
+            }
+            
+        });
+    }
+
 }

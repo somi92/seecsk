@@ -5,12 +5,10 @@
  */
 package com.github.somi92.seecsk.gui;
 
-import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.gui.panels.CategoriesGroupsPanel;
 import com.github.somi92.seecsk.gui.panels.MembersPanel;
-import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import java.awt.CardLayout;
-import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -24,6 +22,7 @@ public class FMainForm extends javax.swing.JFrame {
     public FMainForm() {
         initComponents();
         initPanels();
+        initToolbar();
     }
 
     /**
@@ -36,6 +35,10 @@ public class FMainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnlMainPanel = new javax.swing.JPanel();
+        jpnlToolbar = new javax.swing.JPanel();
+        jbtnMembers = new javax.swing.JButton();
+        jbtnMembers1 = new javax.swing.JButton();
+        jbtnMembers2 = new javax.swing.JButton();
         jmnuMenuBar = new javax.swing.JMenuBar();
         jmnuMain = new javax.swing.JMenu();
         jmnuiMembers = new javax.swing.JMenuItem();
@@ -47,6 +50,51 @@ public class FMainForm extends javax.swing.JFrame {
         setTitle("SEECSK - Sistem za elektronsku evidenciju članova sportskog kluba");
 
         jpnlMainPanel.setLayout(new java.awt.CardLayout());
+
+        jpnlToolbar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jbtnMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/members.png"))); // NOI18N
+        jbtnMembers.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText")));
+        jbtnMembers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnMembersActionPerformed(evt);
+            }
+        });
+
+        jbtnMembers1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/groups.png"))); // NOI18N
+        jbtnMembers1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText")));
+        jbtnMembers1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnMembers1ActionPerformed(evt);
+            }
+        });
+
+        jbtnMembers2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/finance.png"))); // NOI18N
+        jbtnMembers2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText")));
+
+        javax.swing.GroupLayout jpnlToolbarLayout = new javax.swing.GroupLayout(jpnlToolbar);
+        jpnlToolbar.setLayout(jpnlToolbarLayout);
+        jpnlToolbarLayout.setHorizontalGroup(
+            jpnlToolbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlToolbarLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jbtnMembers)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbtnMembers1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbtnMembers2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpnlToolbarLayout.setVerticalGroup(
+            jpnlToolbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlToolbarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlToolbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnMembers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnMembers1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnMembers2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         jmnuMain.setText("Glavni meni");
 
@@ -87,15 +135,19 @@ public class FMainForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jpnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1192, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1781, Short.MAX_VALUE)
+                    .addComponent(jpnlToolbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jpnlMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jpnlToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jpnlMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,14 +168,28 @@ public class FMainForm extends javax.swing.JFrame {
         cl.show(jpnlMainPanel, "panel2");
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jbtnMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembersActionPerformed
+        CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
+        cl.show(jpnlMainPanel, "panel1");
+    }//GEN-LAST:event_jbtnMembersActionPerformed
+
+    private void jbtnMembers1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembers1ActionPerformed
+        CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
+        cl.show(jpnlMainPanel, "panel2");
+    }//GEN-LAST:event_jbtnMembers1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JButton jbtnMembers;
+    private javax.swing.JButton jbtnMembers1;
+    private javax.swing.JButton jbtnMembers2;
     private javax.swing.JMenu jmnuApp;
     private javax.swing.JMenu jmnuMain;
     private javax.swing.JMenuBar jmnuMenuBar;
     private javax.swing.JMenuItem jmnuiMembers;
     private javax.swing.JPanel jpnlMainPanel;
+    private javax.swing.JPanel jpnlToolbar;
     // End of variables declaration//GEN-END:variables
 
     private void initPanels() {
@@ -131,5 +197,9 @@ public class FMainForm extends javax.swing.JFrame {
         CategoriesGroupsPanel panel2 = new CategoriesGroupsPanel();
         jpnlMainPanel.add("panel1", panel1);
         jpnlMainPanel.add("panel2", panel2);
+    }
+
+    private void initToolbar() {
+        
     }
 }
