@@ -6,8 +6,12 @@
 package com.github.somi92.seecsk.model.tables;
 
 import com.github.somi92.seecsk.domain.Clan;
-import java.lang.reflect.Member;
+import com.github.somi92.seecsk.domain.Uplata;
+import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -18,14 +22,18 @@ import javax.swing.table.AbstractTableModel;
 public class ClanoviTableModel extends AbstractTableModel {
     
     private List<Clan> clanovi;
+    private HashMap<Integer, Color> rowColors;
+    private boolean mark;
     
     public ClanoviTableModel() {
-        
+        rowColors = new HashMap<>();
+        mark = false;
     }
     
-    public ClanoviTableModel(List<Clan> clanovi) {
+    public ClanoviTableModel(List<Clan> clanovi, boolean mark) {
         this();
         this.clanovi = clanovi;
+        this.mark = mark;
     }
     
     public void postaviClanoveTabele(List<Clan> clanovi) {
@@ -34,6 +42,24 @@ public class ClanoviTableModel extends AbstractTableModel {
     
     public List<Clan> vratiClanoveTabele() {
         return clanovi;
+    }
+    
+    public boolean isMark() {
+        return mark;
+    }
+
+    public void setMark(boolean mark) {
+        this.mark = mark;
+        rowColors.clear();
+        fireTableDataChanged();
+    }
+
+    public HashMap<Integer, Color> getRowColors() {
+        return rowColors;
+    }
+
+    public void setRowColors(HashMap<Integer, Color> rowColors) {
+        this.rowColors = rowColors;
     }
 
     @Override
@@ -73,6 +99,20 @@ public class ClanoviTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Clan c = clanovi.get(rowIndex);
+        if(mark) {
+            // 30 days in milliseconds
+            long l = 2592000000l;
+            Date border1 = new Date(new Date().getTime()-l);
+            Date border2 = new Date(new Date().getTime()-(l+l));
+            Date d = getMaxDate(c.getUplate());
+            if(!d.after(border1)) {
+                if(!d.after(border2)) {
+                    rowColors.put(rowIndex, Color.red);
+                } else {
+                    rowColors.put(rowIndex, Color.orange);
+                }
+            }
+        }
         switch(columnIndex) {
             case 0:
                 return c.getIdClan();
@@ -95,4 +135,14 @@ public class ClanoviTableModel extends AbstractTableModel {
         }
     }
     
+    private Date getMaxDate(List<Uplata> uplate) {
+        Date maxDate = new Date();
+        maxDate.setTime(0);
+        for(Uplata u : uplate) {
+            if(u.getDatumUplate().after(maxDate)) {
+                maxDate = u.getDatumUplate();
+            }
+        }
+        return maxDate;
+    }
 }

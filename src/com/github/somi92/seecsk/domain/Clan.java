@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import com.github.somi92.sqldbb.annotations.Collection;
 import com.github.somi92.sqldbb.annotations.Column;
 import com.github.somi92.sqldbb.annotations.ForeignKey;
 import com.github.somi92.sqldbb.annotations.PrimaryKey;
@@ -39,8 +40,9 @@ public class Clan {
     private Date datumUclanjenja;
     @Column("napomena")
     private String napomena;
-    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = true)
+    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = false)
     private Grupa grupa;
+    @Collection(childEntityClass = Uplata.class, referencingField = "clan")
     private List<Uplata> uplate;
     private List<Prisustvo> prisustva;
 
@@ -148,6 +150,22 @@ public class Clan {
         this.grupa = grupa;
 //        this.grupa.dodajClana(this);
     }
+    
+    public List<Uplata> getUplate() {
+        return uplate;
+    }
+
+    public void setUplate(List<Uplata> uplate) {
+        this.uplate = uplate;
+    }
+
+    public List<Prisustvo> getPrisustva() {
+        return prisustva;
+    }
+
+    public void setPrisustva(List<Prisustvo> prisustva) {
+        this.prisustva = prisustva;
+    }
 
     boolean dodajUplatu(Uplata uplata) {
         return uplate.add(uplata);
@@ -190,5 +208,5 @@ public class Clan {
     @Override
     public String toString() {
         return "Clan{" + "idClan=" + idClan + ", imePrezime=" + imePrezime + '}';
-    } 
+    }
 }

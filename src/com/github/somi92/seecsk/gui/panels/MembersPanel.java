@@ -7,16 +7,19 @@ package com.github.somi92.seecsk.gui.panels;
 
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
-import com.github.somi92.seecsk.gui.FMembers;
 import com.github.somi92.seecsk.gui.FNewMember;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
 import com.github.somi92.seecsk.model.tables.ClanoviTableModel;
+import com.github.somi92.seecsk.model.tables.ClanoviTableRenderer;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -49,11 +52,11 @@ public class MembersPanel extends javax.swing.JPanel {
         jlblFilter = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblMembers = new javax.swing.JTable();
-        jbtnMembershipFee = new javax.swing.JButton();
-        jbtnAttendance = new javax.swing.JButton();
         jbtnNew = new javax.swing.JButton();
         jbtnUpdate = new javax.swing.JButton();
         jbtnDelete = new javax.swing.JButton();
+        jtbtnDebt = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -97,33 +100,35 @@ public class MembersPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtblMembers);
 
-        jbtnMembershipFee.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        jbtnMembershipFee.setText("Članarine ...");
-
-        jbtnAttendance.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        jbtnAttendance.setText("Dolasci ...");
-
-        jbtnNew.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         jbtnNew.setText(" Novi član");
+        jbtnNew.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnNewActionPerformed(evt);
             }
         });
 
-        jbtnUpdate.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         jbtnUpdate.setText("Detalji i izmena");
+        jbtnUpdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnUpdateActionPerformed(evt);
             }
         });
 
-        jbtnDelete.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         jbtnDelete.setText("Obriši člana");
+        jbtnDelete.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnDeleteActionPerformed(evt);
+            }
+        });
+
+        jtbtnDebt.setText("Označi dužnike");
+        jtbtnDebt.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jtbtnDebt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtbtnDebtActionPerformed(evt);
             }
         });
 
@@ -133,7 +138,7 @@ public class MembersPanel extends javax.swing.JPanel {
             PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMembersLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelMembersLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,45 +147,50 @@ public class MembersPanel extends javax.swing.JPanel {
                         .addGap(34, 34, 34)
                         .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlblCriteria)
-                            .addComponent(jcmbCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jcmbCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addComponent(jtbtnDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbtnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1422, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtnMembershipFee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnAttendance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnNew, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(0, 14, Short.MAX_VALUE))
         );
         PanelMembersLayout.setVerticalGroup(
             PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMembersLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlblFilter)
-                    .addComponent(jlblCriteria))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxtfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcmbCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelMembersLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jbtnMembershipFee, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66)
-                        .addComponent(jbtnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtbtnDebt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(PanelMembersLayout.createSequentialGroup()
+                                .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jbtnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(PanelMembersLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                        .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlblFilter)
+                            .addComponent(jlblCriteria))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtxtfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcmbCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
+
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Članovi kluba");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -188,15 +198,19 @@ public class MembersPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PanelMembers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PanelMembers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PanelMembers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -240,19 +254,27 @@ public class MembersPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
+    private void jtbtnDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnDebtActionPerformed
+        if(jtbtnDebt.isSelected()) {
+            clanoviTableModel.setMark(true);
+        } else {
+            clanoviTableModel.setMark(false);
+        }
+    }//GEN-LAST:event_jtbtnDebtActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelMembers;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbtnAttendance;
     private javax.swing.JButton jbtnDelete;
-    private javax.swing.JButton jbtnMembershipFee;
     private javax.swing.JButton jbtnNew;
     private javax.swing.JButton jbtnUpdate;
     private javax.swing.JComboBox jcmbCriteria;
     private javax.swing.JLabel jlblCriteria;
     private javax.swing.JLabel jlblFilter;
     private javax.swing.JTable jtblMembers;
+    private javax.swing.JToggleButton jtbtnDebt;
     private javax.swing.JTextField jtxtfFilter;
     // End of variables declaration//GEN-END:variables
     
@@ -267,8 +289,14 @@ public class MembersPanel extends javax.swing.JPanel {
     }
     
     public void azurirajTabelu(List<Clan> lc) {
-        clanoviTableModel = new ClanoviTableModel(lc);
+        clanoviTableModel = new ClanoviTableModel(lc, jtbtnDebt.isSelected());
         jtblMembers.setModel(clanoviTableModel);
+        TableColumnModel tcm = jtblMembers.getColumnModel();
+        Enumeration<TableColumn> tce = tcm.getColumns();
+        while(tce.hasMoreElements()) {
+            TableColumn tc = tce.nextElement();
+            tc.setCellRenderer(new ClanoviTableRenderer());
+        }
     }
     
     private void filterSearch(String criteria) {
@@ -312,6 +340,9 @@ public class MembersPanel extends javax.swing.JPanel {
     }
     
     private void initSearch() {
+        
+        jcmbCriteria.setSelectedIndex(1);
+        
         jtxtfFilter.getDocument().addDocumentListener(new DocumentListener() {
 
             @Override

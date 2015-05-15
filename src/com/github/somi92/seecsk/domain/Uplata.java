@@ -5,6 +5,10 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import com.github.somi92.sqldbb.annotations.Column;
+import com.github.somi92.sqldbb.annotations.ForeignKey;
+import com.github.somi92.sqldbb.annotations.PrimaryKey;
+import com.github.somi92.sqldbb.annotations.Table;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,12 +16,20 @@ import java.util.Objects;
  *
  * @author milos
  */
+
+@Table("Uplata")
 public class Uplata {
     
+    @PrimaryKey("idClanarina")
+    @ForeignKey(column = "idClanarina", referencingTable = "Clanarina", referencingColumn = "idClanarina", isCollectionItem = false)
     private Clanarina clanarina;
+    @PrimaryKey("redniBroj")
     private int redniBroj;
+    @Column("iznos")
     private double iznos;
+    @Column("datumUplate")
     private Date datumUplate;
+    @ForeignKey(column = "idClan", referencingTable = "Clan", referencingColumn = "idClan", isCollectionItem = true)
     private Clan clan;
 
     public Uplata() {
@@ -29,8 +41,8 @@ public class Uplata {
         this.iznos = iznos;
         this.datumUplate = datumUplate;
         this.clan = clan;
-        this.clanarina.dodajUplatu(this);
-        this.clan.dodajUplatu(this);
+//        this.clanarina.dodajUplatu(this);
+//        this.clan.dodajUplatu(this);
     }
 
     public Clanarina getClanarina() {
@@ -39,7 +51,7 @@ public class Uplata {
 
     public void setClanarina(Clanarina clanarina) {
         this.clanarina = clanarina;
-        this.clanarina.dodajUplatu(this);
+//        this.clanarina.dodajUplatu(this);
     }
     
     public int getRedniBroj() {

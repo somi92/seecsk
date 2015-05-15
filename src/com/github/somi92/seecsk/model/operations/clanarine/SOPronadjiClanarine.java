@@ -3,28 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.model.operations.clan;
+package com.github.somi92.seecsk.model.operations.clanarine;
 
-import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
 import com.github.somi92.seecsk.model.operations.Ref;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author milos
  */
-public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
-
-    private Ref<List<Clan>> listaClanova;
+public class SOPronadjiClanarine extends ApstraktnaSistemskaOperacija {
     
-    public SOVratiListuClanova(Ref<List<Clan>> listaClanova) {
-        this.listaClanova = listaClanova;
+    private List<String> kriterijumPretrage;
+    private Ref<List<Uplata>> uplate;
+    
+    public SOPronadjiClanarine(List<String> kriterijumPretrage, Ref<List<Uplata>> uplate) {
+        this.kriterijumPretrage = kriterijumPretrage;
+        this.uplate = uplate;
     }
     
     @Override
@@ -40,7 +43,9 @@ public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            listaClanova.set(dbbroker.loadEntities(new Clan(), null, true));
+            List<Uplata> ul = uplate.get();
+            Uplata u = ul.get(0);
+            uplate.set(dbbroker.loadEntities(u, kriterijumPretrage, false));
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
@@ -52,7 +57,4 @@ public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
         return this.getClass().getSimpleName();
     }
     
-//    public List<Clan> vratiListuClanova() {
-//        return listaClanova.get();
-//    }
 }

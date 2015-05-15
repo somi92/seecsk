@@ -7,12 +7,14 @@ package com.github.somi92.seecsk.model.controllers;
 
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
+import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
 import com.github.somi92.seecsk.model.operations.Ref;
 import com.github.somi92.seecsk.model.operations.clan.SOKreirajClana;
 import com.github.somi92.seecsk.model.operations.clan.SOObrisiClana;
 import com.github.somi92.seecsk.model.operations.clan.SOVratiListuClanova;
 import com.github.somi92.seecsk.model.operations.clan.SOZapamtiClana;
+import com.github.somi92.seecsk.model.operations.clanarine.SOPronadjiClanarine;
 import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
 import java.util.List;
 import java.util.logging.Level;
@@ -127,6 +129,15 @@ public class KontrolerPL {
     public static void vratiListuGrupa(Ref<List<Grupa>> grupe) {
         try {
             ApstraktnaSistemskaOperacija aso = new SOVratiListuGrupa(grupe);
+            aso.izvrsiSistemskuOperaciju();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void vratiClanarine(Ref<List<Uplata>> uplate, List<String> kriterijumPretrage) {
+        try {
+            ApstraktnaSistemskaOperacija aso = new SOPronadjiClanarine(kriterijumPretrage, uplate);
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();

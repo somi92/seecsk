@@ -39,6 +39,8 @@ public class FMainForm extends javax.swing.JFrame {
         jbtnMembers = new javax.swing.JButton();
         jbtnMembers1 = new javax.swing.JButton();
         jbtnMembers2 = new javax.swing.JButton();
+        jpnlStatus = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jmnuMenuBar = new javax.swing.JMenuBar();
         jmnuMain = new javax.swing.JMenu();
         jmnuiMembers = new javax.swing.JMenuItem();
@@ -53,24 +55,30 @@ public class FMainForm extends javax.swing.JFrame {
 
         jpnlToolbar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jbtnMembers.setBackground(new java.awt.Color(204, 204, 204));
         jbtnMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/members.png"))); // NOI18N
-        jbtnMembers.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText")));
+        jbtnMembers.setToolTipText("Članovi kluba");
+        jbtnMembers.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtnMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMembersActionPerformed(evt);
             }
         });
 
+        jbtnMembers1.setBackground(new java.awt.Color(204, 204, 204));
         jbtnMembers1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/groups.png"))); // NOI18N
-        jbtnMembers1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText")));
+        jbtnMembers1.setToolTipText("Kategorije, grupe i treninzi");
+        jbtnMembers1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtnMembers1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMembers1ActionPerformed(evt);
             }
         });
 
+        jbtnMembers2.setBackground(new java.awt.Color(204, 204, 204));
         jbtnMembers2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/finance.png"))); // NOI18N
-        jbtnMembers2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Panel.background"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText"), javax.swing.UIManager.getDefaults().getColor("Button.disabledText")));
+        jbtnMembers2.setToolTipText("Članarine");
+        jbtnMembers2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jpnlToolbarLayout = new javax.swing.GroupLayout(jpnlToolbar);
         jpnlToolbar.setLayout(jpnlToolbarLayout);
@@ -79,9 +87,9 @@ public class FMainForm extends javax.swing.JFrame {
             .addGroup(jpnlToolbarLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jbtnMembers)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jbtnMembers1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jbtnMembers2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -94,6 +102,24 @@ public class FMainForm extends javax.swing.JFrame {
                     .addComponent(jbtnMembers1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtnMembers2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+        );
+
+        jpnlStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel1.setText("Status:");
+
+        javax.swing.GroupLayout jpnlStatusLayout = new javax.swing.GroupLayout(jpnlStatus);
+        jpnlStatus.setLayout(jpnlStatusLayout);
+        jpnlStatusLayout.setHorizontalGroup(
+            jpnlStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlStatusLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpnlStatusLayout.setVerticalGroup(
+            jpnlStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
         );
 
         jmnuMain.setText("Glavni meni");
@@ -136,8 +162,11 @@ public class FMainForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1781, Short.MAX_VALUE)
-                    .addComponent(jpnlToolbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpnlToolbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpnlStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jpnlMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 18, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,8 +175,10 @@ public class FMainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jpnlToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jpnlMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jpnlStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -179,6 +210,7 @@ public class FMainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnMembers1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JButton jbtnMembers;
@@ -189,6 +221,7 @@ public class FMainForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jmnuMenuBar;
     private javax.swing.JMenuItem jmnuiMembers;
     private javax.swing.JPanel jpnlMainPanel;
+    private javax.swing.JPanel jpnlStatus;
     private javax.swing.JPanel jpnlToolbar;
     // End of variables declaration//GEN-END:variables
 

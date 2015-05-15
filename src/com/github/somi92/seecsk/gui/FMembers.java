@@ -270,7 +270,7 @@ public class FMembers extends javax.swing.JFrame {
     }
     
     public void azurirajTabelu(List<Clan> lc) {
-        clanoviTableModel = new ClanoviTableModel(lc);
+        clanoviTableModel = new ClanoviTableModel(lc, false);
         jtblMembers.setModel(clanoviTableModel);
     }
 

@@ -5,6 +5,10 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import com.github.somi92.sqldbb.annotations.Column;
+import com.github.somi92.sqldbb.annotations.PrimaryKey;
+import com.github.somi92.sqldbb.annotations.Table;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -13,12 +17,19 @@ import java.util.Objects;
  *
  * @author milos
  */
+
+@Table("Clanarina")
 public class Clanarina {
     
+    @PrimaryKey("idClanarina")
     private long idClanarina;
+    @Column("datumOd")
     private Date datumOd;
+    @Column("datumDo")
     private Date datumDo;
+    @Column("napomena")
     private String napomena;
+    
     private List<Uplata> uplate;
 
     public Clanarina() {
@@ -61,6 +72,14 @@ public class Clanarina {
 
     public void setNapomena(String napomena) {
         this.napomena = napomena;
+    }
+    
+    public List<Uplata> getUplate() {
+        return uplate;
+    }
+
+    public void setUplate(List<Uplata> uplate) {
+        this.uplate = uplate;
     }
 
     public List<Uplata> vratiSveUplate() {
@@ -107,8 +126,6 @@ public class Clanarina {
 
     @Override
     public String toString() {
-        return "Clanarina{" + "idClanarina=" + idClanarina + ", datumOd=" + datumOd + ", datumDo=" + datumDo + '}';
+        return new SimpleDateFormat("dd/MM/yyyy").format(datumOd) + " - " + new SimpleDateFormat("dd/MM/yyyy").format(datumDo);
     }
-    
-    
 }
