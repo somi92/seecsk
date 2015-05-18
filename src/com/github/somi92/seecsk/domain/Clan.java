@@ -32,6 +32,8 @@ public class Clan {
     private char pol;
     @Column("email")
     private String email;
+    @Column("adresa")
+    private String adresa;
     @Column("brojTel")
     private String brojTel;
     @Column("datumRodjenja")
@@ -52,18 +54,20 @@ public class Clan {
         brojLK = "";
         imePrezime = "";
         email = "";
+        adresa = "";
         brojTel = "";
         datumRodjenja = new Date();
         datumUclanjenja = new Date();
         napomena = "";
     }
 
-    public Clan(String brojLK, String imePrezime, char pol, String email, String brojTel, Date datumRodjenja, Date datumUclanjenja, String napomena) {
+    public Clan(String brojLK, String imePrezime, char pol, String email, String adresa, String brojTel, Date datumRodjenja, Date datumUclanjenja, String napomena) {
         this();
         this.brojLK = brojLK;
         this.imePrezime = imePrezime;
         this.pol = pol;
         this.email = email;
+        this.adresa = adresa;
         this.brojTel = brojTel;
         this.datumRodjenja = datumRodjenja;
         this.datumUclanjenja = datumUclanjenja;
@@ -108,6 +112,14 @@ public class Clan {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
     }
 
     public String getBrojTel() {

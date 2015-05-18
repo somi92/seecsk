@@ -8,6 +8,7 @@ package com.github.somi92.seecsk.model.tables;
 import com.github.somi92.seecsk.domain.Uplata;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -73,5 +74,16 @@ public class UplateTableModel extends AbstractTableModel {
                 return "Greška";
         }
     }
+
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return true;
+    }
     
+    public void dodajRed() {
+        Uplata nova  = new Uplata();
+        nova.setDatumUplate(new Date());
+        uplate.add(nova);
+        fireTableDataChanged();
+    }
 }
