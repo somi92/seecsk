@@ -9,7 +9,7 @@ import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
-import com.github.somi92.seecsk.model.tables.ClanoviTableModel;
+import com.github.somi92.seecsk.model.tables.clan.ClanoviTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

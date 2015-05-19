@@ -10,8 +10,8 @@ import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.gui.FNewMember;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
-import com.github.somi92.seecsk.model.tables.ClanoviTableModel;
-import com.github.somi92.seecsk.model.tables.ClanoviTableRenderer;
+import com.github.somi92.seecsk.model.tables.clan.ClanoviTableModel;
+import com.github.somi92.seecsk.model.tables.clan.ClanoviTableRenderer;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -175,8 +175,7 @@ public class MembersPanel extends javax.swing.JPanel {
                                     .addComponent(jbtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelMembersLayout.createSequentialGroup()
                         .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlblFilter)
@@ -184,8 +183,8 @@ public class MembersPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PanelMembersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtxtfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcmbCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addComponent(jcmbCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N

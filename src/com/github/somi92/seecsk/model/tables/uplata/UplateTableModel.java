@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.model.tables;
+package com.github.somi92.seecsk.model.tables.uplata;
 
+import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.domain.Uplata;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -72,6 +76,26 @@ public class UplateTableModel extends AbstractTableModel {
                 return new SimpleDateFormat("dd/MM/yyyy").format(u.getDatumUplate());
             default:
                 return "Greška";
+        }
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        try {
+            Uplata u = uplate.get(rowIndex);
+            switch(columnIndex) {
+                case 0:
+                    u.setClanarina((Clanarina) aValue);
+                    break;
+                case 1:
+                    u.setIznos(Double.parseDouble(aValue.toString()));
+                    break;
+                case 2:
+                    u.setDatumUplate((Date)aValue);
+                    break;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

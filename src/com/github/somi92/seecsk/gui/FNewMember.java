@@ -7,19 +7,26 @@ package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.domain.Grupa;
-import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.gui.panels.MembersPanel;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
-import com.github.somi92.seecsk.model.tables.UplateTableModel;
+import com.github.somi92.seecsk.model.tables.uplata.UplateTableClanarinaEditor;
+import com.github.somi92.seecsk.model.tables.uplata.UplateTableModel;
+import com.github.somi92.seecsk.model.tables.uplata.UplateTableModelDatumEditor;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -93,6 +100,8 @@ public class FNewMember extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SEECSK - Unos novog člana");
         setResizable(false);
+
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jlblFirstLastName.setText("Ime i prezime:");
 
@@ -181,11 +190,6 @@ public class FNewMember extends javax.swing.JDialog {
                 jtxtAdresaFocusGained(evt);
             }
         });
-        jtxtAdresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtAdresaActionPerformed(evt);
-            }
-        });
 
         jlblAdresaError.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         jlblAdresaError.setForeground(new java.awt.Color(255, 0, 0));
@@ -234,10 +238,11 @@ public class FNewMember extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtxtIdCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlblidCard))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlblIdCardError, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -366,20 +371,19 @@ public class FNewMember extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(jpnlClanarina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 3, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbtnEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 920, Short.MAX_VALUE)
-                        .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jpnlClanarina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbtnEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,12 +392,12 @@ public class FNewMember extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnlClanarina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtnEmpty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbtnEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -480,12 +484,9 @@ public class FNewMember extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnNovaUplataActionPerformed
 
     private void jtxtAdresaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAdresaFocusGained
-        // TODO add your handling code here:
+        jtxtAdresa.setBorder(defaultBorder);
+        jlblAdresaError.setText("");
     }//GEN-LAST:event_jtxtAdresaFocusGained
-
-    private void jtxtAdresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtAdresaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtAdresaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -595,6 +596,21 @@ public class FNewMember extends javax.swing.JDialog {
         
         utm = new UplateTableModel();
         jtblUplate.setModel(utm);
+        
+        List<Clanarina> sample = new ArrayList<>();
+        sample.add(new Clanarina());
+        Ref<List<Clanarina>> clanarineRef = new Ref(sample);
+        KontrolerPL.vratiClanarine(clanarineRef, null);
+        TableColumnModel tcm = jtblUplate.getColumnModel();
+        TableColumn tc = tcm.getColumn(0);
+        Clanarina[] ca = new Clanarina[clanarineRef.get().size()];
+        for(int i=0; i<ca.length; i++) {
+            ca[i] = clanarineRef.get().get(i);
+        }
+        UplateTableClanarinaEditor ute = new UplateTableClanarinaEditor(ca);
+        tc.setCellEditor(ute);
+        tc = tcm.getColumn(2);
+        tc.setCellEditor(new UplateTableModelDatumEditor());
         
         if(clan != null) {
             

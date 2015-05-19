@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.model.operations.clanarine;
+package com.github.somi92.seecsk.model.operations.clanarina;
 
+import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
@@ -13,8 +14,6 @@ import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
 import com.github.somi92.seecsk.model.operations.Ref;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,11 +22,11 @@ import java.util.logging.Logger;
 public class SOPronadjiClanarine extends ApstraktnaSistemskaOperacija {
     
     private List<String> kriterijumPretrage;
-    private Ref<List<Uplata>> uplate;
+    private Ref<List<Clanarina>> clanarine;
     
-    public SOPronadjiClanarine(List<String> kriterijumPretrage, Ref<List<Uplata>> uplate) {
+    public SOPronadjiClanarine(List<String> kriterijumPretrage, Ref<List<Clanarina>> clanarine) {
         this.kriterijumPretrage = kriterijumPretrage;
-        this.uplate = uplate;
+        this.clanarine = clanarine;
     }
     
     @Override
@@ -43,9 +42,9 @@ public class SOPronadjiClanarine extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            List<Uplata> ul = uplate.get();
-            Uplata u = ul.get(0);
-            uplate.set(dbbroker.loadEntities(u, kriterijumPretrage, false));
+            List<Clanarina> lc = clanarine.get();
+            Clanarina u = lc.get(0);
+            clanarine.set(dbbroker.loadEntities(u, kriterijumPretrage, false));
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());

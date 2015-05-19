@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.model.tables;
+package com.github.somi92.seecsk.model.tables.clan;
 
 import java.awt.Color;
 import java.awt.Component;

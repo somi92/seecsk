@@ -12,7 +12,6 @@ import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
 import com.github.somi92.seecsk.model.operations.Ref;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

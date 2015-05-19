@@ -6,6 +6,7 @@
 package com.github.somi92.seecsk.model.controllers;
 
 import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
@@ -14,11 +15,9 @@ import com.github.somi92.seecsk.model.operations.clan.SOKreirajClana;
 import com.github.somi92.seecsk.model.operations.clan.SOObrisiClana;
 import com.github.somi92.seecsk.model.operations.clan.SOVratiListuClanova;
 import com.github.somi92.seecsk.model.operations.clan.SOZapamtiClana;
-import com.github.somi92.seecsk.model.operations.clanarine.SOPronadjiClanarine;
+import com.github.somi92.seecsk.model.operations.clanarina.SOPronadjiClanarine;
 import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -135,9 +134,9 @@ public class KontrolerPL {
         }
     }
     
-    public static void vratiClanarine(Ref<List<Uplata>> uplate, List<String> kriterijumPretrage) {
+    public static void vratiClanarine(Ref<List<Clanarina>> clanarine, List<String> kriterijumPretrage) {
         try {
-            ApstraktnaSistemskaOperacija aso = new SOPronadjiClanarine(kriterijumPretrage, uplate);
+            ApstraktnaSistemskaOperacija aso = new SOPronadjiClanarine(kriterijumPretrage, clanarine);
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();
