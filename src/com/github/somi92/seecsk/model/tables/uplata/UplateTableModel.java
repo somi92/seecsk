@@ -5,15 +5,13 @@
  */
 package com.github.somi92.seecsk.model.tables.uplata;
 
+import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.domain.Uplata;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -23,13 +21,15 @@ import javax.swing.table.AbstractTableModel;
 public class UplateTableModel extends AbstractTableModel {
 
     private List<Uplata> uplate;
+    private Clan clan;
     
     public UplateTableModel() {
         uplate = new ArrayList<>();
     }
     
-    public UplateTableModel(List<Uplata> uplate) {
+    public UplateTableModel(List<Uplata> uplate, Clan clan) {
         this.uplate = uplate;
+        this.clan = clan;
     }
     
     public void postaviUplateTabele(List<Uplata> uplate) {
@@ -38,6 +38,14 @@ public class UplateTableModel extends AbstractTableModel {
     
     public List<Uplata> vratiUplateTabele() {
         return uplate;
+    }
+    
+    public void postaviClana(Clan clan) {
+        this.clan = clan;
+    }
+    
+    public Clan vratiClana() {
+        return clan;
     }
     
     @Override
@@ -107,12 +115,15 @@ public class UplateTableModel extends AbstractTableModel {
     public void dodajRed() {
         Uplata nova  = new Uplata();
         nova.setDatumUplate(new Date());
+        nova.setClanarina(null);
         uplate.add(nova);
         fireTableDataChanged();
     }
     
-    public void obrisiRed(int row) {
+    public Uplata obrisiRed(int row) {
+        Uplata u = uplate.get(row);
         uplate.remove(row);
         fireTableDataChanged();
+        return u;
     }
 }

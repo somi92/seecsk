@@ -35,6 +35,7 @@ public class FNewMember extends javax.swing.JDialog {
 //    private FMembers parent;
     private MembersPanel caller;
     private Clan clan;
+    private List<Uplata> uplateBrisanje;
     
     /**
      * Creates new form FNewMember
@@ -45,6 +46,7 @@ public class FNewMember extends javax.swing.JDialog {
 //        this.operacije = (ApstraktnaSistemskaOperacija) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN_OPERACIJA);
         initComponents();
         clan = (Clan) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.CLAN);
+        uplateBrisanje = new ArrayList<>();
         initForm(clan);
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, null);
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN_OPERACIJA, null);
@@ -457,9 +459,20 @@ public class FNewMember extends javax.swing.JDialog {
             clan.setNapomena(napomena);
             clan.setGrupa(grupa);
             
-            clan.setUplate(utm.vratiUplateTabele());
+            List<Uplata> uplataTabele = utm.vratiUplateTabele();
+            for(Uplata u : uplataTabele) {
+                if(u.getClanarina() == null) {
+                    JOptionPane.showMessageDialog(this, "Niste izabrali članarinu (period) za neku od uplata.");
+                    return;
+                } else {
+                    u.setClan(clan);
+//                    clan.getUplate().add(u);
+                }
+            }
             
-            boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan);
+            clan.setUplate(uplataTabele);
+            
+            boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan, uplateBrisanje);
             if(res) {
                 JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
                 caller.azurirajTabelu();
@@ -482,6 +495,7 @@ public class FNewMember extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnEmptyActionPerformed
 
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
+        
         dispose();
     }//GEN-LAST:event_jbtnExitActionPerformed
 
@@ -499,7 +513,16 @@ public class FNewMember extends javax.swing.JDialog {
         if(row == -1) {
             JOptionPane.showMessageDialog(this, "Niste izabrali uplatu.");
         } else {
-            utm.obrisiRed(row);
+            int response = JOptionPane.showConfirmDialog(this, "Jeste li sigurni da želite izbrisati izabranu uplatu?", "Potvrdite izbor", JOptionPane.OK_CANCEL_OPTION);
+            if(response == JOptionPane.OK_OPTION) {
+                Uplata u = utm.vratiUplateTabele().get(row);
+                u.setClan(clan);
+                if(u.getClanarina() != null) {
+                    uplateBrisanje.add(utm.obrisiRed(row));
+                } else {
+                    utm.obrisiRed(row);
+                }
+            }
         }
     }//GEN-LAST:event_jbtnObrisiUplatuActionPerformed
 
@@ -674,7 +697,9 @@ public class FNewMember extends javax.swing.JDialog {
 //            pretraga.add("clan");
 //            KontrolerPL.vratiClanarine(uplateRef, pretraga);
 //            ul = uplateRef.get();
-            utm.postaviUplateTabele(clan.getUplate());
+            
+            utm.postaviUplateTabele(new ArrayList<>(clan.getUplate()));
+            utm.postaviClana(clan);
             
         } else {
 //            jtblUplate.setEnabled(false);

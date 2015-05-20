@@ -17,14 +17,14 @@ import java.util.List;
  *
  * @author milos
  */
-public class SOZapamtiClanarine extends ApstraktnaSistemskaOperacija {
+public class SOObrisiUplate extends ApstraktnaSistemskaOperacija {
     
     private List<Uplata> uplate;
     
-    public SOZapamtiClanarine(List<Uplata> uplate) {
+    public SOObrisiUplate(List<Uplata> uplate) {
         this.uplate = uplate;
     }
- 
+
     @Override
     protected void izvrsiValidaciju() throws ValidacijaException {
         
@@ -39,7 +39,7 @@ public class SOZapamtiClanarine extends ApstraktnaSistemskaOperacija {
     protected void izvrsiDBTransakciju() throws SOException {
         try {
             for(Uplata u : uplate) {
-                dbbroker.saveOrUpdateEntity(u);
+                dbbroker.deleteEntity(u);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -115,11 +115,11 @@ public class ClanoviTableModel extends AbstractTableModel {
 //            Date border1 = new Date(new Date().getTime()-l);
 //            Date border2 = new Date(new Date().getTime()-(l+l));
             Uplata u = getMaxUplata(c.getUplate());
-            
-            
+                
             if(u != null) {
                 Clanarina clanarina = getMaxClanarina(clanarine);
-                if(!clanarina.equals(u.getClanarina()) && !c.getDatumUclanjenja().after(clanarina.getDatumOd())) {
+                if(!clanarina.equals(u.getClanarina()) && !c.getDatumUclanjenja().after(clanarina.getDatumOd())
+                        && !u.getClanarina().getDatumOd().after(clanarina.getDatumDo())) {
                     rowColors.put(rowIndex, Color.red);
                 }
             } else {

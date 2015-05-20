@@ -68,6 +68,11 @@ public class MembersPanel extends javax.swing.JPanel {
         jlblCriteria.setText(" Kriterijum za filtriranje:");
 
         jtxtfFilter.setText(" ");
+        jtxtfFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtfFilterActionPerformed(evt);
+            }
+        });
         jtxtfFilter.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtxtfFilterKeyPressed(evt);
@@ -255,15 +260,12 @@ public class MembersPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
     private void jtbtnDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnDebtActionPerformed
-        if(jtbtnDebt.isSelected()) {
-            clanoviTableModel.setMark(true);
-            Ref<List<Clanarina>> clanarine = new Ref(new ArrayList<>());
-            KontrolerPL.vratiClanarine(clanarine, null, false);
-            clanoviTableModel.postaviClanarine(clanarine.get());
-        } else {
-            clanoviTableModel.setMark(false);
-        }
+        debtMarking();
     }//GEN-LAST:event_jtbtnDebtActionPerformed
+
+    private void jtxtfFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtfFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtfFilterActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -293,6 +295,7 @@ public class MembersPanel extends javax.swing.JPanel {
     
     public void azurirajTabelu(List<Clan> lc) {
         clanoviTableModel = new ClanoviTableModel(lc, jtbtnDebt.isSelected());
+        debtMarking();
         jtblMembers.setModel(clanoviTableModel);
         TableColumnModel tcm = jtblMembers.getColumnModel();
         Enumeration<TableColumn> tce = tcm.getColumns();
@@ -368,6 +371,17 @@ public class MembersPanel extends javax.swing.JPanel {
             }
             
         });
+    }
+    
+    private void debtMarking() {
+        if(jtbtnDebt.isSelected()) {
+            clanoviTableModel.setMark(true);
+            Ref<List<Clanarina>> clanarine = new Ref(new ArrayList<>());
+            KontrolerPL.vratiClanarine(clanarine, null, false);
+            clanoviTableModel.postaviClanarine(clanarine.get());
+        } else {
+            clanoviTableModel.setMark(false);
+        }
     }
 
 }

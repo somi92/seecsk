@@ -22,9 +22,14 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
 
     private Clan clan;
     private int rowsAffected;
+    private List<Uplata> uplateBrisanje;
     
     public SOZapamtiClana(Clan clan) {
         this.clan = clan;
+    }
+    
+    public void postaviUplateZaBrisanje(List<Uplata> uplateBrisanje) {
+        this.uplateBrisanje = uplateBrisanje;
     }
     
     @Override
@@ -40,7 +45,12 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            if(clan.getUplate().size()>0) {
+            if(uplateBrisanje != null && uplateBrisanje.size()>0) {
+                for(Uplata u : uplateBrisanje) {
+                    dbbroker.deleteEntity(u);
+                }
+            } 
+            if(clan.getUplate() != null && clan.getUplate().size()>0) {
                 List<Uplata> uplate = clan.getUplate();
                 for(Uplata u : uplate) {
                     dbbroker.saveOrUpdateEntity(u);

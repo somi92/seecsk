@@ -97,9 +97,10 @@ public class KontrolerPL {
         }
     }
     
-    public static boolean sacuvajIliAzurirajClana(Clan clan) {
+    public static boolean sacuvajIliAzurirajClana(Clan clan, List<Uplata> uplateZaBrisanje) {
         try {
-            ApstraktnaSistemskaOperacija aso = new SOZapamtiClana(clan);
+            SOZapamtiClana aso = new SOZapamtiClana(clan);
+            aso.postaviUplateZaBrisanje(uplateZaBrisanje);
             aso.izvrsiSistemskuOperaciju();
             return true;
         } catch (Exception ex) {
