@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.model.operations.clan;
+package com.github.somi92.seecsk.model.operations.clanarina;
 
-import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
@@ -18,15 +17,14 @@ import java.util.List;
  *
  * @author milos
  */
-public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
-
-    private Clan clan;
-    private int rowsAffected;
+public class SOZapamtiClanarine extends ApstraktnaSistemskaOperacija {
     
-    public SOZapamtiClana(Clan clan) {
-        this.clan = clan;
+    private List<Uplata> uplate;
+    
+    public SOZapamtiClanarine(List<Uplata> uplate) {
+        this.uplate = uplate;
     }
-    
+ 
     @Override
     protected void izvrsiValidaciju() throws ValidacijaException {
         
@@ -40,13 +38,9 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            if(clan.getUplate().size()>0) {
-                List<Uplata> uplate = clan.getUplate();
-                for(Uplata u : uplate) {
-                    dbbroker.saveOrUpdateEntity(u);
-                }
+            for(Uplata u : uplate) {
+                dbbroker.saveOrUpdateEntity(u);
             }
-            rowsAffected = dbbroker.saveOrUpdateEntity(clan);
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
@@ -57,4 +51,6 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
     public String vratiImeOperacije() {
         return this.getClass().getSimpleName();
     }
+    
+    
 }

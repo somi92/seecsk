@@ -110,4 +110,9 @@ public class UplateTableModel extends AbstractTableModel {
         uplate.add(nova);
         fireTableDataChanged();
     }
+    
+    public void obrisiRed(int row) {
+        uplate.remove(row);
+        fireTableDataChanged();
+    }
 }

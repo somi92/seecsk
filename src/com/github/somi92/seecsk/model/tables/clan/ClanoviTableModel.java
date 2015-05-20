@@ -6,10 +6,10 @@
 package com.github.somi92.seecsk.model.tables.clan;
 
 import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.domain.Uplata;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +22,7 @@ import javax.swing.table.AbstractTableModel;
 public class ClanoviTableModel extends AbstractTableModel {
     
     private List<Clan> clanovi;
+    private List<Clanarina> clanarine;
     private HashMap<Integer, Color> rowColors;
     private boolean mark;
     
@@ -42,6 +43,14 @@ public class ClanoviTableModel extends AbstractTableModel {
     
     public List<Clan> vratiClanoveTabele() {
         return clanovi;
+    }
+    
+    public void postaviClanarine(List<Clanarina> clanarine) {
+        this.clanarine = clanarine;
+    }
+    
+    public List<Clanarina> vratiClanarine() {
+        return clanarine;
     }
     
     public boolean isMark() {
@@ -100,17 +109,21 @@ public class ClanoviTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Clan c = clanovi.get(rowIndex);
         if(mark) {
+            
             // 30 days in milliseconds
-            long l = 2592000000l;
-            Date border1 = new Date(new Date().getTime()-l);
-            Date border2 = new Date(new Date().getTime()-(l+l));
-            Date d = getMaxDate(c.getUplate());
-            if(!d.after(border1)) {
-                if(!d.after(border2)) {
+//            long l = 2592000000l;
+//            Date border1 = new Date(new Date().getTime()-l);
+//            Date border2 = new Date(new Date().getTime()-(l+l));
+            Uplata u = getMaxUplata(c.getUplate());
+            
+            
+            if(u != null) {
+                Clanarina clanarina = getMaxClanarina(clanarine);
+                if(!clanarina.equals(u.getClanarina()) && !c.getDatumUclanjenja().after(clanarina.getDatumOd())) {
                     rowColors.put(rowIndex, Color.red);
-                } else {
-                    rowColors.put(rowIndex, Color.orange);
                 }
+            } else {
+                rowColors.put(rowIndex, Color.red);
             }
         }
         switch(columnIndex) {
@@ -135,14 +148,30 @@ public class ClanoviTableModel extends AbstractTableModel {
         }
     }
     
-    private Date getMaxDate(List<Uplata> uplate) {
+    private Uplata getMaxUplata(List<Uplata> uplate) {
         Date maxDate = new Date();
+        Uplata maxUplata = null;
         maxDate.setTime(0);
         for(Uplata u : uplate) {
             if(u.getDatumUplate().after(maxDate)) {
                 maxDate = u.getDatumUplate();
+                maxUplata = u;
             }
         }
-        return maxDate;
+        return maxUplata;
+    }
+    
+    private Clanarina getMaxClanarina(List<Clanarina> clanarine) {
+        Date maxDate = new Date();
+        Date current = new Date();
+        maxDate.setTime(0);
+        Clanarina maxClanarina = null;
+        for(Clanarina c : clanarine) {
+            if(c.getDatumOd().after(maxDate) && c.getDatumOd().before(current)) {
+                maxDate = c.getDatumOd();
+                maxClanarina = c;
+            }
+        }
+        return maxClanarina;
     }
 }

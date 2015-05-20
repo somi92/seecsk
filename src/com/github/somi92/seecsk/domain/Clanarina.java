@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import com.github.somi92.sqldbb.annotations.Collection;
 import com.github.somi92.sqldbb.annotations.Column;
 import com.github.somi92.sqldbb.annotations.PrimaryKey;
 import com.github.somi92.sqldbb.annotations.Table;
@@ -29,7 +30,7 @@ public class Clanarina {
     private Date datumDo;
     @Column("napomena")
     private String napomena;
-    
+//    @Collection(childEntityClass = Uplata.class, referencingField = "clanarina")
     private List<Uplata> uplate;
 
     public Clanarina() {

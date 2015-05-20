@@ -9,6 +9,7 @@ import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.domain.Grupa;
+import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.gui.panels.MembersPanel;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
@@ -19,12 +20,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -328,6 +326,11 @@ public class FNewMember extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jtblUplate);
 
         jbtnObrisiUplatu.setText("Obriši uplatu");
+        jbtnObrisiUplatu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnObrisiUplatuActionPerformed(evt);
+            }
+        });
 
         jbtnNovaUplata.setText("Dodaj uplatu");
         jbtnNovaUplata.addActionListener(new java.awt.event.ActionListener() {
@@ -453,6 +456,9 @@ public class FNewMember extends javax.swing.JDialog {
             clan.setDatumUclanjenja(datumUclanjenja.getTime());
             clan.setNapomena(napomena);
             clan.setGrupa(grupa);
+            
+            clan.setUplate(utm.vratiUplateTabele());
+            
             boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan);
             if(res) {
                 JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
@@ -487,6 +493,15 @@ public class FNewMember extends javax.swing.JDialog {
         jtxtAdresa.setBorder(defaultBorder);
         jlblAdresaError.setText("");
     }//GEN-LAST:event_jtxtAdresaFocusGained
+
+    private void jbtnObrisiUplatuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnObrisiUplatuActionPerformed
+        int row  = jtblUplate.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(this, "Niste izabrali uplatu.");
+        } else {
+            utm.obrisiRed(row);
+        }
+    }//GEN-LAST:event_jbtnObrisiUplatuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -600,14 +615,29 @@ public class FNewMember extends javax.swing.JDialog {
         List<Clanarina> sample = new ArrayList<>();
         sample.add(new Clanarina());
         Ref<List<Clanarina>> clanarineRef = new Ref(sample);
-        KontrolerPL.vratiClanarine(clanarineRef, null);
+        KontrolerPL.vratiClanarine(clanarineRef, null, false);
         TableColumnModel tcm = jtblUplate.getColumnModel();
         TableColumn tc = tcm.getColumn(0);
-        Clanarina[] ca = new Clanarina[clanarineRef.get().size()];
-        for(int i=0; i<ca.length; i++) {
-            ca[i] = clanarineRef.get().get(i);
+        
+        List<Clanarina> clanarine = new ArrayList<>();
+        for(int i=0; i<clanarineRef.get().size(); i++) {
+            boolean contains = false;
+            if(clan == null) {
+                clanarine = clanarineRef.get();
+                break;
+            }
+            for(Uplata u : clan.getUplate()) {
+                if(u.getClanarina().equals(clanarineRef.get().get(i))) {
+                    contains = true;
+                    break;
+                }
+            }
+            if(!contains) {
+                clanarine.add(clanarineRef.get().get(i));
+            }
         }
-        UplateTableClanarinaEditor ute = new UplateTableClanarinaEditor(ca);
+
+        UplateTableClanarinaEditor ute = new UplateTableClanarinaEditor(clanarine.toArray());
         tc.setCellEditor(ute);
         tc = tcm.getColumn(2);
         tc.setCellEditor(new UplateTableModelDatumEditor());

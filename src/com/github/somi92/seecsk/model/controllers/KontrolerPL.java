@@ -16,8 +16,11 @@ import com.github.somi92.seecsk.model.operations.clan.SOObrisiClana;
 import com.github.somi92.seecsk.model.operations.clan.SOVratiListuClanova;
 import com.github.somi92.seecsk.model.operations.clan.SOZapamtiClana;
 import com.github.somi92.seecsk.model.operations.clanarina.SOPronadjiClanarine;
+import com.github.somi92.seecsk.model.operations.clanarina.SOZapamtiClanarine;
 import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -134,9 +137,18 @@ public class KontrolerPL {
         }
     }
     
-    public static void vratiClanarine(Ref<List<Clanarina>> clanarine, List<String> kriterijumPretrage) {
+    public static void vratiClanarine(Ref<List<Clanarina>> clanarine, List<String> kriterijumPretrage, boolean ucitajUplate) {
         try {
-            ApstraktnaSistemskaOperacija aso = new SOPronadjiClanarine(kriterijumPretrage, clanarine);
+            ApstraktnaSistemskaOperacija aso = new SOPronadjiClanarine(kriterijumPretrage, clanarine, ucitajUplate);
+            aso.izvrsiSistemskuOperaciju();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void zapamtiClanarine(List<Uplata> clanarine) {
+        try {
+            ApstraktnaSistemskaOperacija aso = new SOZapamtiClanarine(clanarine);
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -486,6 +486,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Obri&#x161;i uplatu"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnObrisiUplatuActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbtnNovaUplata">
           <Properties>

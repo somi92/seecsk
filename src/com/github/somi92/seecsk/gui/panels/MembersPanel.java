@@ -7,6 +7,7 @@ package com.github.somi92.seecsk.gui.panels;
 
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.gui.FNewMember;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
@@ -256,6 +257,9 @@ public class MembersPanel extends javax.swing.JPanel {
     private void jtbtnDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnDebtActionPerformed
         if(jtbtnDebt.isSelected()) {
             clanoviTableModel.setMark(true);
+            Ref<List<Clanarina>> clanarine = new Ref(new ArrayList<>());
+            KontrolerPL.vratiClanarine(clanarine, null, false);
+            clanoviTableModel.postaviClanarine(clanarine.get());
         } else {
             clanoviTableModel.setMark(false);
         }

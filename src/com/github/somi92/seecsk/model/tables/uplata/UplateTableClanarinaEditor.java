@@ -18,9 +18,9 @@ import javax.swing.table.TableCellEditor;
  */
 public class UplateTableClanarinaEditor extends AbstractCellEditor implements TableCellEditor {
 
-    private JComboBox<Clanarina> jcmbClanarina;
+    private JComboBox<Object> jcmbClanarina;
     
-    public UplateTableClanarinaEditor(Clanarina[] c) {
+    public UplateTableClanarinaEditor(Object[] c) {
         jcmbClanarina = new JComboBox<>(c);
     }
     
