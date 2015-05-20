@@ -45,6 +45,7 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
+            rowsAffected = dbbroker.saveOrUpdateEntity(clan);
             if(uplateBrisanje != null && uplateBrisanje.size()>0) {
                 for(Uplata u : uplateBrisanje) {
                     dbbroker.deleteEntity(u);
@@ -56,7 +57,6 @@ public class SOZapamtiClana extends ApstraktnaSistemskaOperacija {
                     dbbroker.saveOrUpdateEntity(u);
                 }
             }
-            rowsAffected = dbbroker.saveOrUpdateEntity(clan);
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());

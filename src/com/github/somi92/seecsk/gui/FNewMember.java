@@ -655,7 +655,7 @@ public class FNewMember extends javax.swing.JDialog {
                     break;
                 }
             }
-            if(!contains) {
+            if(!contains && clan.getDatumUclanjenja().before(clanarineRef.get().get(i).getDatumDo())) {
                 clanarine.add(clanarineRef.get().get(i));
             }
         }
