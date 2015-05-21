@@ -5,7 +5,7 @@
  */
 package com.github.somi92.seecsk.gui;
 
-import com.github.somi92.seecsk.gui.panels.CategoriesGroupsPanel;
+import com.github.somi92.seecsk.gui.panels.TrainingPanel;
 import com.github.somi92.seecsk.gui.panels.MembersPanel;
 import java.awt.CardLayout;
 import javax.swing.ImageIcon;
@@ -50,6 +50,7 @@ public class FMainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SEECSK - Sistem za elektronsku evidenciju članova sportskog kluba");
+        setResizable(false);
 
         jpnlMainPanel.setLayout(new java.awt.CardLayout());
 
@@ -227,7 +228,7 @@ public class FMainForm extends javax.swing.JFrame {
 
     private void initPanels() {
         MembersPanel panel1 = new MembersPanel();
-        CategoriesGroupsPanel panel2 = new CategoriesGroupsPanel();
+        TrainingPanel panel2 = new TrainingPanel();
         jpnlMainPanel.add("panel1", panel1);
         jpnlMainPanel.add("panel2", panel2);
     }
