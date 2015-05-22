@@ -5,9 +5,12 @@
  */
 package com.github.somi92.seecsk.model.tables.trening;
 
+import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Prisustvo;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -29,6 +32,7 @@ public class PrisustvaTableModel extends AbstractTableModel {
     
     public void postaviPrisustvaTabele(List<Prisustvo> prisustva) {
         this.prisustva = prisustva;
+        fireTableDataChanged();
     }
     
     public List<Prisustvo> vratiPrisustvaTabele() {
@@ -52,7 +56,7 @@ public class PrisustvaTableModel extends AbstractTableModel {
             case 0:
                 return p.getClan();
             case 1:
-                return p.getPrisustvo() ? "prisutan" : "nije prisutan";
+                return p.getPrisustvo();
             case 2:
                 return p.getKasnjenjeMin();
             default:
@@ -71,6 +75,29 @@ public class PrisustvaTableModel extends AbstractTableModel {
                 return "Kašnjenje";
             default:
                 return "Greska";
+        }
+    }
+
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if(columnIndex == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        switch(columnIndex) {
+            case 0:
+                return Clan.class;
+            case 1:
+                return JCheckBox.class;
+            case 2:
+                return int.class;
+            default:
+                return String.class;
         }
     }
 }

@@ -9,9 +9,23 @@ import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.domain.Trening;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
+import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableEditor;
+import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableModel;
+import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableRenderer;
 import com.github.somi92.seecsk.model.tables.trening.TreningTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.control.CheckBox;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -259,6 +273,9 @@ public class TrainingPanel extends javax.swing.JPanel {
 
     private void jcmbGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbGroupsActionPerformed
         setTrainig();
+        if(ptm != null) {
+            ptm.postaviPrisustvaTabele(new ArrayList<>());
+        }
     }//GEN-LAST:event_jcmbGroupsActionPerformed
 
     private void jcmbGroupsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcmbGroupsItemStateChanged
@@ -285,16 +302,47 @@ public class TrainingPanel extends javax.swing.JPanel {
     private javax.swing.JTable jtblTraining;
     // End of variables declaration//GEN-END:variables
     private TreningTableModel ttm;
+    private PrisustvaTableModel ptm;
     
     private void initForm() {
         Ref<List<Grupa>> refGrupe = new Ref(new ArrayList<>());
-        KontrolerPL.vratiListuGrupa(refGrupe, false);
+        KontrolerPL.vratiListuGrupa(refGrupe, true);
         jcmbGroups.removeAllItems();
         for(Grupa g : refGrupe.get()) {
             jcmbGroups.addItem(g);
         }
         
 //        setTrainig();
+        jtblTraining.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                setAttendance();
+//                int selectedRow = jtblTraining.getSelectedRow();
+//                if(selectedRow > -1) {
+//                    Trening t = ttm.vratiTreningeTabele().get(selectedRow);
+//                    Ref<Trening> treningRef = new Ref(t);
+//                    KontrolerPL.ucitajTrening(treningRef);
+//                    ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
+//                }
+            }
+        });
+        
+        ptm = new PrisustvaTableModel();
+        jtblAttendance.setModel(ptm);
+        
+        TableColumnModel tcm = jtblAttendance.getColumnModel();
+        TableColumn tc = tcm.getColumn(1);
+        
+        PrisustvaTableRenderer ptr = new PrisustvaTableRenderer();
+        ptr.setHorizontalAlignment(SwingConstants.TRAILING);
+        tc.setCellRenderer(ptr);
+        tc.setCellEditor(new PrisustvaTableEditor());
+        
+        TableColumn tc1 = tcm.getColumn(2);
+        DefaultTableCellRenderer rnd = new DefaultTableCellRenderer();
+        rnd.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        tc1.setCellRenderer(rnd);
     }
     
     private void setTrainig() {
@@ -313,5 +361,15 @@ public class TrainingPanel extends javax.swing.JPanel {
         treninzi = refTreninzi.get();
         ttm = new TreningTableModel(treninzi);
         jtblTraining.setModel(ttm);
+    }
+    
+    private void setAttendance() {
+        int selectedRow = jtblTraining.getSelectedRow();
+        if(selectedRow > -1) {
+            Trening t = ttm.vratiTreningeTabele().get(selectedRow);
+            Ref<Trening> treningRef = new Ref(t);
+            KontrolerPL.ucitajTrening(treningRef);
+            ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
+        }
     }
 }

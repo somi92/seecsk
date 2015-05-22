@@ -42,7 +42,7 @@ public class Clan {
     private Date datumUclanjenja;
     @Column("napomena")
     private String napomena;
-    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = false)
+    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = true)
     private Grupa grupa;
     @Collection(childEntityClass = Uplata.class, referencingField = "clan")
     private List<Uplata> uplate;
@@ -203,6 +203,6 @@ public class Clan {
 
     @Override
     public String toString() {
-        return "Clan{" + "idClan=" + idClan + ", imePrezime=" + imePrezime + '}';
+        return imePrezime;
     }
 }

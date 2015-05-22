@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.model.operations.trening;
 
+import com.github.somi92.seecsk.domain.Prisustvo;
 import com.github.somi92.seecsk.domain.Trening;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
@@ -12,6 +13,8 @@ import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
 import com.github.somi92.seecsk.model.operations.Ref;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -38,9 +41,15 @@ public class SOUcitajTrening extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-//            Trening t = trening.get();
-//            t = dbbroker.loadEntity(t, true);
-            trening.set(dbbroker.loadEntity(trening.get(), true));
+            Trening t = trening.get();
+            t = dbbroker.loadEntity(t, false);
+            List<String> kriterijumPretrage = new ArrayList<>();
+            kriterijumPretrage.add("idTrening="+t.getIdTrening());
+            Prisustvo p = new Prisustvo();
+            p.setTrening(t);
+            List<Prisustvo> prisustva = dbbroker.loadEntities(p, kriterijumPretrage, false);
+            t.setPrisustva(prisustva);
+            trening.set(t);
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());

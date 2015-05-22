@@ -31,7 +31,7 @@ public class Trening {
     @Column("opisTreninga")
     private String opisTreninga;
     @PrimaryKey("idGrupa")
-    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = true)
+    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = false)
     private Grupa grupa;
     @Collection(childEntityClass = Prisustvo.class, referencingField = "trening")
     private List<Prisustvo> prisustva;

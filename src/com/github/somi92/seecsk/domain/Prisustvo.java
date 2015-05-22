@@ -23,8 +23,8 @@ public class Prisustvo {
     private boolean prisustvo;
     @Column("kasnjenjeMin")
     private int kasnjenjeMin;
-    @PrimaryKey("idTrening")
-    @ForeignKey(column = "idTrening", referencingTable = "Trening", referencingColumn = "idTrening", isCollectionItem = true)
+//    @PrimaryKey("idTrening")
+//    @ForeignKey(column = "idTrening", referencingTable = "Trening", referencingColumn = "idTrening", isCollectionItem = true)
     private Trening trening;
     @PrimaryKey("idClan")
     @ForeignKey(column = "idClan", referencingTable = "Clan", referencingColumn = "idClan", isCollectionItem = false)

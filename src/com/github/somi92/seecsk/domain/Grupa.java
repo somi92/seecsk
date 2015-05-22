@@ -28,7 +28,7 @@ public class Grupa {
     @Column("napomena")
     private String napomena;
     private List<AngazmanZaposlenog> angazman;
-//    @Collection(childEntityClass = Clan.class, referencingField = "grupa")
+    @Collection(childEntityClass = Clan.class, referencingField = "grupa")
     private List<Clan> clanovi;
     private List<Trening> treninzi;
     private Kategorija kategorija;

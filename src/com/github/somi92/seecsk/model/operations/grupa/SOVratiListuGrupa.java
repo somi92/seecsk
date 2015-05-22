@@ -41,7 +41,7 @@ public class SOVratiListuGrupa extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            listaGrupa.set(dbbroker.loadEntities(new Grupa(), null, false));
+            listaGrupa.set(dbbroker.loadEntities(new Grupa(), null, ucitajListe));
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());

@@ -20,6 +20,7 @@ import com.github.somi92.seecsk.model.operations.clanarina.SOPronadjiClanarine;
 import com.github.somi92.seecsk.model.operations.clanarina.SOZapamtiClanarine;
 import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
 import com.github.somi92.seecsk.model.operations.trening.SOPronadjiTreninge;
+import com.github.somi92.seecsk.model.operations.trening.SOUcitajTrening;
 import java.util.List;
 
 /**
@@ -162,6 +163,15 @@ public class KontrolerPL {
     public static void vratiTreninge(Ref<List<Trening>> treninzi, List<String> kriterijumPretrage) {
         try {
             aso = new SOPronadjiTreninge(treninzi, kriterijumPretrage);
+            aso.izvrsiSistemskuOperaciju();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void ucitajTrening(Ref<Trening> trening) {
+        try {
+            aso = new SOUcitajTrening(trening);
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();
