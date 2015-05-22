@@ -179,22 +179,6 @@ public class Clan {
         this.prisustva = prisustva;
     }
 
-    boolean dodajUplatu(Uplata uplata) {
-        return uplate.add(uplata);
-    }
-    
-    public List<Uplata> vratiListuUplata() {
-        return uplate;
-    }
-    
-    boolean dodajPrisustvo(Prisustvo prisustvo) {
-        return prisustva.add(prisustvo);
-    }
-
-    public List<Prisustvo> vratiListuPrisustva() {
-        return prisustva;
-    }
-
     @Override
     public int hashCode() {
         int hash = 3;

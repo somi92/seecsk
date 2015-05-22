@@ -5,42 +5,42 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import com.github.somi92.sqldbb.annotations.Column;
+import com.github.somi92.sqldbb.annotations.ForeignKey;
+import com.github.somi92.sqldbb.annotations.PrimaryKey;
+import com.github.somi92.sqldbb.annotations.Table;
 import java.util.Objects;
 
 /**
  *
  * @author milos
  */
+
+@Table("Prisustvo")
 public class Prisustvo {
     
-    private int redniBroj;
+    @Column("prisustvo")
     private boolean prisustvo;
+    @Column("kasnjenjeMin")
     private int kasnjenjeMin;
+    @PrimaryKey("idTrening")
+    @ForeignKey(column = "idTrening", referencingTable = "Trening", referencingColumn = "idTrening", isCollectionItem = true)
     private Trening trening;
+    @PrimaryKey("idClan")
+    @ForeignKey(column = "idClan", referencingTable = "Clan", referencingColumn = "idClan", isCollectionItem = false)
     private Clan clan;
 
     public Prisustvo() {
     }
 
-    public Prisustvo(int redniBroj, boolean prisustvo, int kasnjenjeMin, Trening trening, Clan clan) {
-        this.redniBroj = redniBroj;
+    public Prisustvo(boolean prisustvo, int kasnjenjeMin, Trening trening, Clan clan) {
         this.prisustvo = prisustvo;
         this.kasnjenjeMin = kasnjenjeMin;
         this.trening = trening;
         this.clan = clan;
-        this.clan.dodajPrisustvo(this);
-        this.trening.dodajPrisustvo(this);
     }
 
-    public int getRedniBroj() {
-        return redniBroj;
-    }
-
-    public void setRedniBroj(int redniBroj) {
-        this.redniBroj = redniBroj;
-    }
-
-    public boolean isPrisustvo() {
+    public boolean getPrisustvo() {
         return prisustvo;
     }
 
@@ -62,7 +62,6 @@ public class Prisustvo {
 
     public void setTrening(Trening trening) {
         this.trening = trening;
-        this.trening.dodajPrisustvo(this);
     }
 
     public Clan getClan() {
@@ -71,14 +70,13 @@ public class Prisustvo {
 
     public void setClan(Clan clan) {
         this.clan = clan;
-        this.clan.dodajPrisustvo(this);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + this.redniBroj;
-        hash = 59 * hash + Objects.hashCode(this.trening);
+        hash = 37 * hash + Objects.hashCode(this.trening);
+        hash = 37 * hash + Objects.hashCode(this.clan);
         return hash;
     }
 
@@ -91,10 +89,10 @@ public class Prisustvo {
             return false;
         }
         final Prisustvo other = (Prisustvo) obj;
-        if (this.redniBroj != other.redniBroj) {
+        if (!Objects.equals(this.trening, other.trening)) {
             return false;
         }
-        if (!Objects.equals(this.trening, other.trening)) {
+        if (!Objects.equals(this.clan, other.clan)) {
             return false;
         }
         return true;
@@ -102,7 +100,7 @@ public class Prisustvo {
 
     @Override
     public String toString() {
-        return "Prisustvo{" + "redniBroj=" + redniBroj + ", prisustvo=" + prisustvo + ", kasnjenjeMin=" + kasnjenjeMin + ", trening=" + trening + ", clan=" + clan + '}';
+        return "Prisustvo{" + "prisustvo=" + prisustvo + ", kasnjenjeMin=" + kasnjenjeMin + ", trening=" + trening + ", clan=" + clan + '}';
     }
     
     

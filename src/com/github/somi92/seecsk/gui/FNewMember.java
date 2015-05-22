@@ -612,7 +612,7 @@ public class FNewMember extends javax.swing.JDialog {
     
     private void initGroupsCombo() {
         Ref<List<Grupa>> ref = new Ref(new ArrayList<>());
-        KontrolerPL.vratiListuGrupa(ref);
+        KontrolerPL.vratiListuGrupa(ref, false);
         List<Grupa> groups = ref.get();
         for(Grupa g : groups) {
             jcmbGroup.addItem(g);

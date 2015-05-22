@@ -5,6 +5,11 @@
  */
 package com.github.somi92.seecsk.domain;
 
+import com.github.somi92.sqldbb.annotations.Collection;
+import com.github.somi92.sqldbb.annotations.Column;
+import com.github.somi92.sqldbb.annotations.ForeignKey;
+import com.github.somi92.sqldbb.annotations.PrimaryKey;
+import com.github.somi92.sqldbb.annotations.Table;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -13,13 +18,22 @@ import java.util.Objects;
  *
  * @author milos
  */
+
+@Table("Trening")
 public class Trening {
     
+    @PrimaryKey("idTrening")
     private long idTrening;
+    @Column("datumVreme")
     private Date datumVreme;
+    @Column("trajanjeMin")
     private int trajanjeMin;
+    @Column("opisTreninga")
     private String opisTreninga;
+    @PrimaryKey("idGrupa")
+    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = true)
     private Grupa grupa;
+    @Collection(childEntityClass = Prisustvo.class, referencingField = "trening")
     private List<Prisustvo> prisustva;
 
     public Trening() {
@@ -31,7 +45,6 @@ public class Trening {
         this.trajanjeMin = trajanjeMin;
         this.opisTreninga = opisTreninga;
         this.grupa = grupa;
-        this.grupa.dodajTrening(this);
     }
 
     public long getIdTrening() {
@@ -72,27 +85,21 @@ public class Trening {
 
     public void setGrupa(Grupa grupa) {
         this.grupa = grupa;
-        this.grupa.dodajTrening(this);
     }
 
-    public List<Prisustvo> vratiSvaPrisustva() {
+    public List<Prisustvo> getPrisustva() {
         return prisustva;
     }
 
-    public boolean dodajPrisustvo(Prisustvo prisustvo) {
-        return prisustva.add(prisustvo);
-    }
-    
-    public boolean obrisiPrisustvo(Prisustvo prisustvo) {
-        return prisustva.remove(prisustvo);
+    public void setPrisustva(List<Prisustvo> prisustva) {
+        this.prisustva = prisustva;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + (int) (this.idTrening ^ (this.idTrening >>> 32));
-        hash = 53 * hash + Objects.hashCode(this.datumVreme);
-        hash = 53 * hash + Objects.hashCode(this.grupa);
+        hash = 23 * hash + (int) (this.idTrening ^ (this.idTrening >>> 32));
+        hash = 23 * hash + Objects.hashCode(this.grupa);
         return hash;
     }
 
@@ -108,9 +115,6 @@ public class Trening {
         if (this.idTrening != other.idTrening) {
             return false;
         }
-        if (!Objects.equals(this.datumVreme, other.datumVreme)) {
-            return false;
-        }
         if (!Objects.equals(this.grupa, other.grupa)) {
             return false;
         }
@@ -119,8 +123,8 @@ public class Trening {
 
     @Override
     public String toString() {
-        return "Trening{" + "idTrening=" + idTrening + ", datumVreme=" + datumVreme + ", grupa=" + grupa + '}';
+        return "Trening{" + "idTrening=" + idTrening + ", datumVreme=" + datumVreme + ", trajanjeMin=" + trajanjeMin + ", opisTreninga=" + opisTreninga + ", grupa=" + grupa + ", prisustva=" + prisustva + '}';
     }
-    
+
     
 }

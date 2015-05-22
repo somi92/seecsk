@@ -8,6 +8,7 @@ package com.github.somi92.seecsk.model.controllers;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.domain.Grupa;
+import com.github.somi92.seecsk.domain.Trening;
 import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
 import com.github.somi92.seecsk.model.operations.Ref;
@@ -18,15 +19,16 @@ import com.github.somi92.seecsk.model.operations.clan.SOZapamtiClana;
 import com.github.somi92.seecsk.model.operations.clanarina.SOPronadjiClanarine;
 import com.github.somi92.seecsk.model.operations.clanarina.SOZapamtiClanarine;
 import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
+import com.github.somi92.seecsk.model.operations.trening.SOPronadjiTreninge;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author milos
  */
 public class KontrolerPL {
+    
+    private static ApstraktnaSistemskaOperacija aso;
     
 //    public static long vratiBrojacEntiteta(Class c) {
 //        DBBroker dbbroker = new DBBroker();
@@ -90,7 +92,7 @@ public class KontrolerPL {
     
     public static void kreirajClana(Ref<Clan> clan) {
         try {
-            ApstraktnaSistemskaOperacija aso = new SOKreirajClana(clan);
+            aso = new SOKreirajClana(clan);
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -99,8 +101,9 @@ public class KontrolerPL {
     
     public static boolean sacuvajIliAzurirajClana(Clan clan, List<Uplata> uplateZaBrisanje) {
         try {
-            SOZapamtiClana aso = new SOZapamtiClana(clan);
-            aso.postaviUplateZaBrisanje(uplateZaBrisanje);
+            SOZapamtiClana zapamtiSO = new SOZapamtiClana(clan);
+            zapamtiSO.postaviUplateZaBrisanje(uplateZaBrisanje);
+            aso = zapamtiSO;
             aso.izvrsiSistemskuOperaciju();
             return true;
         } catch (Exception ex) {
@@ -111,7 +114,7 @@ public class KontrolerPL {
     
     public static boolean obrisiClana(Clan clan) {
         try {
-            ApstraktnaSistemskaOperacija aso = new SOObrisiClana(clan);
+            aso = new SOObrisiClana(clan);
             aso.izvrsiSistemskuOperaciju();
             return true;
         } catch (Exception ex) {
@@ -122,16 +125,16 @@ public class KontrolerPL {
     
     public static void vratiListuClanova(Ref<List<Clan>> clanovi) {
         try {
-            ApstraktnaSistemskaOperacija aso = new SOVratiListuClanova(clanovi);
+            aso = new SOVratiListuClanova(clanovi);
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
     
-    public static void vratiListuGrupa(Ref<List<Grupa>> grupe) {
+    public static void vratiListuGrupa(Ref<List<Grupa>> grupe, boolean ucitajListe) {
         try {
-            ApstraktnaSistemskaOperacija aso = new SOVratiListuGrupa(grupe);
+            aso = new SOVratiListuGrupa(grupe, ucitajListe);
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -140,7 +143,7 @@ public class KontrolerPL {
     
     public static void vratiClanarine(Ref<List<Clanarina>> clanarine, List<String> kriterijumPretrage, boolean ucitajUplate) {
         try {
-            ApstraktnaSistemskaOperacija aso = new SOPronadjiClanarine(kriterijumPretrage, clanarine, ucitajUplate);
+            aso = new SOPronadjiClanarine(kriterijumPretrage, clanarine, ucitajUplate);
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -149,7 +152,16 @@ public class KontrolerPL {
     
     public static void zapamtiClanarine(List<Uplata> clanarine) {
         try {
-            ApstraktnaSistemskaOperacija aso = new SOZapamtiClanarine(clanarine);
+            aso = new SOZapamtiClanarine(clanarine);
+            aso.izvrsiSistemskuOperaciju();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void vratiTreninge(Ref<List<Trening>> treninzi, List<String> kriterijumPretrage) {
+        try {
+            aso = new SOPronadjiTreninge(treninzi, kriterijumPretrage);
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();

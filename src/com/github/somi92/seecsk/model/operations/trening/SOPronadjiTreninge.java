@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.model.operations.grupa;
+package com.github.somi92.seecsk.model.operations.trening;
 
-import com.github.somi92.seecsk.domain.Grupa;
+import com.github.somi92.seecsk.domain.Trening;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
@@ -18,14 +18,14 @@ import java.util.List;
  *
  * @author milos
  */
-public class SOVratiListuGrupa extends ApstraktnaSistemskaOperacija {
+public class SOPronadjiTreninge extends ApstraktnaSistemskaOperacija {
     
-    private Ref<List<Grupa>> listaGrupa;
-    private boolean ucitajListe;
+    private Ref<List<Trening>> listaTreninga;
+    private List<String> kriterijumPretrage;
     
-    public SOVratiListuGrupa(Ref<List<Grupa>> listaGrupa, boolean ucitajListe) {
-        this.listaGrupa = listaGrupa;
-        this.ucitajListe = ucitajListe;
+    public SOPronadjiTreninge(Ref<List<Trening>> listaTreninga, List<String> kriterijumPretrage) {
+        this.listaTreninga = listaTreninga;
+        this.kriterijumPretrage = kriterijumPretrage;
     }
 
     @Override
@@ -41,7 +41,13 @@ public class SOVratiListuGrupa extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            listaGrupa.set(dbbroker.loadEntities(new Grupa(), null, false));
+            Trening t = null;
+            if(listaTreninga.get().size()>0) {
+                t = listaTreninga.get().get(0);
+            } else {
+                t = new Trening();
+            }
+            listaTreninga.set(dbbroker.loadEntities(t, kriterijumPretrage, false));
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
@@ -52,8 +58,4 @@ public class SOVratiListuGrupa extends ApstraktnaSistemskaOperacija {
     public String vratiImeOperacije() {
         return this.getClass().getSimpleName();
     }
-    
-//    public List<Grupa> vratiListuGrupa() {
-//        return listaGrupa;
-//    }
 }
