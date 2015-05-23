@@ -16,6 +16,8 @@ public class Sesija {
     
     public static final String CLAN_OPERACIJA = "clan_operacija";
     public static final String CLAN = "clan";
+    public static final String TRENING = "trening";
+    public static final String GRUPA = "grupa";
     
     private static Sesija INSTANCE;
     private Map<String, Object> mapaSesije;

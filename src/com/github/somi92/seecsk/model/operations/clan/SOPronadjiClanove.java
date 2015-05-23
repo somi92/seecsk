@@ -18,16 +18,18 @@ import java.util.List;
  *
  * @author milos
  */
-public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
-
+public class SOPronadjiClanove extends ApstraktnaSistemskaOperacija {
+    
     private Ref<List<Clan>> listaClanova;
+    private List<String> kriterijumPretrage;
     private boolean ucitajListe;
     
-    public SOVratiListuClanova(Ref<List<Clan>> listaClanova, boolean ucitajListe) {
+    public SOPronadjiClanove(Ref<List<Clan>> listaClanova, List<String> kriterijumPretrage, boolean ucitajListe) {
         this.listaClanova = listaClanova;
+        this.kriterijumPretrage = kriterijumPretrage;
         this.ucitajListe = ucitajListe;
     }
-    
+
     @Override
     protected void izvrsiValidaciju() throws ValidacijaException {
         
@@ -41,7 +43,14 @@ public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            listaClanova.set(dbbroker.loadEntities(new Clan(), null, ucitajListe));
+            List<Clan> clanovi = listaClanova.get();
+            Clan c = null;
+            if(clanovi.size()>0) {
+                c = clanovi.get(0);
+            } else {
+                c = new Clan();
+            }
+            listaClanova.set(dbbroker.loadEntities(c, kriterijumPretrage, ucitajListe));
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
@@ -52,5 +61,4 @@ public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
     public String vratiImeOperacije() {
         return this.getClass().getSimpleName();
     }
-    
 }

@@ -265,7 +265,7 @@ public class FMembers extends javax.swing.JFrame {
 //        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
 //        List<Clan> lc = new ArrayList<>();
         Ref<List<Clan>> ref = new Ref(new ArrayList<>());
-        KontrolerPL.vratiListuClanova(ref);
+        KontrolerPL.vratiListuClanova(ref, true);
         azurirajTabelu(ref.get());
     }
     
@@ -278,7 +278,7 @@ public class FMembers extends javax.swing.JFrame {
         String filter = criteria.toUpperCase();
 //        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
         Ref<List<Clan>> ref = new Ref<>(new ArrayList<Clan>());
-        KontrolerPL.vratiListuClanova(ref);
+        KontrolerPL.vratiListuClanova(ref, true);
         List<Clan> sourceList = ref.get();
         List<Clan> resultList = new ArrayList<>();
         

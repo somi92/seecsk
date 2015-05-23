@@ -3,31 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.somi92.seecsk.model.operations.clan;
+package com.github.somi92.seecsk.model.operations.trening;
 
-import com.github.somi92.seecsk.domain.Clan;
+import com.github.somi92.seecsk.domain.Trening;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
-import com.github.somi92.seecsk.model.operations.Ref;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
  * @author milos
  */
-public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
-
-    private Ref<List<Clan>> listaClanova;
-    private boolean ucitajListe;
+public class SOZapamtiTrening extends ApstraktnaSistemskaOperacija {
     
-    public SOVratiListuClanova(Ref<List<Clan>> listaClanova, boolean ucitajListe) {
-        this.listaClanova = listaClanova;
-        this.ucitajListe = ucitajListe;
+    private Trening trening;
+    
+    public SOZapamtiTrening(Trening trening) {
+        this.trening = trening;
     }
-    
+
     @Override
     protected void izvrsiValidaciju() throws ValidacijaException {
         
@@ -41,7 +37,7 @@ public class SOVratiListuClanova extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            listaClanova.set(dbbroker.loadEntities(new Clan(), null, ucitajListe));
+            dbbroker.saveOrUpdateEntity(trening);
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());

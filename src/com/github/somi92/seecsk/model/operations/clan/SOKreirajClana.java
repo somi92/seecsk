@@ -40,8 +40,8 @@ public class SOKreirajClana extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            Clan c = new Clan();
-            String m = dbbroker.getMaxColumnValue(c, "idClan");
+            Clan c = clan.get();
+            String m = dbbroker.getMaxColumnValue(c, "idClan", null);
             long max = Long.parseLong(m);
             c.setIdClan(max+1);
             clan.set(c);

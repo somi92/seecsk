@@ -42,7 +42,7 @@ public class Clan {
     private Date datumUclanjenja;
     @Column("napomena")
     private String napomena;
-    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = true)
+    @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = false)
     private Grupa grupa;
     @Collection(childEntityClass = Uplata.class, referencingField = "clan")
     private List<Uplata> uplate;

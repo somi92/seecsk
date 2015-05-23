@@ -289,7 +289,7 @@ public class MembersPanel extends javax.swing.JPanel {
 //        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
 //        List<Clan> lc = new ArrayList<>();
         Ref<List<Clan>> ref = new Ref(new ArrayList<>());
-        KontrolerPL.vratiListuClanova(ref);
+        KontrolerPL.vratiListuClanova(ref, true);
         azurirajTabelu(ref.get());
     }
     
@@ -309,7 +309,7 @@ public class MembersPanel extends javax.swing.JPanel {
         String filter = criteria.toUpperCase();
 //        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
         Ref<List<Clan>> ref = new Ref<>(new ArrayList<Clan>());
-        KontrolerPL.vratiListuClanova(ref);
+        KontrolerPL.vratiListuClanova(ref, true);
         List<Clan> sourceList = ref.get();
         List<Clan> resultList = new ArrayList<>();
         
