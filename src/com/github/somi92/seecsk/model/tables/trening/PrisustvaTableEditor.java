@@ -5,9 +5,12 @@
  */
 package com.github.somi92.seecsk.model.tables.trening;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
@@ -18,6 +21,7 @@ import javax.swing.table.TableCellEditor;
 public class PrisustvaTableEditor extends AbstractCellEditor implements TableCellEditor {
 
     private JCheckBox jchbPrisutan;
+    private JPanel panel;
     
     public PrisustvaTableEditor() {
         jchbPrisutan = new JCheckBox();
@@ -30,8 +34,12 @@ public class PrisustvaTableEditor extends AbstractCellEditor implements TableCel
 
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        panel = new JPanel(new BorderLayout());
         jchbPrisutan.setSelected((boolean) value);
-        return jchbPrisutan;
+        JLabel lbl1 = new JLabel("                  ");
+        panel.add(lbl1, BorderLayout.WEST);
+        panel.add(jchbPrisutan, BorderLayout.CENTER);
+        return panel;
     }
     
 }

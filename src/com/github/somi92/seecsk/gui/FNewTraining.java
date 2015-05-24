@@ -6,12 +6,16 @@
 package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Sesija;
+import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
+import com.github.somi92.seecsk.domain.Prisustvo;
 import com.github.somi92.seecsk.domain.Trening;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
@@ -22,6 +26,7 @@ import javax.swing.SpinnerDateModel;
 public class FNewTraining extends javax.swing.JDialog {
 
     private Grupa grupa;
+    private Trening trening;
     
     /**
      * Creates new form FNewTraining
@@ -151,7 +156,7 @@ public class FNewTraining extends javax.swing.JDialog {
         int trajanjeMin = Integer.parseInt(jspnDuration.getValue().toString());
         String opis = jtxtDesc.getText().trim();
         
-        Trening trening = new Trening();
+        trening = new Trening();
         trening.setGrupa(grupa);
         Ref<Trening> treningRef = new Ref(trening);
         KontrolerPL.kreirajTrening(treningRef);
@@ -159,6 +164,7 @@ public class FNewTraining extends javax.swing.JDialog {
         trening.setDatumVreme(datum);
         trening.setTrajanjeMin(trajanjeMin);
         trening.setOpisTreninga(opis);
+        initAttendance();
         
         KontrolerPL.sacuvajIliAzurirajTrening(trening);
         dispose();
@@ -227,5 +233,24 @@ public class FNewTraining extends javax.swing.JDialog {
         sdm.setCalendarField(Calendar.MINUTE);
         jspnTime.setModel(sdm);
         jspnTime.setEditor(new JSpinner.DateEditor(jspnTime, "HH:mm"));
+    }
+    
+    private void initAttendance() {
+        List<Clan> clanovi = new ArrayList<>();
+        Clan clan = new Clan();
+        clan.setGrupa(grupa);
+        clanovi.add(clan);
+        Ref<List<Clan>> clanoviRef = new Ref(clanovi);
+        List<String> kriterijumPretrage = new ArrayList<>();
+        kriterijumPretrage.add("grupa");
+        KontrolerPL.pronadjiClanove(clanoviRef, kriterijumPretrage, false);
+        clanovi = clanoviRef.get();
+        
+        List<Prisustvo> prisustva = new ArrayList<>();
+        for(Clan c : clanovi) {
+            Prisustvo p = new Prisustvo(true, 0, trening, c);
+            prisustva.add(p);
+        }
+        trening.setPrisustva(prisustva);
     }
 }

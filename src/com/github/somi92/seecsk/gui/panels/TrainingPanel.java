@@ -328,7 +328,7 @@ public class TrainingPanel extends javax.swing.JPanel {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                setAttendance(false);
+                setAttendance();
 //                int selectedRow = jtblTraining.getSelectedRow();
 //                if(selectedRow > -1) {
 //                    Trening t = ttm.vratiTreningeTabele().get(selectedRow);
@@ -374,30 +374,13 @@ public class TrainingPanel extends javax.swing.JPanel {
         jtblTraining.setModel(ttm);
     }
     
-    private void setAttendance(boolean isNew) {
-        if(isNew) {
-//            List<Clan> clanovi = new ArrayList<>();
-//            Clan c = new Clan();
-//            c.setGrupa((Grupa) jcmbGroups.getSelectedItem());
-//            Ref<List<Clan>> clanoviRef = new Ref(clanovi);
-//            List<String> kriterijumPretrage = new ArrayList<>();
-//            kriterijumPretrage.add("grupa");
-//            KontrolerPL.pronadjiClanove(clanoviRef, kriterijumPretrage, false);
-//            clanovi = clanoviRef.get();
-//            
-//            List<Prisustvo> prisustva = new ArrayList<>();
-//            for(Clan clan : clanovi) {
-//                Prisustvo p = new Prisustvo(true, 0, null, clan);
-//            }
-            
-        } else {
-            int selectedRow = jtblTraining.getSelectedRow();
-            if(selectedRow > -1) {
-                Trening t = ttm.vratiTreningeTabele().get(selectedRow);
-                Ref<Trening> treningRef = new Ref(t);
-                KontrolerPL.ucitajTrening(treningRef);
-                ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
-            }
+    private void setAttendance() {
+        int selectedRow = jtblTraining.getSelectedRow();
+        if(selectedRow > -1) {
+            Trening t = ttm.vratiTreningeTabele().get(selectedRow);
+            Ref<Trening> treningRef = new Ref(t);
+            KontrolerPL.ucitajTrening(treningRef);
+            ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
         }
     }
 }

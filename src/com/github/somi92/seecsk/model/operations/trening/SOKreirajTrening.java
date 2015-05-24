@@ -39,8 +39,7 @@ public class SOKreirajTrening extends ApstraktnaSistemskaOperacija {
     protected void izvrsiDBTransakciju() throws SOException {
         try {
             Trening t = trening.get();
-            String cond = "idGrupa="+t.getGrupa().getIdGrupa();
-            String m = dbbroker.getMaxColumnValue(t, "idTrening", cond);
+            String m = dbbroker.getMaxColumnValue(t, "idTrening", null);
             t.setIdTrening(Long.parseLong(m)+1);
             trening.set(t);
         } catch (SQLException ex) {

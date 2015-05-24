@@ -5,12 +5,14 @@
  */
 package com.github.somi92.seecsk.model.operations.trening;
 
+import com.github.somi92.seecsk.domain.Prisustvo;
 import com.github.somi92.seecsk.domain.Trening;
 import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -38,6 +40,10 @@ public class SOZapamtiTrening extends ApstraktnaSistemskaOperacija {
     protected void izvrsiDBTransakciju() throws SOException {
         try {
             dbbroker.saveOrUpdateEntity(trening);
+            List<Prisustvo> prisustva = trening.getPrisustva();
+            if(prisustva != null && prisustva.size()>0) {
+                dbbroker.insertEntities(prisustva);
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
