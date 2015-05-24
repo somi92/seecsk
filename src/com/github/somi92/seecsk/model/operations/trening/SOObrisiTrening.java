@@ -10,18 +10,17 @@ import com.github.somi92.seecsk.model.exceptions.so.PreduslovException;
 import com.github.somi92.seecsk.model.exceptions.so.SOException;
 import com.github.somi92.seecsk.model.exceptions.so.ValidacijaException;
 import com.github.somi92.seecsk.model.operations.ApstraktnaSistemskaOperacija;
-import com.github.somi92.seecsk.model.operations.Ref;
 import java.sql.SQLException;
 
 /**
  *
  * @author milos
  */
-public class SOKreirajTrening extends ApstraktnaSistemskaOperacija {
+public class SOObrisiTrening extends ApstraktnaSistemskaOperacija {
 
-    private Ref<Trening> trening;
+    private Trening trening;
     
-    public SOKreirajTrening(Ref<Trening> trening) {
+    public SOObrisiTrening(Trening trening) {
         this.trening = trening;
     }
     
@@ -38,16 +37,11 @@ public class SOKreirajTrening extends ApstraktnaSistemskaOperacija {
     @Override
     protected void izvrsiDBTransakciju() throws SOException {
         try {
-            Trening t = trening.get();
-            String m = dbbroker.getMaxColumnValue(t, "idTrening", null);
-            if(m == null) {
-                m = "0";
-            }
-            t.setIdTrening(Long.parseLong(m)+1);
-            trening.set(t);
+            dbbroker.deleteEntity(trening);
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Greska -> "+this.getClass().getName()+": "+ex.getMessage());
+            throw new SOException();
         }
     }
 

@@ -19,6 +19,7 @@ import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableRenderer;
 import com.github.somi92.seecsk.model.tables.trening.TreningTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -60,8 +61,8 @@ public class TrainingPanel extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jtblAttendance = new javax.swing.JTable();
         jbtnNoviTrening = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jbtnIzmeniTrening = new javax.swing.JButton();
+        jbtnObrisiTrening = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jcmbGroups = new javax.swing.JComboBox();
@@ -149,15 +150,20 @@ public class TrainingPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Izmeni trening");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jbtnIzmeniTrening.setText("Detalji treninga");
+        jbtnIzmeniTrening.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jbtnIzmeniTreningActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Obriši trening");
-        jButton5.setToolTipText("");
+        jbtnObrisiTrening.setText("Obriši trening");
+        jbtnObrisiTrening.setToolTipText("");
+        jbtnObrisiTrening.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnObrisiTreningActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Sačuvaj izmene");
 
@@ -180,8 +186,8 @@ public class TrainingPanel extends javax.swing.JPanel {
                         .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jbtnNoviTrening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jbtnIzmeniTrening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtnObrisiTrening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(34, 34, 34)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
@@ -199,9 +205,9 @@ public class TrainingPanel extends javax.swing.JPanel {
                         .addGap(95, 95, 95)
                         .addComponent(jbtnNoviTrening, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtnIzmeniTrening, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbtnObrisiTrening, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,17 +232,16 @@ public class TrainingPanel extends javax.swing.JPanel {
         jpnlTrainingLayout.setHorizontalGroup(
             jpnlTrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlTrainingLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jpnlTrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpnlTrainingLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 1419, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jpnlTrainingLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jcmbGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addComponent(jcmbGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnlTrainingLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jpnlTrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jpnlTrainingLayout.setVerticalGroup(
             jpnlTrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,9 +277,17 @@ public class TrainingPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jbtnIzmeniTreningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnIzmeniTreningActionPerformed
+        int row = jtblTraining.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(this, "Izaberite trening iz tabele treninga.");
+        } else {
+            Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.GRUPA, (Grupa) jcmbGroups.getSelectedItem());
+            Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.TRENING, ttm.vratiTreningeTabele().get(row));
+            new FNewTraining(null, true).setVisible(true);
+            setTrainig();
+        }
+    }//GEN-LAST:event_jbtnIzmeniTreningActionPerformed
 
     private void jcmbGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbGroupsActionPerformed
         setTrainig();
@@ -290,15 +303,31 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jbtnNoviTreningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNoviTreningActionPerformed
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.GRUPA, (Grupa) jcmbGroups.getSelectedItem());
         new FNewTraining(null, true).setVisible(true);
+        ptm.postaviPrisustvaTabele(new ArrayList<>());
         setTrainig();
     }//GEN-LAST:event_jbtnNoviTreningActionPerformed
+
+    private void jbtnObrisiTreningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnObrisiTreningActionPerformed
+        int row = jtblTraining.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(this, "Izaberite trening iz tabele treninga.");
+        } else {
+            int response = JOptionPane.showConfirmDialog(this, "Jeste li sigurni da želite izbrisati izabranog člana?",
+                "Potvrdite izbor", JOptionPane.OK_CANCEL_OPTION);
+            if(response == JOptionPane.OK_OPTION) {
+                boolean res = KontrolerPL.obrisiTrening(ttm.vratiTreningeTabele().get(row));
+                if(res) {
+                    setTrainig();
+                    ptm.postaviPrisustvaTabele(new ArrayList<>());
+                }
+            }
+        }
+    }//GEN-LAST:event_jbtnObrisiTreningActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -306,7 +335,9 @@ public class TrainingPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton jbtnIzmeniTrening;
     private javax.swing.JButton jbtnNoviTrening;
+    private javax.swing.JButton jbtnObrisiTrening;
     private javax.swing.JComboBox jcmbGroups;
     private javax.swing.JPanel jpnlTraining;
     private javax.swing.JTable jtblAttendance;

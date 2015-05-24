@@ -65,6 +65,22 @@ public class PrisustvaTableModel extends AbstractTableModel {
     }
 
     @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        Prisustvo p = prisustva.get(rowIndex);
+        switch(columnIndex) {
+            case 0:
+                p.setClan((Clan) aValue);
+                break;
+            case 1:
+                p.setPrisustvo((boolean) aValue);
+                break;
+            case 2:
+                p.setKasnjenjeMin((int) aValue);
+                break;
+        }
+    }
+
+    @Override
     public String getColumnName(int column) {
         switch(column) {
             case 0:

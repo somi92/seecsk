@@ -6,7 +6,9 @@
 package com.github.somi92.seecsk.model.tables.trening;
 
 import com.github.somi92.seecsk.domain.Trening;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -52,7 +54,8 @@ public class TreningTableModel extends AbstractTableModel {
             case 0:
                 return t.getIdTrening();
             case 1:
-                return t.getDatumVreme();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                return sdf.format(t.getDatumVreme());
             case 2:
                 return t.getTrajanjeMin();
             case 3:

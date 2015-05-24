@@ -27,6 +27,7 @@ public class FNewTraining extends javax.swing.JDialog {
 
     private Grupa grupa;
     private Trening trening;
+    private boolean update;
     
     /**
      * Creates new form FNewTraining
@@ -35,7 +36,9 @@ public class FNewTraining extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         grupa = (Grupa) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.GRUPA);
+        trening = (Trening) Sesija.vratiInstancu().vratiMapuSesije().get(Sesija.TRENING);
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.GRUPA, null);
+        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.TRENING, null);
         initForm();
     }
 
@@ -156,61 +159,23 @@ public class FNewTraining extends javax.swing.JDialog {
         int trajanjeMin = Integer.parseInt(jspnDuration.getValue().toString());
         String opis = jtxtDesc.getText().trim();
         
-        trening = new Trening();
-        trening.setGrupa(grupa);
-        Ref<Trening> treningRef = new Ref(trening);
-        KontrolerPL.kreirajTrening(treningRef);
-        trening = treningRef.get();
+        if(!update) {
+            trening = new Trening();
+            trening.setGrupa(grupa);
+            Ref<Trening> treningRef = new Ref(trening);
+            KontrolerPL.kreirajTrening(treningRef);
+            trening = treningRef.get();
+        }
         trening.setDatumVreme(datum);
         trening.setTrajanjeMin(trajanjeMin);
         trening.setOpisTreninga(opis);
-        initAttendance();
+        if(!update) {
+            initAttendance();
+        }
         
         KontrolerPL.sacuvajIliAzurirajTrening(trening);
         dispose();
     }//GEN-LAST:event_jbtnSaveActionPerformed
-
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(FNewTraining.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(FNewTraining.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(FNewTraining.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(FNewTraining.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                FNewTraining dialog = new FNewTraining(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -226,13 +191,25 @@ public class FNewTraining extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void initForm() {
-
-        setTitle(grupa.getNaziv()+" - novi trening");
         
         SpinnerDateModel sdm = new SpinnerDateModel();
         sdm.setCalendarField(Calendar.MINUTE);
         jspnTime.setModel(sdm);
         jspnTime.setEditor(new JSpinner.DateEditor(jspnTime, "HH:mm"));
+        
+        if(trening == null) {
+            setTitle(grupa.getNaziv()+" - novi trening");
+            update = false;
+        } else {
+            setTitle(grupa.getNaziv()+" - izmena treninga");
+            update = true;
+            jspnTime.setValue(trening.getDatumVreme());
+            Calendar c = Calendar.getInstance();
+            c.setTime(trening.getDatumVreme());
+            jdccDatum.setSelectedDate(c);
+            jspnDuration.setValue(trening.getTrajanjeMin());
+            jtxtDesc.setText(trening.getOpisTreninga());
+        }
     }
     
     private void initAttendance() {

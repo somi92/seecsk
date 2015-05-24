@@ -21,6 +21,7 @@ import com.github.somi92.seecsk.model.operations.clanarina.SOPronadjiClanarine;
 import com.github.somi92.seecsk.model.operations.clanarina.SOZapamtiClanarine;
 import com.github.somi92.seecsk.model.operations.grupa.SOVratiListuGrupa;
 import com.github.somi92.seecsk.model.operations.trening.SOKreirajTrening;
+import com.github.somi92.seecsk.model.operations.trening.SOObrisiTrening;
 import com.github.somi92.seecsk.model.operations.trening.SOPronadjiTreninge;
 import com.github.somi92.seecsk.model.operations.trening.SOUcitajTrening;
 import com.github.somi92.seecsk.model.operations.trening.SOZapamtiTrening;
@@ -205,6 +206,17 @@ public class KontrolerPL {
             aso.izvrsiSistemskuOperaciju();
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+    
+    public static boolean obrisiTrening(Trening trening) {
+        try {
+            aso = new SOObrisiTrening(trening);
+            aso.izvrsiSistemskuOperaciju();
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
         }
     }
 }
