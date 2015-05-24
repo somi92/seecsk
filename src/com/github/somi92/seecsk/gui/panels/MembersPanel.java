@@ -32,6 +32,10 @@ public class MembersPanel extends javax.swing.JPanel {
      * Creates new form MembersPanel
      */
     public MembersPanel() {
+        initializeMembersPanel();
+    }
+    
+    public void initializeMembersPanel() {
         initComponents();
         initSearch();
         azurirajTabelu();

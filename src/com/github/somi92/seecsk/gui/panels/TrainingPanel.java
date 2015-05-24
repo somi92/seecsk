@@ -37,6 +37,10 @@ public class TrainingPanel extends javax.swing.JPanel {
      * Creates new form CategoriesGroupsPanel
      */
     public TrainingPanel() {
+        initializeTrainingPanel();
+    }
+    
+    public void initializeTrainingPanel() {
         initComponents();
         initForm();
     }
@@ -63,7 +67,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         jbtnNoviTrening = new javax.swing.JButton();
         jbtnIzmeniTrening = new javax.swing.JButton();
         jbtnObrisiTrening = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jbtnSacuvajPrisustva = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jcmbGroups = new javax.swing.JComboBox();
 
@@ -165,7 +169,13 @@ public class TrainingPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Sačuvaj izmene");
+        jbtnSacuvajPrisustva.setText("Sačuvaj izmene");
+        jbtnSacuvajPrisustva.setEnabled(false);
+        jbtnSacuvajPrisustva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSacuvajPrisustvaActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Poništi izmene");
 
@@ -179,7 +189,7 @@ public class TrainingPanel extends javax.swing.JPanel {
                         .addGap(1038, 1038, 1038)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jbtnSacuvajPrisustva, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,7 +221,7 @@ public class TrainingPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtnSacuvajPrisustva, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -324,9 +334,16 @@ public class TrainingPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbtnObrisiTreningActionPerformed
 
+    private void jbtnSacuvajPrisustvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSacuvajPrisustvaActionPerformed
+        jbtnSacuvajPrisustva.setEnabled(false);
+        int trainingRow = jtblTraining.getSelectedRow();
+        Trening trening = ttm.vratiTreningeTabele().get(trainingRow);
+        List<Prisustvo> prisustva = ptm.vratiPrisustvaTabele();
+        trening.setPrisustva(prisustva);
+    }//GEN-LAST:event_jbtnSacuvajPrisustvaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -338,6 +355,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private javax.swing.JButton jbtnIzmeniTrening;
     private javax.swing.JButton jbtnNoviTrening;
     private javax.swing.JButton jbtnObrisiTrening;
+    private javax.swing.JButton jbtnSacuvajPrisustva;
     private javax.swing.JComboBox jcmbGroups;
     private javax.swing.JPanel jpnlTraining;
     private javax.swing.JTable jtblAttendance;
@@ -345,8 +363,10 @@ public class TrainingPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private TreningTableModel ttm;
     private PrisustvaTableModel ptm;
+    private boolean prisustvaPromenjena;
     
     private void initForm() {
+        prisustvaPromenjena = false;
         Ref<List<Grupa>> refGrupe = new Ref(new ArrayList<>());
         KontrolerPL.vratiListuGrupa(refGrupe, true);
         jcmbGroups.removeAllItems();
@@ -360,13 +380,17 @@ public class TrainingPanel extends javax.swing.JPanel {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 setAttendance();
-//                int selectedRow = jtblTraining.getSelectedRow();
-//                if(selectedRow > -1) {
-//                    Trening t = ttm.vratiTreningeTabele().get(selectedRow);
-//                    Ref<Trening> treningRef = new Ref(t);
-//                    KontrolerPL.ucitajTrening(treningRef);
-//                    ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
-//                }
+            }
+        });
+        
+        jtblAttendance.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int column = jtblAttendance.getSelectedColumn();
+                if(column == 1) {
+                    jbtnSacuvajPrisustva.setEnabled(true);
+                }
             }
         });
         
@@ -411,6 +435,7 @@ public class TrainingPanel extends javax.swing.JPanel {
             Trening t = ttm.vratiTreningeTabele().get(selectedRow);
             Ref<Trening> treningRef = new Ref(t);
             KontrolerPL.ucitajTrening(treningRef);
+            ptm.postaviPrisustvaTabele(new ArrayList<>());
             ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
         }
     }

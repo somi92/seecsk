@@ -42,7 +42,10 @@ public class SOZapamtiTrening extends ApstraktnaSistemskaOperacija {
             dbbroker.saveOrUpdateEntity(trening);
             List<Prisustvo> prisustva = trening.getPrisustva();
             if(prisustva != null && prisustva.size()>0) {
-                dbbroker.insertEntities(prisustva);
+//                dbbroker.insertEntities(prisustva);
+                for(Prisustvo p : prisustva) {
+                    dbbroker.saveOrUpdateEntity(p);
+                }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

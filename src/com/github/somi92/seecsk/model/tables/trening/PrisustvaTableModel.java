@@ -10,7 +10,6 @@ import com.github.somi92.seecsk.domain.Prisustvo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.table.AbstractTableModel;
 
 /**

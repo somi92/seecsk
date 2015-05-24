@@ -193,21 +193,25 @@ public class FMainForm extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
         cl.show(jpnlMainPanel, "panel1");
+        panel1.initializeMembersPanel();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
         cl.show(jpnlMainPanel, "panel2");
+        panel2.initializeTrainingPanel();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jbtnMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembersActionPerformed
         CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
         cl.show(jpnlMainPanel, "panel1");
+        panel1.initializeMembersPanel();
     }//GEN-LAST:event_jbtnMembersActionPerformed
 
     private void jbtnMembers1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembers1ActionPerformed
         CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
         cl.show(jpnlMainPanel, "panel2");
+        panel2.initializeTrainingPanel();
     }//GEN-LAST:event_jbtnMembers1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -225,10 +229,12 @@ public class FMainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jpnlStatus;
     private javax.swing.JPanel jpnlToolbar;
     // End of variables declaration//GEN-END:variables
-
+    private MembersPanel panel1;
+    private TrainingPanel panel2;
+    
     private void initPanels() {
-        MembersPanel panel1 = new MembersPanel();
-        TrainingPanel panel2 = new TrainingPanel();
+        panel1 = new MembersPanel();
+        panel2 = new TrainingPanel();
         jpnlMainPanel.add("panel1", panel1);
         jpnlMainPanel.add("panel2", panel2);
     }
