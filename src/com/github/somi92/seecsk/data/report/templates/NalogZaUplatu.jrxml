@@ -52,6 +52,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{UPLATILAC}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="329" y="45" width="1" height="176" uuid="02ece45b-d832-486c-813e-5b4e959fe2fc"/>
