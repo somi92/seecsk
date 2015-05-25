@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NalogZaUplatu" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0f9e7572-26e6-4f2b-bb22-3c1a435a0969">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="108"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="uplatilac" class="java.lang.String">
+		<fieldDescription><![CDATA[uplatilac]]></fieldDescription>
+	</field>
+	<field name="svrhaUplate" class="java.lang.String">
+		<fieldDescription><![CDATA[svrhaUplate]]></fieldDescription>
+	</field>
+	<field name="primalac" class="java.lang.String">
+		<fieldDescription><![CDATA[primalac]]></fieldDescription>
+	</field>
+	<field name="iznos" class="java.lang.String">
+		<fieldDescription><![CDATA[iznos]]></fieldDescription>
+	</field>
+	<field name="racunPrimaoca" class="java.lang.String">
+		<fieldDescription><![CDATA[racunPrimaoca]]></fieldDescription>
+	</field>
+	<field name="model" class="java.lang.String">
+		<fieldDescription><![CDATA[model]]></fieldDescription>
+	</field>
+	<field name="pozivNaBroj" class="java.lang.String">
+		<fieldDescription><![CDATA[pozivNaBroj]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -30,6 +51,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{svrhaUplate}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="70" y="181" width="240" height="40" uuid="a1248c4b-cdc7-4850-8908-abf4fd0b9526"/>
@@ -41,6 +63,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{primalac}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="70" y="45" width="240" height="40" uuid="3f3988ee-44f2-46c3-8885-8850e6114907"/>
@@ -52,25 +75,25 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{UPLATILAC}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{uplatilac}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="329" y="45" width="1" height="176" uuid="02ece45b-d832-486c-813e-5b4e959fe2fc"/>
 			</line>
 			<staticText>
 				<reportElement x="70" y="25" width="100" height="20" uuid="a005e34e-be52-453c-8d64-3136f9942f75"/>
-				<text><![CDATA[уплатилац]]></text>
+				<text><![CDATA[uplatilac]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="70" y="93" width="100" height="20" uuid="739bfaec-806b-4e3c-99c9-50609e99eb6e"/>
-				<text><![CDATA[сврха уплате]]></text>
+				<text><![CDATA[svrha uplate]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="70" y="161" width="100" height="20" uuid="30785448-4804-4372-becf-ef79cc7b1fa9"/>
-				<text><![CDATA[прималац]]></text>
+				<text><![CDATA[primalac]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="346" y="55" width="50" height="20" uuid="3cd549bc-f698-44ba-82a1-584c6c672c5a"/>
+			<staticText>
+				<reportElement x="346" y="55" width="50" height="20" uuid="a4f5edea-4125-40df-8d23-e428b909d157"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -78,8 +101,9 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-			</textField>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<text><![CDATA[]]></text>
+			</staticText>
 			<staticText>
 				<reportElement x="416" y="55" width="50" height="20" uuid="1d0c98d9-556e-4a86-8c9d-fe3220b03881"/>
 				<box>
@@ -92,7 +116,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[РСД]]></text>
+				<text><![CDATA[RSD]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="346" y="103" width="315" height="20" uuid="b6bbebb8-7b7f-4a4b-b4a2-c190659e4f7d"/>
@@ -103,7 +127,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{racunPrimaoca}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="484" y="55" width="177" height="20" uuid="94235ad7-1597-41e5-8ad4-9dfc7af2a3be"/>
@@ -114,7 +141,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iznos}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="346" y="152" width="50" height="20" uuid="6c40f187-9f77-46dd-a154-41569e834ae8"/>
@@ -125,7 +155,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="416" y="152" width="245" height="20" uuid="8c5249ac-c641-464a-bc43-6bc4108b4149"/>
@@ -136,34 +169,37 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pozivNaBroj}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="346" y="25" width="55" height="30" uuid="7ad3f41c-b10c-43bb-ab1e-bd1d63c8a07c"/>
-				<text><![CDATA[шифра плаћања]]></text>
+				<text><![CDATA[šifra plaćanja]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="416" y="35" width="55" height="20" uuid="116a05a3-d71e-4fbd-9414-24136b07c3df"/>
-				<text><![CDATA[валута]]></text>
+				<text><![CDATA[valuta]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="484" y="35" width="55" height="20" uuid="8c11a68f-3eb1-4fae-85c8-fba5142ef1a0"/>
-				<text><![CDATA[износ]]></text>
+				<text><![CDATA[iznos]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="346" y="84" width="98" height="20" uuid="98f3a130-7f7e-448c-a854-34c63c160d4e"/>
-				<text><![CDATA[рачун примаоца]]></text>
+				<text><![CDATA[račun primaoca]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="346" y="132" width="189" height="20" uuid="70ce8809-6d82-491d-a86a-a7324cfc70a9"/>
-				<text><![CDATA[модел и позив на број (одобрење)]]></text>
+				<text><![CDATA[model i poziv na broj (odobrenje)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="529" y="15" width="132" height="20" uuid="677bb55c-4ff7-47d8-b6e0-561961bb414a"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[НАЛОГ ЗА УПЛАТУ]]></text>
+				<text><![CDATA[NALOG ZA UPLATU]]></text>
 			</staticText>
 			<line>
 				<reportElement x="70" y="248" width="151" height="1" uuid="2a69d6ce-8b19-4436-aeea-8578e14356d8"/>
@@ -179,21 +215,21 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[печат и потпис уплатиоца]]></text>
+				<text><![CDATA[pečat i potpis uplatioca]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="344" y="282" width="100" height="20" uuid="b4cadaec-9654-4a41-8d71-7cfaebe33b43"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[датум валуте]]></text>
+				<text><![CDATA[datum valute]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="186" y="283" width="124" height="20" uuid="c67c56f9-5b80-48c3-8733-4b6d8b177103"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[место и датум пријема]]></text>
+				<text><![CDATA[mesto i datum prijema]]></text>
 			</staticText>
 			<line>
 				<reportElement x="51" y="302" width="630" height="1" uuid="23de642c-6338-4bd2-a840-1e068a4f428c"/>

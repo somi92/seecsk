@@ -6,7 +6,8 @@
 package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Sesija;
-import com.github.somi92.seecsk.data.report.NalogZaUplatuBean;
+import com.github.somi92.seecsk.data.report.NalogZaUplatu;
+import com.github.somi92.seecsk.data.report.ReportGenerator;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.domain.Grupa;
@@ -552,9 +553,15 @@ public class FNewMember extends javax.swing.JDialog {
 
     private void jbtnInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInvoiceActionPerformed
         try {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("UPLATILAC", "AAAAAAAA");
-            NalogZaUplatuBean.generateInvoice(params);
+            NalogZaUplatu n = new NalogZaUplatu();
+            n.setUplatilac(clan.getImePrezime()+", "+clan.getAdresa());
+            n.setPrimalac("Fitnes klub i teretana \"City gym\", Svetozara Corovica 11, Beograd");
+            n.setSvrhaUplate("Clanarina za 5.2015.");
+            n.setIznos(2000.0);
+            n.setModel("433");
+            n.setRacunPrimaoca("325-543997544-31");
+            n.setPozivNaBroj("433245321");
+            ReportGenerator.generateInvoice(n);
         } catch (JRException ex) {
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
