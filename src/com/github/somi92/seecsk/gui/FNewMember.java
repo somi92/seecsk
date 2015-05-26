@@ -24,12 +24,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
 import javax.swing.table.TableColumn;
@@ -579,30 +575,6 @@ public class FNewMember extends javax.swing.JDialog {
 
     private void jbtnUplatnicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUplatnicaActionPerformed
         try {
-            //        try {
-//            NalogZaUplatu n = new NalogZaUplatu();
-//            n.setUplatilac(clan.getImePrezime()+", "+clan.getAdresa());
-//            n.setPrimalac("Fitnes klub i teretana \"City gym\", Svetozara Corovica 11, Beograd");
-//            n.setSvrhaUplate("Clanarina za 5.2015.");
-//            n.setIznos(2000.0);
-//            n.setModel("433");
-//            n.setRacunPrimaoca("325-543997544-31");
-//            n.setPozivNaBroj("433245321");
-//            ReportGenerator.generateInvoice(n);
-//        } catch (JRException ex) {
-//            ex.printStackTrace();
-//        } catch (ClassNotFoundException ex) {
-//            ex.printStackTrace();
-//        }
-        
-//        NalogZaUplatu n = new NalogZaUplatu();
-//        n.setUplatilac(clan.getImePrezime()+", "+clan.getAdresa());
-//        n.setPrimalac("Fitnes klub i teretana \"City gym\", Svetozara Corovica 11, Beograd");
-//        n.setSvrhaUplate("Clanarina za 5.2015.");
-//        n.setIznos(2000.0);
-//        n.setModel("433");
-//        n.setRacunPrimaoca("325-543997544-31");
-//        n.setPozivNaBroj("433245321");
             
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.LISTA, clanarine);
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, clan);
@@ -613,17 +585,8 @@ public class FNewMember extends javax.swing.JDialog {
             List<PDPage> pages = doc.getDocumentCatalog().getAllPages();
             PDPage page = (PDPage) pages.get(0);
             
-//            JPanel testFrame = new JPanel();
-////            testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             PDFPagePanel pdfPanel = new PDFPagePanel();
             pdfPanel.setPage(page);
-//            pdfPanel.setSize(pdfPanel.getWidth()-50, pdfPanel.getHeight()-200);
-//            testFrame.add(pdfPanel);
-//            jpnlClanarina.add(testFrame);
-////            testFrame.setBounds(40, 40, pdfPanel.getWidth()-50, pdfPanel.getHeight()-150);
-//            testFrame.setVisible(true);
-////            testFrame.dispose();
-            pdfPanel.setFont(new Font("SansSerif", Font.PLAIN, 16));
             
             JInternalFrame iFrame = new JInternalFrame();
             iFrame.setBounds(0, 0, jpnlUplatnica.getWidth(), jpnlUplatnica.getHeight());

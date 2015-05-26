@@ -334,11 +334,11 @@ public class FInvoice extends javax.swing.JDialog {
             if(o != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
                 if(jcmbClanarina.getSelectedItem() instanceof String) {
-                    jtxtSvrhaUplate.setText("Clanarina za period "+sdf.format(clanarine.get(0).getDatumOd())+
+                    jtxtSvrhaUplate.setText("Članarina za period "+sdf.format(clanarine.get(0).getDatumOd())+
                         " - "+sdf.format(clanarine.get(clanarine.size()-1).getDatumDo()));
                 } else {
                     Clanarina c = (Clanarina) jcmbClanarina.getSelectedItem();
-                    jtxtSvrhaUplate.setText("Clanarina za period "+sdf.format(c.getDatumOd())+
+                    jtxtSvrhaUplate.setText("Članarina za period "+sdf.format(c.getDatumOd())+
                             " - "+sdf.format(c.getDatumDo()));
                 }
             }
