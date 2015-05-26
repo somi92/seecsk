@@ -14,7 +14,9 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.util.JRProperties;
+import net.sf.jasperreports.export.SimplePdfReportConfiguration;
 
 /**
  *
@@ -26,17 +28,6 @@ public class ReportGenerator {
     
     public static void generateInvoice(NalogZaUplatu n) throws JRException, ClassNotFoundException {
         
-//        Class.forName("org.apache.commons.digester.Digester");
-        
-//        JasperReport jr = JasperCompileManager.
-//                compileReport("src/com/github/somi92/seecsk/data/report/templates/NalogZaUplatu.jrxml");
-        
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(jr, params, new JREmptyDataSource());
-//        
-//        JasperExportManager.exportReportToPdfFile(jasperPrint, "test.pdf");
-//
-//        JasperViewer.viewReport(jasperPrint);
-        
         String reportFile = "src/com/github/somi92/seecsk/data/report/templates/NalogZaUplatu.jasper";
         List<NalogZaUplatu> nalog = new ArrayList<>();
         nalog.add(n);
@@ -46,8 +37,7 @@ public class ReportGenerator {
         
         try {
             JasperPrint jprint = JasperFillManager.fillReport(reportFile, params, bean);
-            JasperExportManager.exportReportToPdfFile(jprint, "test.pdf");
-            JasperViewer.viewReport(jprint);
+            JasperExportManager.exportReportToPdfFile(jprint, "temp/temp.pdf");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

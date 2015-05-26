@@ -6,10 +6,13 @@
 package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Sesija;
+import com.github.somi92.seecsk.data.report.NalogZaUplatu;
+import com.github.somi92.seecsk.data.report.ReportGenerator;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Clanarina;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -99,7 +102,12 @@ public class FInvoice extends javax.swing.JDialog {
             }
         });
 
-        jbtnKreirajUplatnicu.setText("Kreiraj uplatnicu");
+        jbtnKreirajUplatnicu.setText("OK");
+        jbtnKreirajUplatnicu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnKreirajUplatnicuActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Uplatilac:");
 
@@ -197,7 +205,6 @@ public class FInvoice extends javax.swing.JDialog {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jtxtZiroRacun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(78, 78, 78)
@@ -241,6 +248,41 @@ public class FInvoice extends javax.swing.JDialog {
         popuniSvrhuUplate();
     }//GEN-LAST:event_jcmbClanarinaActionPerformed
 
+    private void jbtnKreirajUplatnicuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnKreirajUplatnicuActionPerformed
+        try {
+            String uplatilac = jtxtUplatilac.getText().trim();
+            String svrhaUplate = jtxtSvrhaUplate.getText().trim();
+            String primalac = jtxtPrimalac.getText().trim();
+            String ziroRacun = jtxtZiroRacun.getText().trim();
+            String model = jtxtModel.getText().trim();
+            String poziv = jtxtPozivNaBroj.getText().trim();
+            double iznos = Double.parseDouble(jtxtIznos.getText().trim());
+            
+            if(uplatilac == null || uplatilac.isEmpty() || svrhaUplate == null || svrhaUplate.isEmpty() ||
+                    primalac == null || primalac.isEmpty() || ziroRacun == null ||  ziroRacun.isEmpty() ||
+                    model == null || model.isEmpty() || poziv == null || poziv.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Sva polja moraju biti popunjena!");
+                return;
+            }
+            
+            NalogZaUplatu n = new NalogZaUplatu();
+            n.setUplatilac(uplatilac);
+            n.setPrimalac(primalac);
+            n.setSvrhaUplate(svrhaUplate);
+            n.setIznos(iznos);
+            n.setRacunPrimaoca(ziroRacun);
+            n.setModel(model);
+            n.setPozivNaBroj(poziv);
+            
+            ReportGenerator.generateInvoice(n);
+            
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Neispravno unet iznos.");
+            return;
+        }
+    }//GEN-LAST:event_jbtnKreirajUplatnicuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -278,6 +320,7 @@ public class FInvoice extends javax.swing.JDialog {
         jtxtZiroRacun.setText("321-119923259321-32");
         jtxtModel.setText("434");
         jtxtPozivNaBroj.setText("442133214");
+        jtxtIznos.setText("2000.0");
         
         jtxtUplatilac.setText(clan.getImePrezime()+", "+clan.getAdresa());
         jtxtPrimalac.setText("Fitnes klub i teretana \"City gym\", Karnegijeva 10, Beograd");
@@ -291,11 +334,11 @@ public class FInvoice extends javax.swing.JDialog {
             if(o != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
                 if(jcmbClanarina.getSelectedItem() instanceof String) {
-                    jtxtSvrhaUplate.setText("Članarina za period "+sdf.format(clanarine.get(0).getDatumOd())+
+                    jtxtSvrhaUplate.setText("Clanarina za period "+sdf.format(clanarine.get(0).getDatumOd())+
                         " - "+sdf.format(clanarine.get(clanarine.size()-1).getDatumDo()));
                 } else {
                     Clanarina c = (Clanarina) jcmbClanarina.getSelectedItem();
-                    jtxtSvrhaUplate.setText("Članarina za period "+sdf.format(c.getDatumOd())+
+                    jtxtSvrhaUplate.setText("Clanarina za period "+sdf.format(c.getDatumOd())+
                             " - "+sdf.format(c.getDatumDo()));
                 }
             }

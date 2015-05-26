@@ -137,7 +137,6 @@
                                   <Component id="jLabel3" min="-2" pref="15" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jtxtZiroRacun" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
@@ -230,8 +229,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="jbtnKreirajUplatnicu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Kreiraj uplatnicu"/>
+            <Property name="text" type="java.lang.String" value="OK"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnKreirajUplatnicuActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>

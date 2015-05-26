@@ -5,7 +5,6 @@
  */
 package com.github.somi92.seecsk.main;
 
-import chrriis.dj.nativeswing.NativeSwing;
 import com.github.somi92.seecsk.gui.FMainForm;
 import com.github.somi92.sqldbb.broker.DBBroker;
 
@@ -16,8 +15,6 @@ import com.github.somi92.sqldbb.broker.DBBroker;
 public class Main {
     
     public static void main(String[] args) {
-        
-        NativeSwing.initialize();
         
         DBBroker broker = new DBBroker();
         broker.setDatabase("seecsk");
