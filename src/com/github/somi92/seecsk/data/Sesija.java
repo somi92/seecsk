@@ -18,6 +18,8 @@ public class Sesija {
     public static final String CLAN = "clan";
     public static final String TRENING = "trening";
     public static final String GRUPA = "grupa";
+    public static final String NALOG_ZA_UPLATU = "nalog_za_uplatu";
+    public static final String LISTA = "lista";
     
     private static Sesija INSTANCE;
     private Map<String, Object> mapaSesije;
