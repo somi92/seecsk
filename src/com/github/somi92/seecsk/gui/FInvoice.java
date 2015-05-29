@@ -272,6 +272,7 @@ public class FInvoice extends javax.swing.JDialog {
             }
             
             NalogZaUplatu n = new NalogZaUplatu();
+            n.setId(n.getId());
             n.setUplatilac(uplatilac);
             n.setPrimalac(primalac);
             n.setSvrhaUplate(svrhaUplate);
@@ -323,9 +324,18 @@ public class FInvoice extends javax.swing.JDialog {
         for(Clanarina clanarina : clanarine) {
             jcmbClanarina.addItem(clanarina);
         }
-        jtxtZiroRacun.setText("321-119923259321-32");
-        jtxtModel.setText("434");
-        jtxtPozivNaBroj.setText("442133214");
+        jtxtZiroRacun.setText("321-1199232593211-32");
+        jtxtModel.setText("93");
+//        jtxtPozivNaBroj.setText("442133214");
+        String pozivNaBroj = "01125";
+        pozivNaBroj = clan.getIdClan() + pozivNaBroj;
+        int rest = 12-pozivNaBroj.length();
+        if(rest>0) {
+            for(int i=0; i<rest; i++) {
+                pozivNaBroj = "0"+pozivNaBroj;
+            }
+        }
+        jtxtPozivNaBroj.setText(pozivNaBroj);
         jtxtIznos.setText("2000.0");
         
         jtxtUplatilac.setText(clan.getImePrezime()+", "+clan.getAdresa());

@@ -11,6 +11,7 @@ package com.github.somi92.seecsk.data.report;
  */
 public class NalogZaUplatu {
     
+    private long id;
     private String uplatilac;
     private String svrhaUplate;
     private String primalac;
@@ -20,6 +21,14 @@ public class NalogZaUplatu {
     private String pozivNaBroj;
 
     public NalogZaUplatu() {
+    }
+    
+    public long getId() {
+        return id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUplatilac() {

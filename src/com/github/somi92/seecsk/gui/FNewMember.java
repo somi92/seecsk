@@ -107,7 +107,7 @@ public class FNewMember extends javax.swing.JDialog {
         jbtnNovaUplata = new javax.swing.JButton();
         jbtnUplatnica = new javax.swing.JButton();
         jpnlUplatnica = new javax.swing.JPanel();
-        jbtnUplatnica1 = new javax.swing.JButton();
+        jbtnPosalji = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SEECSK - Unos novog člana");
@@ -373,10 +373,11 @@ public class FNewMember extends javax.swing.JDialog {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jbtnUplatnica1.setText("Pošalji uplatnicu");
-        jbtnUplatnica1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnPosalji.setText("Pošalji uplatnicu");
+        jbtnPosalji.setEnabled(false);
+        jbtnPosalji.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnUplatnica1ActionPerformed(evt);
+                jbtnPosaljiActionPerformed(evt);
             }
         });
 
@@ -392,7 +393,7 @@ public class FNewMember extends javax.swing.JDialog {
                     .addGroup(jpnlClanarinaLayout.createSequentialGroup()
                         .addComponent(jbtnUplatnica, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnUplatnica1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtnPosalji, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbtnNovaUplata)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -411,7 +412,7 @@ public class FNewMember extends javax.swing.JDialog {
                     .addGroup(jpnlClanarinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbtnNovaUplata)
                         .addComponent(jbtnObrisiUplatu))
-                    .addComponent(jbtnUplatnica1))
+                    .addComponent(jbtnPosalji))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnlUplatnica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -605,9 +606,9 @@ public class FNewMember extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jbtnUplatnicaActionPerformed
 
-    private void jbtnUplatnica1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUplatnica1ActionPerformed
+    private void jbtnPosaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPosaljiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnUplatnica1ActionPerformed
+    }//GEN-LAST:event_jbtnPosaljiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -618,9 +619,9 @@ public class FNewMember extends javax.swing.JDialog {
     private javax.swing.JButton jbtnExit;
     private javax.swing.JButton jbtnNovaUplata;
     private javax.swing.JButton jbtnObrisiUplatu;
+    private javax.swing.JButton jbtnPosalji;
     private javax.swing.JButton jbtnSave;
     private javax.swing.JButton jbtnUplatnica;
-    private javax.swing.JButton jbtnUplatnica1;
     private javax.swing.JComboBox jcmbGender;
     private javax.swing.JComboBox jcmbGroup;
     private datechooser.beans.DateChooserCombo jdccDateOfBirth;
@@ -777,7 +778,6 @@ public class FNewMember extends javax.swing.JDialog {
             
             setTitle("SEECSK - Detalji i izmena člana");
             jbtnSave.setText("Izmeni");
-            
 //            Uplata u = new Uplata();
 //            u.setClan(clan);
 //            List<Uplata> ul = new ArrayList<>();
@@ -798,6 +798,7 @@ public class FNewMember extends javax.swing.JDialog {
 //            memberId = KontrolerPL.vratiBrojacEntiteta(Clan.class)+1;
             setTitle("SEECSK - Unos novog člana");
             jbtnSave.setText("Sačuvaj");
+            jbtnUplatnica.setEnabled(false);
         }
     }
 

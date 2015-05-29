@@ -14,9 +14,6 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.util.JRProperties;
-import net.sf.jasperreports.export.SimplePdfReportConfiguration;
 
 /**
  *
@@ -37,7 +34,7 @@ public class ReportGenerator {
         
         try {
             JasperPrint jprint = JasperFillManager.fillReport(reportFile, params, bean);
-            JasperExportManager.exportReportToPdfFile(jprint, "temp/temp.pdf");
+            JasperExportManager.exportReportToPdfFile(jprint, "temp/uplatnica_"+n.getId()+".pdf");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

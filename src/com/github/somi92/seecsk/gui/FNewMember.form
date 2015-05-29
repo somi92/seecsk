@@ -436,7 +436,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jbtnUplatnica" min="-2" pref="170" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jbtnUplatnica1" min="-2" pref="170" max="-2" attributes="0"/>
+                          <Component id="jbtnPosalji" min="-2" pref="170" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jbtnNovaUplata" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -460,7 +460,7 @@
                           <Component id="jbtnNovaUplata" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jbtnObrisiUplatu" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jbtnUplatnica1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbtnPosalji" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jpnlUplatnica" max="32767" attributes="0"/>
@@ -537,12 +537,13 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JButton" name="jbtnUplatnica1">
+        <Component class="javax.swing.JButton" name="jbtnPosalji">
           <Properties>
             <Property name="text" type="java.lang.String" value="Po&#x161;alji uplatnicu"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnUplatnica1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnPosaljiActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
