@@ -540,7 +540,6 @@
         <Component class="javax.swing.JButton" name="jbtnPosalji">
           <Properties>
             <Property name="text" type="java.lang.String" value="Po&#x161;alji uplatnicu"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnPosaljiActionPerformed"/>

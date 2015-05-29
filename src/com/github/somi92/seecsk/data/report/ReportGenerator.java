@@ -5,6 +5,7 @@
  */
 package com.github.somi92.seecsk.data.report;
 
+import com.github.somi92.seecsk.util.Constants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,8 @@ public class ReportGenerator {
         
         try {
             JasperPrint jprint = JasperFillManager.fillReport(reportFile, params, bean);
-            JasperExportManager.exportReportToPdfFile(jprint, "temp/uplatnica_"+n.getId()+".pdf");
+            JasperExportManager.exportReportToPdfFile(jprint, 
+                    Constants.LocationKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+n.getId()+".pdf");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

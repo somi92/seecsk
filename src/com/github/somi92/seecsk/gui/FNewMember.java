@@ -16,6 +16,8 @@ import com.github.somi92.seecsk.model.operations.Ref;
 import com.github.somi92.seecsk.model.tables.uplata.UplateTableClanarinaEditor;
 import com.github.somi92.seecsk.model.tables.uplata.UplateTableModel;
 import com.github.somi92.seecsk.model.tables.uplata.UplateTableModelDatumEditor;
+import com.github.somi92.seecsk.util.Constants;
+import com.github.somi92.seecsk.util.email.EmailSender;
 import java.awt.Color;
 import java.awt.Font;
 import java.beans.PropertyVetoException;
@@ -374,7 +376,6 @@ public class FNewMember extends javax.swing.JDialog {
         );
 
         jbtnPosalji.setText("Pošalji uplatnicu");
-        jbtnPosalji.setEnabled(false);
         jbtnPosalji.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnPosaljiActionPerformed(evt);
@@ -581,7 +582,8 @@ public class FNewMember extends javax.swing.JDialog {
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, clan);
             new FInvoice(null, true).setVisible(true);
             
-            File pdfFile = new File("temp/temp.pdf");
+            File pdfFile = new File(
+                    Constants.LocationKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+clan.getIdClan()+".pdf");
             PDDocument doc = PDDocument.load(pdfFile);
             List<PDPage> pages = doc.getDocumentCatalog().getAllPages();
             PDPage page = (PDPage) pages.get(0);
@@ -607,7 +609,7 @@ public class FNewMember extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnUplatnicaActionPerformed
 
     private void jbtnPosaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPosaljiActionPerformed
-        // TODO add your handling code here:
+        EmailSender.sendEmail();
     }//GEN-LAST:event_jbtnPosaljiActionPerformed
 
 

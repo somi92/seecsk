@@ -27,7 +27,7 @@ public class Config {
         try {
             props = new Properties();
             fis = new FileInputStream("config.properties");
-            fos = new FileOutputStream("config.properties");
+//            fos = new FileOutputStream("config.properties");
             props.load(fis);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -45,12 +45,12 @@ public class Config {
         return props.getProperty(kljuc);
     }
     
-    public void postaviVrednost(String kljuc, Object vrednost) {
-        try {
-            props.put(kljuc, vrednost);
-            props.store(fos, null);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
+//    public void postaviVrednost(String kljuc, Object vrednost) {
+//        try {
+//            props.put(kljuc, vrednost);
+//            props.store(fos, null);
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 }
