@@ -20,12 +20,18 @@ import com.github.somi92.seecsk.util.Constants;
 import com.github.somi92.seecsk.util.email.EmailSender;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.mail.Folder;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -717,6 +723,20 @@ public class FNewMember extends javax.swing.JDialog {
     }
 
     private void initForm(Clan clan) {
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                File tempFolder = new File(Constants.LocationKeys.TEMP_INVOICE_LOCATION);
+                File[] files = tempFolder.listFiles();
+                if(files != null) {
+                    for(File file : files) {
+                        file.delete();
+                    }
+                }
+            }
+        });
+        
         resetFields();
         initBorders();
         initGroupsCombo();

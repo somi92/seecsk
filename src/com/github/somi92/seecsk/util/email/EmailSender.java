@@ -7,9 +7,6 @@ package com.github.somi92.seecsk.util.email;
 
 import com.github.somi92.seecsk.util.Config;
 import com.github.somi92.seecsk.util.Constants;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.Authenticator;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
