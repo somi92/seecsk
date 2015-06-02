@@ -115,7 +115,6 @@ public class FNewMember extends javax.swing.JDialog {
         jbtnNovaUplata = new javax.swing.JButton();
         jbtnUplatnica = new javax.swing.JButton();
         jpnlPrisustva = new javax.swing.JPanel();
-        jbtnPosalji = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SEECSK - Unos novog člana");
@@ -378,15 +377,8 @@ public class FNewMember extends javax.swing.JDialog {
         );
         jpnlPrisustvaLayout.setVerticalGroup(
             jpnlPrisustvaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 378, Short.MAX_VALUE)
         );
-
-        jbtnPosalji.setText("Pošalji uplatnicu");
-        jbtnPosalji.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnPosaljiActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jpnlClanarinaLayout = new javax.swing.GroupLayout(jpnlClanarina);
         jpnlClanarina.setLayout(jpnlClanarinaLayout);
@@ -399,8 +391,6 @@ public class FNewMember extends javax.swing.JDialog {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
                     .addGroup(jpnlClanarinaLayout.createSequentialGroup()
                         .addComponent(jbtnUplatnica, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnPosalji, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbtnNovaUplata)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -418,8 +408,7 @@ public class FNewMember extends javax.swing.JDialog {
                     .addComponent(jbtnUplatnica)
                     .addGroup(jpnlClanarinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbtnNovaUplata)
-                        .addComponent(jbtnObrisiUplatu))
-                    .addComponent(jbtnPosalji))
+                        .addComponent(jbtnObrisiUplatu)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnlPrisustva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -589,7 +578,7 @@ public class FNewMember extends javax.swing.JDialog {
             new FInvoice(null, true).setVisible(true);
             /*
             File pdfFile = new File(
-                    Constants.LocationKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+clan.getIdClan()+".pdf");
+                    Constants.LocationConfigKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+clan.getIdClan()+".pdf");
             PDDocument doc = PDDocument.load(pdfFile);
             List<PDPage> pages = doc.getDocumentCatalog().getAllPages();
             PDPage page = (PDPage) pages.get(0);
@@ -614,10 +603,6 @@ public class FNewMember extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jbtnUplatnicaActionPerformed
 
-    private void jbtnPosaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPosaljiActionPerformed
-        EmailSender.sendEmail(null);
-    }//GEN-LAST:event_jbtnPosaljiActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
@@ -627,7 +612,6 @@ public class FNewMember extends javax.swing.JDialog {
     private javax.swing.JButton jbtnExit;
     private javax.swing.JButton jbtnNovaUplata;
     private javax.swing.JButton jbtnObrisiUplatu;
-    private javax.swing.JButton jbtnPosalji;
     private javax.swing.JButton jbtnSave;
     private javax.swing.JButton jbtnUplatnica;
     private javax.swing.JComboBox jcmbGender;
@@ -727,7 +711,7 @@ public class FNewMember extends javax.swing.JDialog {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                File tempFolder = new File(Constants.LocationKeys.TEMP_INVOICE_LOCATION);
+                File tempFolder = new File(Constants.LocationConfigKeys.TEMP_INVOICE_LOCATION);
                 File[] files = tempFolder.listFiles();
                 if(files != null) {
                     for(File file : files) {

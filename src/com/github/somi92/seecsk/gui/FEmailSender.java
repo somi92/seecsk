@@ -7,6 +7,8 @@ package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Sesija;
 import com.github.somi92.seecsk.util.email.EmailContainer;
+import com.github.somi92.seecsk.util.email.EmailSender;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -147,14 +149,24 @@ public class FEmailSender extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnPosaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPosaljiActionPerformed
-        // TODO add your handling code here:
+        email.setToEmail(jtxtEmail.getText().trim());
+        email.setFromEmail(jtxtOd.getText().trim());
+        email.setSubject(jtxtTema.getText().trim());
+        email.setMessage(jtxtPoruka.getText().trim());
+        
+        try {
+            EmailSender.sendEmail(email);
+            dispose();
+        } catch(RuntimeException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtnPosaljiActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -18,39 +18,38 @@ import org.apache.commons.mail.MultiPartEmail;
  */
 public class EmailSender {
     
-    public static void sendEmail(EmailContainer ec) {
+    public static void sendEmail(EmailContainer ec) throws RuntimeException {
         
         try {
-            String k1 = Constants.ConfigKeys.ORGANISATION_EMAIL;
-            String k2 = Constants.ConfigKeys.ORGANISATION_EMAIL_PASSWORD;
-            String user = Config.vratiInstancu().vratiVrednost(k1);
-            String password = Config.vratiInstancu().vratiVrednost(k2);
+            
+            String user = Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_EMAIL);
+            String password = Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_EMAIL_PASSWORD);
             
             EmailAttachment ea = new EmailAttachment();
-            ea.setPath("temp/uplatnica_36.pdf");
+            ea.setPath(ec.getAttachmentPath());
             ea.setDisposition(EmailAttachment.ATTACHMENT);
-            ea.setDescription("Primer popunjene uplatnice za clanarinu");
-            ea.setName("Uplatnica");
+            ea.setDescription("Primer ispravno popunjene uplatnice za članarinu");
+            ea.setName("uplatnica.pdf");
             
             MultiPartEmail mpe = new MultiPartEmail();
             mpe.setDebug(true);
             mpe.setAuthenticator(new DefaultAuthenticator(user, password));
-            mpe.setHostName("smtp.mail.yahoo.com");
+            mpe.setHostName(Config.vratiInstancu().vratiVrednost(Constants.EmailServerConfigKeys.EMAIL_SERVER_HOST));
             mpe.setSSLOnConnect(true);
             mpe.setStartTLSEnabled(true);
-            mpe.setSslSmtpPort(587+"");
-//            mpe.setAuthentication(user, password);
-            mpe.setSubject("Uplatnica za clanarinu");
-            mpe.setFrom(Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_EMAIL));
-            mpe.setMsg("Test attachment");
+            mpe.setSslSmtpPort(Config.vratiInstancu().vratiVrednost(Constants.EmailServerConfigKeys.EMAIL_SERVER_PORT));
+            mpe.setSubject(ec.getSubject());
+            mpe.setFrom(ec.getFromEmail());
+            mpe.setMsg(ec.getMessage());
 
-            mpe.addTo("stojanovicmilos31@gmail.com");
+            mpe.addTo(ec.getToEmail());
             mpe.attach(ea);
             
             mpe.send();
             
         } catch (EmailException ex) {
-//            ex.printStackTrace();
+            ex.printStackTrace();
+            throw new RuntimeException("Sistem nije uspeo da pošalje email. Pokušajte ponovo.");
         }
     }
 }

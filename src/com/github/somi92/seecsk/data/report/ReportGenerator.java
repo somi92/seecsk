@@ -36,7 +36,7 @@ public class ReportGenerator {
         try {
             JasperPrint jprint = JasperFillManager.fillReport(reportFile, params, bean);
             JasperExportManager.exportReportToPdfFile(jprint, 
-                    Constants.LocationKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+n.getId()+".pdf");
+                    Constants.LocationConfigKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+n.getId()+".pdf");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

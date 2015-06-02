@@ -356,7 +356,7 @@ public class FInvoice extends javax.swing.JDialog {
 //            jpnlUplatnica.setVisible(true);
 //            setSize(getSize().width, getSize().height+320);
             
-            uplatnicaFile = Constants.LocationKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+clan.getIdClan()+".pdf";
+            uplatnicaFile = Constants.LocationConfigKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+clan.getIdClan()+".pdf";
             File pdfFile = new File(uplatnicaFile);
             PDDocument doc = PDDocument.load(pdfFile);
             List<PDPage> pages = doc.getDocumentCatalog().getAllPages();
@@ -397,16 +397,16 @@ public class FInvoice extends javax.swing.JDialog {
     private void jbtnPosaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPosaljiActionPerformed
         EmailContainer ec = new EmailContainer();
         ec.setToEmail(clan.getEmail());
-        ec.setFromEmail(Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_EMAIL));
-        ec.setSubject(Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_NAME)+
+        ec.setFromEmail(Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_EMAIL));
+        ec.setSubject(Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_NAME)+
                 " - Podsetnik za članarinu");
         ec.setMessage((clan.getPol()=='M' ? "Poštovani" : "Poštovana") +
                 ", \n\nObaveštavamo Vas da imate neizmirena dugovanja za članarinu. U prilogu ove poruke"
                 + " imate primer ispravno popunjene uplatnice sa detaljnijim informacijama o dugovanju. "
                 + "Molimo Vas da u najkraćem roku izvršite uplatu. Više informacija možete dobiti na email"
-                + " "+Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_EMAIL)+" ili "
-                + "pozivom na broj "+Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_PHONE_NUMBER)+
-                        ".\n\nSrdačan pozdrav,\n"+Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_NAME));
+                + " "+Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_EMAIL)+" ili "
+                + "pozivom na broj "+Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_PHONE_NUMBER)+
+                        ".\n\nSrdačan pozdrav,\n"+Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_NAME));
         ec.setAttachmentPath(uplatnicaFile);
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.EMAIL, ec);
         FEmailSender femail = new FEmailSender(null, true);
@@ -465,8 +465,8 @@ public class FInvoice extends javax.swing.JDialog {
         jtxtIznos.setText("2000.0");
         
         jtxtUplatilac.setText(clan.getImePrezime()+", "+clan.getAdresa());
-        jtxtPrimalac.setText(Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_NAME)+", "
-                + Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_ADDRESS));
+        jtxtPrimalac.setText(Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_NAME)+", "
+                + Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_ADDRESS));
         
         popuniSvrhuUplate();
     }
