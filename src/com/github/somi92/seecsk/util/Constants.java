@@ -19,6 +19,7 @@ public interface Constants {
         public static final String DB_PASSWORD = "db_password";
         public static final String ORGANISATION_NAME = "organisation_name";
         public static final String ORGANISATION_ADDRESS = "organisation_address";
+        public static final String ORGANISATION_PHONE_NUMBER = "organisation_phone_number";
         public static final String ORGANISATION_ACCOUNT_NUMBER = "organisation_account_number";
         public static final String ORGANISATION_EMAIL = "organisation_email";
         public static final String ORGANISATION_EMAIL_PASSWORD = "organisation_email_password";

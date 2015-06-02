@@ -18,7 +18,7 @@ import org.apache.commons.mail.MultiPartEmail;
  */
 public class EmailSender {
     
-    public static void sendEmail() {
+    public static void sendEmail(EmailContainer ec) {
         
         try {
             String k1 = Constants.ConfigKeys.ORGANISATION_EMAIL;

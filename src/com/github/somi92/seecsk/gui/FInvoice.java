@@ -10,9 +10,21 @@ import com.github.somi92.seecsk.data.report.NalogZaUplatu;
 import com.github.somi92.seecsk.data.report.ReportGenerator;
 import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Clanarina;
+import com.github.somi92.seecsk.util.Config;
+import com.github.somi92.seecsk.util.Constants;
+import com.github.somi92.seecsk.util.email.EmailContainer;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.event.MouseMotionListener;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import org.apache.pdfbox.pdfviewer.PDFPagePanel;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 
 /**
  *
@@ -22,6 +34,7 @@ public class FInvoice extends javax.swing.JDialog {
 
     private Clan clan;
     private List<Clanarina> clanarine;
+    private String uplatnicaFile;
     
     /**
      * Creates new form FInvoice
@@ -34,6 +47,8 @@ public class FInvoice extends javax.swing.JDialog {
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, null);
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.LISTA, null);
         initForm();
+//        jpnlUplatnica.setVisible(false);
+//        setSize(getSize().width, getSize().height-320);
     }
 
     /**
@@ -66,9 +81,13 @@ public class FInvoice extends javax.swing.JDialog {
         jtxtPrimalac = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtxtUplatilac = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        jpnlUplatnica = new javax.swing.JPanel();
+        jbtnPosalji = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Kreiraj uplatnicu");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -102,7 +121,7 @@ public class FInvoice extends javax.swing.JDialog {
             }
         });
 
-        jbtnKreirajUplatnicu.setText("OK");
+        jbtnKreirajUplatnicu.setText("Kreiraj uplatnicu");
         jbtnKreirajUplatnicu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnKreirajUplatnicuActionPerformed(evt);
@@ -172,7 +191,7 @@ public class FInvoice extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5))))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,21 +245,70 @@ public class FInvoice extends javax.swing.JDialog {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jpnlUplatnica.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout jpnlUplatnicaLayout = new javax.swing.GroupLayout(jpnlUplatnica);
+        jpnlUplatnica.setLayout(jpnlUplatnicaLayout);
+        jpnlUplatnicaLayout.setHorizontalGroup(
+            jpnlUplatnicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jpnlUplatnicaLayout.setVerticalGroup(
+            jpnlUplatnicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 345, Short.MAX_VALUE)
+        );
+
+        jbtnPosalji.setText("Pošalji uplatnicu");
+        jbtnPosalji.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnPosaljiActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpnlUplatnica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbtnPosalji, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpnlUplatnica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbtnPosalji)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -283,12 +351,67 @@ public class FInvoice extends javax.swing.JDialog {
             
             ReportGenerator.generateInvoice(n);
             
-            dispose();
+//            dispose();
+            
+//            jpnlUplatnica.setVisible(true);
+//            setSize(getSize().width, getSize().height+320);
+            
+            uplatnicaFile = Constants.LocationKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+clan.getIdClan()+".pdf";
+            File pdfFile = new File(uplatnicaFile);
+            PDDocument doc = PDDocument.load(pdfFile);
+            List<PDPage> pages = doc.getDocumentCatalog().getAllPages();
+            PDPage page = (PDPage) pages.get(0);
+            
+            PDFPagePanel pdfPanel = new PDFPagePanel();
+            pdfPanel.setPage(page);
+            
+            JInternalFrame iFrame = new JInternalFrame();
+            
+            BasicInternalFrameUI ui = (BasicInternalFrameUI) iFrame.getUI();
+            Component np = ui.getNorthPane();
+            Container cont = (Container) np;
+            cont.remove(0);
+            cont.validate();
+            cont.repaint();
+            MouseMotionListener[] mmlisteners = (MouseMotionListener[]) np.getListeners(MouseMotionListener.class);
+            for(MouseMotionListener mml : mmlisteners) {
+                np.removeMouseMotionListener(mml);
+            }
+            iFrame.setEnabled(false);
+            
+            iFrame.setBounds(0, 0, jpnlUplatnica.getWidth(), jpnlUplatnica.getHeight());
+            jpnlUplatnica.add(iFrame);
+            iFrame.add(pdfPanel);
+            iFrame.setVisible(true);
+            iFrame.setResizable(false);
+            iFrame.setSelected(false);
+            
+            pdfPanel.setVisible(true);
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Neispravno unet iznos.");
             return;
         }
     }//GEN-LAST:event_jbtnKreirajUplatnicuActionPerformed
+
+    private void jbtnPosaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPosaljiActionPerformed
+        EmailContainer ec = new EmailContainer();
+        ec.setToEmail(clan.getEmail());
+        ec.setFromEmail(Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_EMAIL));
+        ec.setSubject(Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_NAME)+
+                " - Podsetnik za članarinu");
+        ec.setMessage((clan.getPol()=='M' ? "Poštovani" : "Poštovana") +
+                ", \n\nObaveštavamo Vas da imate neizmirena dugovanja za članarinu. U prilogu ove poruke"
+                + " imate primer ispravno popunjene uplatnice sa detaljnijim informacijama o dugovanju. "
+                + "Molimo Vas da u najkraćem roku izvršite uplatu. Više informacija možete dobiti na email"
+                + " "+Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_EMAIL)+" ili "
+                + "pozivom na broj "+Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_PHONE_NUMBER)+
+                        ".\n\nSrdačan pozdrav,\n"+Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_NAME));
+        ec.setAttachmentPath(uplatnicaFile);
+        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.EMAIL, ec);
+        FEmailSender femail = new FEmailSender(null, true);
+        femail.setVisible(true);
+    }//GEN-LAST:event_jbtnPosaljiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -301,11 +424,14 @@ public class FInvoice extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbtnKreirajUplatnicu;
+    private javax.swing.JButton jbtnPosalji;
     private javax.swing.JComboBox jcmbClanarina;
+    private javax.swing.JPanel jpnlUplatnica;
     private javax.swing.JTextField jtxtIznos;
     private javax.swing.JTextField jtxtModel;
     private javax.swing.JTextField jtxtPozivNaBroj;
@@ -339,7 +465,8 @@ public class FInvoice extends javax.swing.JDialog {
         jtxtIznos.setText("2000.0");
         
         jtxtUplatilac.setText(clan.getImePrezime()+", "+clan.getAdresa());
-        jtxtPrimalac.setText("Fitnes klub i teretana \"City gym\", Karnegijeva 10, Beograd");
+        jtxtPrimalac.setText(Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_NAME)+", "
+                + Config.vratiInstancu().vratiVrednost(Constants.ConfigKeys.ORGANISATION_ADDRESS));
         
         popuniSvrhuUplate();
     }

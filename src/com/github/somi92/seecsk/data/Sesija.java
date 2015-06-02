@@ -20,6 +20,7 @@ public class Sesija {
     public static final String GRUPA = "grupa";
     public static final String NALOG_ZA_UPLATU = "nalog_za_uplatu";
     public static final String LISTA = "lista";
+    public static final String EMAIL = "email";
     
     private static Sesija INSTANCE;
     private Map<String, Object> mapaSesije;
