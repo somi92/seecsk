@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class FEmailSender extends javax.swing.JDialog {
     
     private EmailContainer email;
+    private boolean returnValue;
 
     /**
      * Creates new form FEmailSender
@@ -163,9 +164,14 @@ public class FEmailSender extends javax.swing.JDialog {
         
         try {
             EmailSender.sendEmail(email);
-            dispose();
+            returnValue = true;
+            JOptionPane.showMessageDialog(this, "Email je uspešno poslat.");
         } catch(RuntimeException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Sistem ne može poslati email.\n("+ex.getMessage()+")", "Greška", JOptionPane.ERROR_MESSAGE);
+            returnValue = false;
+        } finally {
+            dispose();
         }
     }//GEN-LAST:event_jbtnPosaljiActionPerformed
 
@@ -193,4 +199,8 @@ public class FEmailSender extends javax.swing.JDialog {
         jlblPrilog.setText(email.getAttachmentPath());
     }
     
+    
+    public boolean getReturnValue() {
+        return returnValue;
+    }
 }

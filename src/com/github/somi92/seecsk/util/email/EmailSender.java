@@ -39,7 +39,7 @@ public class EmailSender {
             mpe.setStartTLSEnabled(true);
             mpe.setSslSmtpPort(Config.vratiInstancu().vratiVrednost(Constants.EmailServerConfigKeys.EMAIL_SERVER_PORT));
             mpe.setSubject(ec.getSubject());
-            mpe.setFrom(ec.getFromEmail());
+            mpe.setFrom(ec.getFromEmail(), Config.vratiInstancu().vratiVrednost(Constants.OrgInfoConfigKeys.ORGANISATION_NAME));
             mpe.setMsg(ec.getMessage());
 
             mpe.addTo(ec.getToEmail());

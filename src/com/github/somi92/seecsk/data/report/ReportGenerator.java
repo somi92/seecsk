@@ -39,6 +39,7 @@ public class ReportGenerator {
                     Constants.LocationConfigKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+n.getId()+".pdf");
         } catch (Exception ex) {
             ex.printStackTrace();
+            
         }
         
     }
