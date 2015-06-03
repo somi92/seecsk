@@ -6,7 +6,6 @@
 package com.github.somi92.seecsk.gui.panels;
 
 import com.github.somi92.seecsk.data.Sesija;
-import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.domain.Prisustvo;
 import com.github.somi92.seecsk.domain.Trening;
@@ -434,5 +433,10 @@ public class TrainingPanel extends javax.swing.JPanel {
             ptm.postaviPrisustvaTabele(new ArrayList<>());
             ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
         }
+    }
+    
+    public void setGroup(Grupa g) {
+        jcmbGroups.setSelectedItem(g);
+//        setTrainig();
     }
 }

@@ -109,7 +109,7 @@ public class FNewMember extends javax.swing.JDialog {
         jpnlPrisustva = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtblPrisustva = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jbtnTreninzi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SEECSK - Unos novog člana");
@@ -408,7 +408,12 @@ public class FNewMember extends javax.swing.JDialog {
         ));
         jScrollPane3.setViewportView(jtblPrisustva);
 
-        jButton1.setText("Treninzi...");
+        jbtnTreninzi.setText("Treninzi...");
+        jbtnTreninzi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnTreninziActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlPrisustvaLayout = new javax.swing.GroupLayout(jpnlPrisustva);
         jpnlPrisustva.setLayout(jpnlPrisustvaLayout);
@@ -419,7 +424,7 @@ public class FNewMember extends javax.swing.JDialog {
                 .addGroup(jpnlPrisustvaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
                     .addGroup(jpnlPrisustvaLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtnTreninzi, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -429,7 +434,7 @@ public class FNewMember extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(jbtnTreninzi)
                 .addContainerGap())
         );
 
@@ -627,9 +632,13 @@ public class FNewMember extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jbtnUplatnicaActionPerformed
 
+    private void jbtnTreninziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTreninziActionPerformed
+        Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.GRUPA, clan.getGrupa());
+        new FTraining(null, true).setVisible(true);
+    }//GEN-LAST:event_jbtnTreninziActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -639,6 +648,7 @@ public class FNewMember extends javax.swing.JDialog {
     private javax.swing.JButton jbtnNovaUplata;
     private javax.swing.JButton jbtnObrisiUplatu;
     private javax.swing.JButton jbtnSave;
+    private javax.swing.JButton jbtnTreninzi;
     private javax.swing.JButton jbtnUplatnica;
     private javax.swing.JComboBox jcmbGender;
     private javax.swing.JComboBox jcmbGroup;

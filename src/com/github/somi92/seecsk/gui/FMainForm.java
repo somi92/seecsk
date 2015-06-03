@@ -8,7 +8,7 @@ package com.github.somi92.seecsk.gui;
 import com.github.somi92.seecsk.gui.panels.TrainingPanel;
 import com.github.somi92.seecsk.gui.panels.MembersPanel;
 import java.awt.CardLayout;
-import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  *
@@ -233,8 +233,8 @@ public class FMainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jpnlStatus;
     private javax.swing.JPanel jpnlToolbar;
     // End of variables declaration//GEN-END:variables
-    private MembersPanel panel1;
-    private TrainingPanel panel2;
+    private static MembersPanel panel1;
+    private static TrainingPanel panel2;
     
     private void initPanels() {
         panel1 = new MembersPanel();
@@ -245,5 +245,9 @@ public class FMainForm extends javax.swing.JFrame {
 
     private void initToolbar() {
         
+    }
+    
+    public static TrainingPanel getTrainingPanel() {
+        return panel2;
     }
 }
