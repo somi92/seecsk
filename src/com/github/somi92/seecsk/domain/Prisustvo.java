@@ -24,10 +24,10 @@ public class Prisustvo {
     @Column("kasnjenjeMin")
     private int kasnjenjeMin;
     @PrimaryKey("idTrening")
-    @ForeignKey(column = "idTrening", referencingTable = "Trening", referencingColumn = "idTrening", isCollectionItem = true)
+    @ForeignKey(column = "idTrening", referencingTable = "Trening", referencingColumn = "idTrening", isCollectionItem = false)
     private Trening trening;
     @PrimaryKey("idClan")
-    @ForeignKey(column = "idClan", referencingTable = "Clan", referencingColumn = "idClan", isCollectionItem = false)
+    @ForeignKey(column = "idClan", referencingTable = "Clan", referencingColumn = "idClan", isCollectionItem = true)
     private Clan clan;
 
     public Prisustvo() {

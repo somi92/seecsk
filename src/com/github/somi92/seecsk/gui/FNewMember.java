@@ -13,34 +13,26 @@ import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.gui.panels.MembersPanel;
 import com.github.somi92.seecsk.model.controllers.KontrolerPL;
 import com.github.somi92.seecsk.model.operations.Ref;
+import com.github.somi92.seecsk.model.tables.trening.PrisustvaClanTableModel;
+import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableEditor;
+import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableRenderer;
 import com.github.somi92.seecsk.model.tables.uplata.UplateTableClanarinaEditor;
 import com.github.somi92.seecsk.model.tables.uplata.UplateTableModel;
 import com.github.somi92.seecsk.model.tables.uplata.UplateTableModelDatumEditor;
 import com.github.somi92.seecsk.util.Constants;
-import com.github.somi92.seecsk.util.email.EmailSender;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyVetoException;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.mail.Folder;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import org.apache.pdfbox.pdfviewer.PDFPagePanel;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 
 /**
  *
@@ -108,13 +100,16 @@ public class FNewMember extends javax.swing.JDialog {
         jbtnSave = new javax.swing.JButton();
         jbtnEmpty = new javax.swing.JButton();
         jbtnExit = new javax.swing.JButton();
-        jpnlClanarina = new javax.swing.JPanel();
+        jpnlClanarine = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtblUplate = new javax.swing.JTable();
         jbtnObrisiUplatu = new javax.swing.JButton();
         jbtnNovaUplata = new javax.swing.JButton();
         jbtnUplatnica = new javax.swing.JButton();
-        jpnlPrisustva = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtblPrisustva = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SEECSK - Unos novog člana");
@@ -331,7 +326,7 @@ public class FNewMember extends javax.swing.JDialog {
             }
         });
 
-        jpnlClanarina.setBorder(javax.swing.BorderFactory.createTitledBorder("Uplate članarine izabranog člana"));
+        jpnlClanarine.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Uplate članarine izabranog člana"));
 
         jtblUplate.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -367,50 +362,74 @@ public class FNewMember extends javax.swing.JDialog {
             }
         });
 
-        jpnlPrisustva.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout jpnlPrisustvaLayout = new javax.swing.GroupLayout(jpnlPrisustva);
-        jpnlPrisustva.setLayout(jpnlPrisustvaLayout);
-        jpnlPrisustvaLayout.setHorizontalGroup(
-            jpnlPrisustvaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpnlPrisustvaLayout.setVerticalGroup(
-            jpnlPrisustvaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 378, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jpnlClanarinaLayout = new javax.swing.GroupLayout(jpnlClanarina);
-        jpnlClanarina.setLayout(jpnlClanarinaLayout);
-        jpnlClanarinaLayout.setHorizontalGroup(
-            jpnlClanarinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnlClanarinaLayout.createSequentialGroup()
+        javax.swing.GroupLayout jpnlClanarineLayout = new javax.swing.GroupLayout(jpnlClanarine);
+        jpnlClanarine.setLayout(jpnlClanarineLayout);
+        jpnlClanarineLayout.setHorizontalGroup(
+            jpnlClanarineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlClanarineLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpnlClanarinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpnlPrisustva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
-                    .addGroup(jpnlClanarinaLayout.createSequentialGroup()
+                .addGroup(jpnlClanarineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnlClanarineLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jpnlClanarineLayout.createSequentialGroup()
                         .addComponent(jbtnUplatnica, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbtnNovaUplata)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtnObrisiUplatu)
-                        .addGap(10, 10, 10)))
+                        .addGap(17, 17, 17))))
+        );
+        jpnlClanarineLayout.setVerticalGroup(
+            jpnlClanarineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlClanarineLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jpnlClanarineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnUplatnica)
+                    .addComponent(jbtnNovaUplata)
+                    .addComponent(jbtnObrisiUplatu))
                 .addContainerGap())
         );
-        jpnlClanarinaLayout.setVerticalGroup(
-            jpnlClanarinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnlClanarinaLayout.createSequentialGroup()
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Prisustva za izabranog člana"));
+
+        jtblPrisustva.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jtblPrisustva);
+
+        jButton1.setText("Treninzi...");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpnlClanarinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtnUplatnica)
-                    .addGroup(jpnlClanarinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbtnNovaUplata)
-                        .addComponent(jbtnObrisiUplatu)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnlPrisustva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
                 .addContainerGap())
         );
 
@@ -424,13 +443,15 @@ public class FNewMember extends javax.swing.JDialog {
                         .addGap(20, 20, 20)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(jpnlClanarina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jpnlClanarine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbtnEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 898, Short.MAX_VALUE)
                         .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28))
         );
@@ -439,8 +460,11 @@ public class FNewMember extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpnlClanarina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jpnlClanarine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -605,9 +629,12 @@ public class FNewMember extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbtnEmpty;
     private javax.swing.JButton jbtnExit;
     private javax.swing.JButton jbtnNovaUplata;
@@ -633,8 +660,8 @@ public class FNewMember extends javax.swing.JDialog {
     private javax.swing.JLabel jlblPol;
     private javax.swing.JLabel jlblRemark;
     private javax.swing.JLabel jlblidCard;
-    private javax.swing.JPanel jpnlClanarina;
-    private javax.swing.JPanel jpnlPrisustva;
+    private javax.swing.JPanel jpnlClanarine;
+    private javax.swing.JTable jtblPrisustva;
     private javax.swing.JTable jtblUplate;
     private javax.swing.JTextField jtxtAdresa;
     private javax.swing.JTextField jtxtEmail;
@@ -646,6 +673,7 @@ public class FNewMember extends javax.swing.JDialog {
     private Border errorBorder;
     private Border defaultBorder;
     private UplateTableModel utm;
+    private PrisustvaClanTableModel pctm;
 //    private JWebBrowser browser;
     
     private void initBorders() {
@@ -728,12 +756,17 @@ public class FNewMember extends javax.swing.JDialog {
         utm = new UplateTableModel();
         jtblUplate.setModel(utm);
         
+        pctm = new PrisustvaClanTableModel();
+        jtblPrisustva.setModel(pctm);
+        
         List<Clanarina> sample = new ArrayList<>();
         sample.add(new Clanarina());
         Ref<List<Clanarina>> clanarineRef = new Ref(sample);
         KontrolerPL.vratiClanarine(clanarineRef, null, false);
-        TableColumnModel tcm = jtblUplate.getColumnModel();
-        TableColumn tc = tcm.getColumn(0);
+        TableColumnModel tcmUplate = jtblUplate.getColumnModel();
+        TableColumn tcUplate = tcmUplate.getColumn(0);
+        TableColumnModel tcmPrisustva = jtblPrisustva.getColumnModel();
+        TableColumn tcPrisustvo = tcmPrisustva.getColumn(1);
         
         clanarine = new ArrayList<>();
         for(int i=0; i<clanarineRef.get().size(); i++) {
@@ -758,9 +791,15 @@ public class FNewMember extends javax.swing.JDialog {
         }
 
         UplateTableClanarinaEditor ute = new UplateTableClanarinaEditor(clanarine.toArray());
-        tc.setCellEditor(ute);
-        tc = tcm.getColumn(2);
-        tc.setCellEditor(new UplateTableModelDatumEditor());
+        tcUplate.setCellEditor(ute);
+        tcUplate = tcmUplate.getColumn(2);
+        tcUplate.setCellEditor(new UplateTableModelDatumEditor());
+        
+        TableColumn tcKasnjenje = tcmPrisustva.getColumn(2);
+        DefaultTableCellRenderer rnd = new DefaultTableCellRenderer();
+        rnd.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        tcKasnjenje.setCellRenderer(rnd);
+        tcPrisustvo.setCellRenderer(new PrisustvaTableRenderer());
         
         if(clan != null) {
             
@@ -796,6 +835,8 @@ public class FNewMember extends javax.swing.JDialog {
             
             utm.postaviUplateTabele(new ArrayList<>(clan.getUplate()));
             utm.postaviClana(clan);
+            
+            pctm.postaviPrisustvaTabele(clan.getPrisustva());
             
         } else {
 //            jtblUplate.setEnabled(false);

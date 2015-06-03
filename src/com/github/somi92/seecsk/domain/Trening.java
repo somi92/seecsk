@@ -33,7 +33,7 @@ public class Trening {
     @PrimaryKey("idGrupa")
     @ForeignKey(column = "idGrupa", referencingTable = "Grupa", referencingColumn = "idGrupa", isCollectionItem = false)
     private Grupa grupa;
-    @Collection(childEntityClass = Prisustvo.class, referencingField = "trening")
+//    @Collection(childEntityClass = Prisustvo.class, referencingField = "trening")
     private List<Prisustvo> prisustva;
 
     public Trening() {

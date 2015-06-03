@@ -298,6 +298,11 @@ public class FInvoice extends javax.swing.JDialog {
         );
 
         jbtnNazad.setText("Nazad");
+        jbtnNazad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnNazadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -449,6 +454,10 @@ public class FInvoice extends javax.swing.JDialog {
             dispose();
         }
     }//GEN-LAST:event_jbtnPosaljiActionPerformed
+
+    private void jbtnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNazadActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbtnNazadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

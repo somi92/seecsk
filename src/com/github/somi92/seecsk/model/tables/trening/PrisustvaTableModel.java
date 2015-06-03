@@ -71,10 +71,18 @@ public class PrisustvaTableModel extends AbstractTableModel {
                 p.setClan((Clan) aValue);
                 break;
             case 1:
-                p.setPrisustvo((boolean) aValue);
+                boolean value = (boolean) aValue;
+                p.setPrisustvo(value);
+                if(!value) {
+                    p.setKasnjenjeMin(0);
+                }
                 break;
             case 2:
-                p.setKasnjenjeMin((int) aValue);
+                try {
+                    p.setKasnjenjeMin(Integer.parseInt(aValue.toString())); 
+                } catch (NumberFormatException ex) {
+                    p.setKasnjenjeMin(0);
+                }
                 break;
         }
     }
@@ -95,7 +103,8 @@ public class PrisustvaTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        if(columnIndex == 1) {
+        Prisustvo p = prisustva.get(rowIndex);
+        if(columnIndex == 1 || (p.getPrisustvo()==true && columnIndex == 2)) {
             return true;
         } else {
             return false;

@@ -19,7 +19,9 @@ import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableRenderer;
 import com.github.somi92.seecsk.model.tables.trening.TreningTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -326,6 +328,10 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jbtnSacuvajPrisustvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSacuvajPrisustvaActionPerformed
         jbtnSacuvajPrisustva.setEnabled(false);
         int trainingRow = jtblTraining.getSelectedRow();
+        if(trainingRow == -1) {
+            JOptionPane.showMessageDialog(this, "Morate izabrati trening.");
+            return;
+        }
         Trening trening = ttm.vratiTreningeTabele().get(trainingRow);
         List<Prisustvo> prisustva = ptm.vratiPrisustvaTabele();
         trening.setPrisustva(prisustva);
@@ -377,7 +383,7 @@ public class TrainingPanel extends javax.swing.JPanel {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int column = jtblAttendance.getSelectedColumn();
-                if(column == 1) {
+                if(column == 1 || column == 2) {
                     jbtnSacuvajPrisustva.setEnabled(true);
                 }
             }
@@ -398,6 +404,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         DefaultTableCellRenderer rnd = new DefaultTableCellRenderer();
         rnd.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
         tc1.setCellRenderer(rnd);
+        tc1.setCellEditor(new DefaultCellEditor(new JTextField()));
     }
     
     public void setTrainig() {

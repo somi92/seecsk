@@ -46,6 +46,7 @@ public class Clan {
     private Grupa grupa;
     @Collection(childEntityClass = Uplata.class, referencingField = "clan")
     private List<Uplata> uplate;
+    @Collection(childEntityClass = Prisustvo.class, referencingField = "clan")
     private List<Prisustvo> prisustva;
 
     public Clan() {
