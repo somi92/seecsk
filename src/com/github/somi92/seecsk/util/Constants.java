@@ -11,11 +11,19 @@ package com.github.somi92.seecsk.util;
  */
 public interface Constants {
     
+    public interface ServerConfigKeys {
+        
+        public static final String SERVER_PORT = "server_port";
+    }
+    
     public interface DatabaseConfigKeys {
         
-        public static final String DB_URL = "db_url";
+        public static final String DB_SERVER = "db_server";
         public static final String DB_DRIVER = "db_driver";
         public static final String DB_HOST = "db_host";
+        public static final String DB_PORT = "db_port";
+        public static final String DB_NAME = "db_name";
+        public static final String DB_USER = "db_user";
         public static final String DB_PASSWORD = "db_password";
     }
     
