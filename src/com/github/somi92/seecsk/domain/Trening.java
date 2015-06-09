@@ -120,11 +120,4 @@ public class Trening {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "Trening{" + "idTrening=" + idTrening + ", datumVreme=" + datumVreme + ", trajanjeMin=" + trajanjeMin + ", opisTreninga=" + opisTreninga + ", grupa=" + grupa + ", prisustva=" + prisustva + '}';
-    }
-
-    
 }

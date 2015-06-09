@@ -97,11 +97,4 @@ public class Prisustvo {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "Prisustvo{" + "prisustvo=" + prisustvo + ", kasnjenjeMin=" + kasnjenjeMin + ", trening=" + trening + ", clan=" + clan + '}';
-    }
-    
-    
 }
